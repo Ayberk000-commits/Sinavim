@@ -1,1080 +1,1382 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Sınavım - The Academic Edge</title>
-    <link rel="icon" type="image/jpeg" href="icon.png">
-    
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
-    <script id="tailwind-config">
-        tailwind.config = {
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary": "#4a7c59",
-                        "on-primary": "#ffffff",
-                        "primary-container": "#cce8d4",
-                        "secondary": "#a67c52",
-                        "background": "#f8faf7",
-                        "surface": "#ffffff",
-                        "outline": "#707973",
-                        "error": "#ba1a1a",
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sınavım</title>
+<meta name="theme-color" content="#2b7550">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-    <style>
-        body { font-family: 'Nunito Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .page-section { display: none; }
-        .page-section.active { display: block; animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .xp-progress-bar { transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .spinner { border: 3px solid rgba(0,0,0,0.1); border-top-color: #4a7c59; border-radius: 50%; width: 24px; height: 24px; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+<style>
+:root{
+  --g9:#153a2b; --g7:#22603f; --g6:#2b7550; --g1:#e3f1e8; --g0:#f0f8f3;
+  --au:#c9a044; --au-d:#9a7622; --au-l:#f8efd6;
+  --ink:#1b2922; --mute:#5d6d64; --line:#dfe6e1; --bg:#f3f6f4; --card:#fff;
+  --danger:#c93636;
+  --r-s:12px; --r-m:18px; --r-l:26px;
+  --head:'Fredoka','Nunito',system-ui,sans-serif;
+  --body:'Nunito',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,h3,h4{font-family:var(--head);font-weight:600;line-height:1.2;letter-spacing:-.005em}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,textarea,select{font:inherit;color:inherit}
+a{color:inherit}
+img{max-width:100%;display:block}
+.hidden{display:none!important}
+.grow{flex:1;min-width:0}
+:focus-visible{outline:3px solid rgba(43,117,80,.45);outline-offset:2px}
+.ms{font-family:'Material Symbols Rounded';font-weight:400;font-style:normal;font-size:24px;line-height:1;display:inline-block;letter-spacing:normal;text-transform:none;white-space:nowrap;-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 1,'wght' 500;flex-shrink:0}
 
-        #ai-mentor-drawer {
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(30px);
-            box-shadow: -20px 0 60px rgba(0,0,0,0.1);
-        }
-        #ai-mentor-drawer.open { transform: translateX(0); }
-        
-        /* Content Viewer Overlay */
-        #content-overlay { display: none; position: fixed; inset: 0; background: rgba(25, 28, 26, 0.98); z-index: 10000; flex-direction: column; backdrop-filter: blur(15px); }
-        #content-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+/* ---------- butonlar ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem 1.3rem;border-radius:14px;font-weight:800;font-size:.95rem;text-decoration:none;transition:transform .08s,box-shadow .08s,background .15s}
+.btn .ms{font-size:20px}
+.btn-p{background:var(--g6);color:#fff;box-shadow:0 4px 0 var(--g9)}
+.btn-p:hover{background:#307f57}
+.btn-p:active{transform:translateY(3px);box-shadow:0 1px 0 var(--g9)}
+.btn-au{background:var(--au);color:#2b2108;box-shadow:0 4px 0 var(--au-d)}
+.btn-au:hover{background:#d2a94d}
+.btn-au:active{transform:translateY(3px);box-shadow:0 1px 0 var(--au-d)}
+.btn-w{background:#fff;color:var(--g7);border:2px solid var(--line);box-shadow:0 3px 0 var(--line)}
+.btn-w:hover{border-color:#c9d4cd}
+.btn-w:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.btn-block{width:100%}
+.btn:disabled{opacity:.6;cursor:default;pointer-events:none}
+.icon-btn{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:var(--mute);flex-shrink:0}
+.icon-btn:hover{background:var(--g0);color:var(--g7)}
+.link-btn{color:var(--g6);font-weight:800;font-size:.9rem}
+.link-btn:hover{text-decoration:underline}
 
-        .nav-btn { transition: all 0.2s; border-radius: 1rem; border-right: 4px solid transparent; }
-        .nav-btn:hover { background: rgba(74, 124, 89, 0.05); color: #4a7c59; }
-        .nav-btn.active { background: white; border-right: 4px solid #4a7c59; color: #4a7c59; box-shadow: 10px 0 30px rgba(0,0,0,0.03); }
+/* ---------- formlar ---------- */
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field>label,.lbl{font-weight:800;font-size:.85rem;color:var(--mute)}
+.inp{width:100%;background:#fff;border:2px solid var(--line);border-radius:var(--r-s);padding:.8rem 1rem;outline:none;transition:border-color .15s,box-shadow .15s}
+.inp:focus{border-color:var(--g6);box-shadow:0 0 0 4px rgba(43,117,80,.12)}
+textarea.inp{min-height:260px;resize:vertical;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem}
+.stack{display:flex;flex-direction:column;gap:1rem}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.35rem;background:var(--g0);border:2px solid var(--line);border-radius:14px;padding:.3rem}
+.seg button{padding:.6rem .8rem;border-radius:10px;font-weight:800;color:var(--mute)}
+.seg button.on{background:#fff;color:var(--g7);box-shadow:0 2px 0 var(--line)}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.pick label{cursor:pointer}
+.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick span{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem;border:2px solid var(--line);border-radius:var(--r-s);font-weight:800;background:#fff}
+.pick input:checked+span{border-color:var(--g6);background:var(--g0);color:var(--g7)}
+.pick input:focus-visible+span{outline:3px solid rgba(43,117,80,.45);outline-offset:2px}
+.divider{display:flex;align-items:center;gap:.8rem;color:var(--mute);font-size:.85rem;font-weight:700}
+.divider::before,.divider::after{content:"";flex:1;height:2px;background:var(--line)}
 
-        #custom-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); z-index: 9000; align-items: center; justify-content: center; }
-        .avatar-glow { box-shadow: 0 15px 35px rgba(74, 124, 89, 0.15); }
-    </style>
+/* ---------- giriş ekranı ---------- */
+#auth-screen{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr}
+.auth-side{background:var(--g9);color:#fff;padding:3rem 3.5rem;display:flex;flex-direction:column;justify-content:space-between;gap:2rem;position:relative;overflow:hidden}
+.auth-side::before,.auth-side::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.auth-side::before{width:560px;height:560px;right:-220px;bottom:-220px;border:14px solid var(--g7)}
+.auth-side::after{width:400px;height:400px;right:-140px;bottom:-140px;border:5px solid var(--au);opacity:.85}
+.auth-logo{width:84px;height:84px;border-radius:50%;background:#fff;padding:5px;position:relative;z-index:1}
+.auth-side h1{font-size:clamp(2rem,3.4vw,3rem);max-width:15ch;position:relative;z-index:1}
+.auth-side ul{list-style:none;display:flex;flex-direction:column;gap:.9rem;margin-top:2rem;position:relative;z-index:1}
+.auth-side li{display:flex;align-items:center;gap:.8rem;font-weight:700;color:#d6e6dc}
+.auth-side li .ms{color:var(--au);font-size:26px}
+.auth-main{display:flex;align-items:center;justify-content:center;padding:2rem 1.25rem;background:#fff}
+.auth-box{width:100%;max-width:410px;display:flex;flex-direction:column;gap:1.3rem}
+.auth-box h2{font-size:1.8rem}
+.auth-foot{font-size:.75rem;color:var(--mute);text-align:center;margin-top:.5rem}
+.google-ico{width:20px;height:20px}
+
+/* ---------- üst çubuk ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid var(--line)}
+.topbar-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:1.25rem;padding:.65rem 1.25rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--head);font-size:1.45rem;color:var(--g7);cursor:pointer}
+.brand img{width:40px;height:40px;border-radius:50%;border:2px solid var(--au)}
+.nav{display:flex;gap:.2rem;flex:1;margin-left:.5rem}
+.nav button{display:flex;align-items:center;gap:.45rem;padding:.55rem .95rem;border-radius:12px;font-weight:800;color:var(--mute);font-size:.95rem}
+.nav button .ms{font-size:22px}
+.nav button:hover{background:var(--g0);color:var(--g7)}
+.nav button.active{background:var(--g1);color:var(--g7)}
+.top-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+.stat-pill{display:flex;align-items:center;gap:.35rem;font-weight:800;padding:.35rem .75rem;border-radius:999px;border:2px solid var(--line);font-size:.92rem}
+.stat-pill .ms{font-size:20px}
+.stat-pill.xp .ms{color:var(--au)}
+.stat-pill.fire .ms{color:#e8590c}
+.avatar-btn{width:44px;height:44px;border-radius:14px;border:2px solid var(--line);overflow:hidden;background:var(--g0);padding:0}
+.avatar-btn img{width:100%;height:100%;object-fit:cover}
+.menu-wrap{position:relative}
+.menu{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;background:#fff;border:2px solid var(--line);border-radius:var(--r-m);padding:.4rem;box-shadow:0 12px 30px rgba(20,40,30,.12)}
+.menu-name{padding:.6rem .8rem .5rem;font-weight:800;border-bottom:2px solid var(--line);margin-bottom:.3rem}
+.menu-name small{display:block;font-weight:600;color:var(--mute);font-size:.78rem}
+.menu button{display:flex;align-items:center;gap:.7rem;width:100%;padding:.6rem .8rem;border-radius:10px;font-weight:700;text-align:left}
+.menu button:hover{background:var(--g0)}
+.menu button.out{color:var(--danger)}
+.tabbar{display:none}
+
+/* ---------- sayfa ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:1.75rem 1.25rem 3rem}
+.page{display:none}
+.page.active{display:block}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.page-head h2{font-size:2rem}
+.page-head p{color:var(--mute);font-weight:600}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:var(--r-l);padding:1.5rem}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin:2rem 0 .9rem}
+.sec-title{font-size:1.35rem;margin:2rem 0 .9rem}
+.sec-head .sec-title{margin:0}
+.tile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex-shrink:0}
+.tile .ms{font-size:26px}
+.empty{border:2px dashed #ccd7d0;border-radius:var(--r-l);padding:2.5rem 1.5rem;text-align:center;color:var(--mute);font-weight:700;background:rgba(255,255,255,.6)}
+.empty .ms{font-size:40px;color:#a9b8af;margin-bottom:.4rem}
+.empty small{display:block;font-weight:600;margin-top:.2rem}
+
+/* ---------- ana sayfa ---------- */
+.hero{display:grid;grid-template-columns:1.7fr 1fr;gap:1.25rem}
+.hero-main{background:var(--g7);border-color:var(--g9);color:#fff;display:flex;flex-direction:column;gap:1.2rem}
+.hero-main h1{font-size:clamp(1.7rem,3vw,2.3rem)}
+.hero-main .sub{color:#cfe4d7;font-weight:600;margin-top:.2rem}
+.lvl-top{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem;margin-bottom:.45rem;color:#e6f1ea}
+.bar{height:14px;border-radius:99px;background:rgba(0,0,0,.25);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;border-radius:99px;background:var(--au);transition:width .9s cubic-bezier(.3,1.3,.5,1);box-shadow:inset 0 3px 0 rgba(255,255,255,.3)}
+.week{display:flex;gap:.5rem;background:rgba(0,0,0,.18);border-radius:var(--r-m);padding:.85rem}
+.day{flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem;font-size:.75rem;font-weight:800;color:#b9d3c3}
+.day i{width:34px;height:34px;border-radius:50%;border:2px dashed rgba(255,255,255,.3);display:grid;place-items:center;font-style:normal}
+.day i .ms{font-size:20px;color:var(--g9)}
+.day.on i{background:var(--au);border:2px solid var(--au)}
+.day.today{color:#fff}
+.day.today i{box-shadow:0 0 0 3px rgba(201,160,68,.45)}
+.week-note{font-weight:700;font-size:.9rem;color:#dcebe2}
+.league{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;gap:.6rem}
+.league-badge{width:92px;height:92px;border-radius:50%;background:var(--au-l);border:4px solid var(--au);display:grid;place-items:center;color:var(--au-d)}
+.league-badge .ms{font-size:48px}
+.league h3{font-size:1.4rem}
+.league p{color:var(--mute);font-weight:700;font-size:.92rem}
+.league .bar{width:100%;background:var(--g1);margin-top:.3rem}
+.league .bar>i{background:var(--g6);box-shadow:inset 0 3px 0 rgba(255,255,255,.25)}
+
+.notice{display:flex;gap:.9rem;align-items:flex-start;background:var(--au-l);border:2px solid #ecd9a3;border-radius:var(--r-m);padding:1rem 1.2rem;margin-top:1.25rem;cursor:pointer;text-align:left;width:100%}
+.notice .ms{color:var(--au-d)}
+.notice b{display:block}
+.notice small{color:#7a6320;font-weight:600}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.85rem}
+.tile-btn{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;background:#fff;border:2px solid var(--line);border-radius:var(--r-m);padding:1rem;text-align:left;box-shadow:0 3px 0 var(--line);transition:transform .08s,box-shadow .08s,border-color .15s}
+.tile-btn:hover{border-color:#c2d0c7}
+.tile-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.tile-btn b{font-family:var(--head);font-weight:600;font-size:1.05rem;display:block;line-height:1.2}
+.tile-btn small{color:var(--mute);font-weight:700}
+
+.list{display:flex;flex-direction:column;gap:.7rem}
+.row{display:flex;align-items:center;gap:1rem;background:#fff;border:2px solid var(--line);border-radius:var(--r-m);padding:.85rem 1rem;text-align:left;width:100%}
+.row:hover{border-color:var(--g6)}
+.row h4{font-size:1.02rem;font-family:var(--body);font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row p{font-size:.82rem;color:var(--mute);font-weight:600}
+.row>.ms.go{color:#9db0a4}
+
+/* ---------- içerik havuzu ---------- */
+.toolbar{display:flex;flex-direction:column;gap:.9rem;margin-bottom:1.25rem}
+.search{position:relative;max-width:460px}
+.search .ms{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--mute);font-size:22px}
+.search .inp{padding-left:2.7rem}
+.chips{display:flex;gap:.5rem;overflow-x:auto;padding:.15rem .1rem .5rem;scrollbar-width:thin}
+.chip{flex-shrink:0;padding:.45rem .95rem;border-radius:999px;border:2px solid var(--line);background:#fff;font-weight:800;font-size:.88rem;color:var(--mute)}
+.chip:hover{border-color:#c2d0c7}
+.chip.on{background:var(--g6);border-color:var(--g6);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
+.item{display:flex;flex-direction:column;gap:.9rem;background:#fff;border:2px solid var(--line);border-radius:var(--r-m);padding:1.1rem;text-align:left;transition:border-color .15s;width:100%}
+.item:hover{border-color:var(--g6)}
+.item-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.tag{font-size:.78rem;font-weight:800;padding:.2rem .65rem;border-radius:999px}
+.item h4{font-size:1.12rem;font-family:var(--body);font-weight:800;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.9em}
+.item-foot{display:flex;align-items:center;justify-content:space-between;color:var(--mute);font-size:.82rem;font-weight:700}
+.done{display:inline-flex;align-items:center;gap:.25rem;color:var(--g6);font-weight:800}
+.done .ms{font-size:18px}
+.games-head{background:var(--au);color:#2b2108;border-radius:var(--r-l);padding:1.6rem 1.75rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1.2rem;border:2px solid var(--au-d)}
+.games-head .ms{font-size:52px}
+.games-head h2{font-size:2rem}
+.games-head p{font-weight:700;opacity:.85}
+
+/* ---------- yönetim ---------- */
+.admin-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:1.25rem;align-items:start}
+.types{display:flex;flex-wrap:wrap;gap:.5rem}
+.drop{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1.6rem;border:2px dashed #b9c8be;border-radius:var(--r-m);cursor:pointer;text-align:center;background:var(--g0);font-weight:700;color:var(--mute)}
+.drop:hover{border-color:var(--g6)}
+.drop .ms{font-size:36px;color:var(--g6)}
+.drop input{display:none}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.mini-stats div{background:var(--g0);border-radius:var(--r-m);padding:1rem}
+.mini-stats b{display:block;font-family:var(--head);font-size:2rem;color:var(--g7);line-height:1}
+.mini-stats span{font-size:.85rem;color:var(--mute);font-weight:700}
+.student{display:flex;align-items:center;gap:1rem;padding:.8rem 1rem;border:2px solid var(--line);border-radius:var(--r-m)}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.12em;color:var(--g7)}
+.badge{font-size:.75rem;font-weight:800;padding:.2rem .65rem;border-radius:999px;background:var(--au-l);color:var(--au-d)}
+.badge.ok{background:var(--g1);color:var(--g7)}
+
+/* ---------- profil ---------- */
+.profile{display:grid;grid-template-columns:320px 1fr;gap:1.25rem;align-items:start}
+.p-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9rem}
+.p-photo{position:relative}
+.p-photo img{width:150px;height:150px;border-radius:40px;object-fit:cover;border:4px solid var(--g1);background:var(--g0)}
+.p-photo label{position:absolute;right:-8px;bottom:-8px;width:44px;height:44px;border-radius:14px;background:var(--g6);color:#fff;display:grid;place-items:center;cursor:pointer;border:3px solid #fff}
+.p-photo input{display:none}
+.p-card .bar{width:100%;background:var(--g1)}
+.p-card .bar>i{background:var(--g6)}
+
+/* ---------- tablo / yardım ---------- */
+.table-wrap{background:#fff;border:2px solid var(--line);border-radius:var(--r-l);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{text-align:left;padding:.9rem 1.2rem;background:var(--g0);color:var(--mute);font-weight:800;font-size:.85rem}
+td{padding:.85rem 1.2rem;border-top:2px solid var(--line);font-weight:600}
+td:first-child{font-weight:800;color:var(--g7)}
+td:last-child,th:last-child{text-align:right;color:var(--mute)}
+.help{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.contact{display:flex;gap:1.2rem;align-items:center}
+.contact .tile{width:64px;height:64px;border-radius:20px;background:var(--g1);color:var(--g6)}
+.contact .tile .ms{font-size:34px}
+details{border-top:2px solid var(--line);padding:.9rem 0}
+details:first-of-type{border-top:0}
+summary{font-weight:800;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::after{content:"+";font-family:var(--head);font-size:1.3rem;color:var(--g6)}
+details[open] summary::after{content:"–"}
+details p{margin-top:.5rem;color:var(--mute);font-weight:600}
+.foot{max-width:1180px;margin:0 auto;padding:1.5rem 1.25rem 2rem;font-size:.78rem;color:var(--mute);text-align:center}
+
+/* ---------- katmanlar ---------- */
+.viewer{position:fixed;inset:0;z-index:200;background:rgba(21,58,43,.75);display:flex;padding:14px}
+.viewer-sheet{background:#fff;border-radius:var(--r-l);flex:1;display:flex;flex-direction:column;overflow:hidden}
+.viewer-head{display:flex;align-items:center;gap:.9rem;padding:.8rem 1rem;border-bottom:2px solid var(--line)}
+.viewer-head h3{font-size:1.15rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.viewer-head p{font-size:.8rem;color:var(--mute);font-weight:700}
+.viewer iframe{flex:1;width:100%;border:0;background:#fff}
+.viewer-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1.2rem;border-top:2px solid var(--line);background:var(--g0);font-weight:700;color:var(--mute)}
+
+.modal{position:fixed;inset:0;z-index:300;background:rgba(21,58,43,.55);display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-box{background:#fff;border-radius:var(--r-l);padding:2rem 1.8rem 1.6rem;width:100%;max-width:380px;text-align:center;display:flex;flex-direction:column;gap:.7rem;align-items:center}
+.modal-box .ms{font-size:56px}
+.modal-box h3{font-size:1.5rem}
+.modal-box p{color:var(--mute);font-weight:600;margin-bottom:.6rem;white-space:pre-line}
+.modal-box.err .ms{color:var(--danger)}
+.modal-box.ok .ms{color:var(--g6)}
+.modal-box.info .ms{color:var(--au-d)}
+
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:250;background:#fff;border-left:2px solid var(--line);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;gap:.8rem;padding:1rem 1.1rem;border-bottom:2px solid var(--line)}
+.drawer-head .tile{background:var(--g1);color:var(--g6)}
+.drawer-head h3{font-size:1.15rem}
+.drawer-head p{font-size:.8rem;color:var(--mute);font-weight:700}
+.chat{flex:1;overflow-y:auto;padding:1.1rem;display:flex;flex-direction:column;gap:.7rem;background:var(--bg)}
+.bub{max-width:88%;padding:.7rem .95rem;border-radius:18px;font-weight:600;font-size:.94rem;overflow-wrap:anywhere}
+.bub.me{align-self:flex-end;background:var(--g6);color:#fff;border-bottom-right-radius:6px}
+.bub.bot{align-self:flex-start;background:#fff;border:2px solid var(--line);border-bottom-left-radius:6px}
+.suggest{display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
+.suggest .chip{text-align:left}
+.drawer-foot{padding:.8rem 1rem 1rem;border-top:2px solid var(--line)}
+.send{display:flex;gap:.5rem}
+.drawer-foot small{display:block;margin-top:.5rem;color:var(--mute);font-size:.74rem;font-weight:600}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:#9db0a4;animation:blink 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.scrim{position:fixed;inset:0;z-index:240;background:rgba(21,58,43,.35)}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--g9);color:#fff;font-weight:800;padding:.75rem 1.3rem;border-radius:14px;z-index:400;transition:all .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- küçük ekranlar ---------- */
+@media (max-width:900px){
+  #auth-screen{grid-template-columns:1fr}
+  .auth-side{padding:1.6rem 1.5rem 2rem}
+  .auth-side ul{display:none}
+  .auth-side h1{font-size:1.6rem;max-width:none}
+  .auth-logo{width:60px;height:60px}
+  .hero,.admin-grid,.profile,.help{grid-template-columns:minmax(0,1fr)}
+  .nav{display:none}
+  .tabbar{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:2px solid var(--line);padding:.35rem .4rem calc(.35rem + env(safe-area-inset-bottom,0px))}
+  .tabbar button{display:flex;flex-direction:column;align-items:center;gap:.1rem;padding:.35rem 0;border-radius:12px;font-size:.72rem;font-weight:800;color:var(--mute)}
+  .tabbar button.active{color:var(--g7);background:var(--g1)}
+  .wrap{padding-bottom:6.5rem}
+  .foot{padding-bottom:6rem}
+  .viewer{padding:0}
+  .viewer-sheet{border-radius:0}
+  .toast{bottom:88px}
+}
+@media (max-width:520px){
+  .brand span{display:none}
+  .topbar-in{gap:.6rem;padding:.6rem .9rem}
+  .wrap{padding-left:.9rem;padding-right:.9rem}
+  .page-head h2{font-size:1.6rem}
+  .games-head{padding:1.2rem}
+  .games-head .ms{font-size:40px}
+  .panel{padding:1.15rem}
+  .week{gap:.2rem;padding:.7rem .4rem}
+  .day{min-width:0}
+  .day i{width:30px;height:30px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
-<body class="bg-[#f8faf7] text-[#191c1a] antialiased min-h-screen selection:bg-primary-container">
+<body>
 
-<div id="content-overlay" class="p-6">
-    <div class="flex justify-between items-center mb-6 px-4">
-        <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-white backdrop-blur-md border border-white/20">
-                <span id="content-overlay-icon" class="material-symbols-outlined text-3xl">play_circle</span>
-            </div>
-            <div>
-                <h3 id="content-overlay-title" class="text-white font-black text-2xl uppercase tracking-tighter">İçerik</h3>
-                <p id="content-overlay-type" class="text-white/50 text-[10px] font-black uppercase tracking-widest">Yükleniyor...</p>
-            </div>
+<!-- ================= GİRİŞ ================= -->
+<div id="auth-screen">
+  <aside class="auth-side">
+    <img class="auth-logo" src="icon.png" alt="Sınavım">
+    <div>
+      <h1>Türkiye'nin ders çalışma ve sınav yeri</h1>
+      <ul>
+        <li><span class="ms">quiz</span>Sınavlar, dökümanlar ve videolar tek yerde</li>
+        <li><span class="ms">sports_esports</span>Oyunlarla konu tekrarı yap</li>
+        <li><span class="ms">local_fire_department</span>Her gün çalış, seri yap, seviye atla</li>
+      </ul>
+    </div>
+    <p style="position:relative;z-index:1;font-size:.78rem;color:#9fbcac">&copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.</p>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-box">
+      <div class="seg" role="tablist">
+        <button id="tab-login" class="on" onclick="setAuthTab('login')">Giriş yap</button>
+        <button id="tab-register" onclick="setAuthTab('register')">Kayıt ol</button>
+      </div>
+
+      <!-- giriş -->
+      <section id="panel-login" class="stack">
+        <h2>Tekrar hoş geldin</h2>
+        <div class="seg">
+          <button id="m-email" class="on" onclick="setLoginMethod('email')">E-posta</button>
+          <button id="m-code" onclick="setLoginMethod('code')">Öğrenci kodu</button>
         </div>
-        <button onclick="closeContentOverlay()" class="w-14 h-14 rounded-2xl bg-white/10 text-white hover:bg-error hover:scale-95 transition-all flex items-center justify-center backdrop-blur-md border border-white/10">
-            <span class="material-symbols-outlined text-3xl font-black">close</span>
+        <div id="email-login-fields" class="stack">
+          <div class="field"><label for="login-email">E-posta</label><input class="inp" id="login-email" type="email" autocomplete="email" placeholder="ornek@mail.com"></div>
+          <div class="field"><label for="login-password">Şifre</label><input class="inp" id="login-password" type="password" autocomplete="current-password" placeholder="Şifreni yaz"></div>
+          <button class="btn btn-p btn-block" onclick="handleLogin()">Giriş yap</button>
+        </div>
+        <div id="code-login-fields" class="stack hidden">
+          <div class="field"><label for="login-code">Öğretmeninin verdiği kod</label><input class="inp" id="login-code" inputmode="numeric" maxlength="6" placeholder="6 haneli kod"></div>
+          <button class="btn btn-p btn-block" onclick="handleCodeLogin()">Kodla giriş yap</button>
+        </div>
+        <div class="divider">veya</div>
+        <button class="btn btn-w btn-block" onclick="handleGoogleLogin()">
+          <img class="google-ico" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">Google ile devam et
         </button>
-    </div>
-    <div class="flex-1 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl relative border-8 border-white/10 flex flex-col">
-        <iframe id="content-iframe" class="flex-1 w-full border-none bg-white" src="about:blank" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"></iframe>
-        <div id="complete-task-btn" class="hidden p-6 bg-primary-container/20 border-t border-primary/10 items-center justify-center">
-            <button onclick="completeTask()" class="px-12 py-5 bg-primary text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
-                GÖREVİ TAMAMLADIM VE XP KAZAN <span class="material-symbols-outlined">stars</span>
-            </button>
+      </section>
+
+      <!-- kayıt -->
+      <section id="panel-register" class="stack hidden">
+        <h2>Hesabını oluştur</h2>
+        <div class="field"><label for="reg-name">Ad soyad</label><input class="inp" id="reg-name" autocomplete="name" placeholder="Adın ve soyadın"></div>
+        <div class="field"><label for="reg-email">E-posta</label><input class="inp" id="reg-email" type="email" autocomplete="email" placeholder="ornek@mail.com"></div>
+        <div class="field"><label for="reg-password">Şifre</label><input class="inp" id="reg-password" type="password" autocomplete="new-password" placeholder="En az 6 karakter"></div>
+        <div class="field">
+          <span class="lbl">Ben bir</span>
+          <div class="pick">
+            <label><input type="radio" name="reg-role" value="student" checked><span><span class="ms">school</span>Öğrenciyim</span></label>
+            <label><input type="radio" name="reg-role" value="teacher"><span><span class="ms">badge</span>Öğretmenim</span></label>
+          </div>
         </div>
+        <button class="btn btn-au btn-block" onclick="handleRegister()">Hesap aç</button>
+      </section>
     </div>
+  </main>
 </div>
 
-<div id="custom-modal-overlay">
-    <div class="bg-white rounded-[2.5rem] p-12 max-w-sm w-full mx-4 shadow-2xl border border-outline-variant/30 text-center transition-all">
-        <div id="modal-icon-container" class="mb-6 flex justify-center text-primary">
-            <span class="material-symbols-outlined text-8xl">info</span>
+<!-- ================= UYGULAMA ================= -->
+<div id="app" class="hidden">
+  <header class="topbar">
+    <div class="topbar-in">
+      <div class="brand" onclick="showPage('home')"><img src="icon.png" alt=""><span>Sınavım</span></div>
+      <nav class="nav" id="nav-top" aria-label="Ana menü"></nav>
+      <div class="top-right">
+        <div class="stat-pill xp" title="Toplam XP"><span class="ms">bolt</span><span id="top-xp">0</span></div>
+        <div class="stat-pill fire" title="Günlük seri"><span class="ms">local_fire_department</span><span id="top-streak">1</span></div>
+        <button class="icon-btn" onclick="toggleCoach()" aria-label="Soru koçu" title="Soru koçu"><span class="ms">forum</span></button>
+        <div class="menu-wrap">
+          <button class="avatar-btn" id="avatar-btn" onclick="toggleMenu(event)" aria-label="Hesap menüsü"><img id="top-avatar" alt=""></button>
+          <div class="menu hidden" id="user-menu">
+            <div class="menu-name"><span id="menu-name">...</span><small id="menu-role"></small></div>
+            <button onclick="showPage('settings')"><span class="ms">person</span>Profilim</button>
+            <button id="menu-logs" class="hidden" onclick="showPage('logs')"><span class="ms">history</span>Kayıtlar</button>
+            <button onclick="showPage('help')"><span class="ms">help</span>Yardım</button>
+            <button class="out" onclick="handleLogout()"><span class="ms">logout</span>Çıkış yap</button>
+          </div>
         </div>
-        <h3 id="modal-title-text" class="text-3xl font-black mb-3 tracking-tighter uppercase text-on-surface">Bilgi</h3>
-        <p id="modal-body-text" class="text-sm text-[#404943] mb-10 leading-relaxed font-bold">...</p>
-        <button onclick="closeCustomModal()" class="w-full py-5 bg-primary text-on-primary rounded-2xl font-black text-xs tracking-widest uppercase hover:brightness-110 active:scale-95 transition-all shadow-xl shadow-primary/20">Anladım</button>
+      </div>
     </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ANA SAYFA -->
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div class="panel hero-main">
+          <div>
+            <h1 id="home-greet">Merhaba</h1>
+            <p class="sub" id="home-sub"></p>
+          </div>
+          <div>
+            <div class="lvl-top"><span>Seviye <span id="home-level">1</span></span><span><span id="home-xp">0</span> / 500 XP</span></div>
+            <div class="bar"><i id="home-bar"></i></div>
+          </div>
+          <div class="week" id="home-week"></div>
+          <p class="week-note" id="home-streak-note"></p>
+        </div>
+        <div class="panel league" id="home-league"></div>
+      </div>
+
+      <div id="home-notices"></div>
+
+      <h2 class="sec-title">Ne çalışmak istersin?</h2>
+      <div class="tiles" id="home-tiles"></div>
+
+      <div class="sec-head"><h2 class="sec-title">Yeni eklenenler</h2><button class="link-btn" onclick="showPage('pool')">Tümünü gör</button></div>
+      <div class="list" id="home-recent"></div>
+    </section>
+
+    <!-- İÇERİKLER -->
+    <section class="page" id="page-pool">
+      <div class="page-head"><div><h2>İçerikler</h2><p>Sınavlar, dökümanlar, videolar ve daha fazlası</p></div></div>
+      <div class="toolbar">
+        <div class="search"><span class="ms">search</span><input class="inp" id="pool-search" placeholder="Başlık veya öğretmen ara" oninput="setSearch(this.value)"></div>
+        <div class="chips" id="pool-chips"></div>
+      </div>
+      <div class="grid" id="pool-list"></div>
+    </section>
+
+    <!-- OYUNLAR -->
+    <section class="page" id="page-games">
+      <div class="games-head"><span class="ms">sports_esports</span><div><h2>Oyunlar</h2><p>Oyna, tekrar yap, XP kazan</p></div></div>
+      <div class="grid" id="games-list"></div>
+    </section>
+
+    <!-- YÖNETİM -->
+    <section class="page" id="page-admin">
+      <div class="page-head">
+        <div><h2>Yönetim</h2><p>İçerik yayınla ve öğrencilerini yönet</p></div>
+        <div class="seg" style="min-width:280px">
+          <button id="tab-studio" class="on" onclick="setAdminTab('studio')">İçerik ekle</button>
+          <button id="tab-students" onclick="setAdminTab('students')">Öğrencilerim</button>
+        </div>
+      </div>
+
+      <div id="admin-studio" class="admin-grid">
+        <div class="panel stack">
+          <div class="field"><span class="lbl">İçerik türü</span><div class="types" id="type-chips"></div></div>
+          <div class="field"><label for="content-title">Başlık</label><input class="inp" id="content-title" placeholder="Örn: 8. sınıf Fen deneme sınavı 1"></div>
+
+          <div id="file-field" class="field">
+            <span class="lbl">Dosya (PDF, HTML veya resim, en fazla 700 KB)</span>
+            <label class="drop"><span class="ms">upload_file</span><span id="file-name-display">Dosya seçmek için tıkla</span><input type="file" id="file-upload" accept=".pdf,.html,.htm,.jpg,.jpeg,.png" onchange="handleContentFileUpload(this)"></label>
+          </div>
+
+          <div id="url-field" class="field hidden"><label for="content-url" id="url-label">Bağlantı</label><input class="inp" id="content-url" placeholder="https://..."></div>
+
+          <div id="code-field" class="field hidden">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem">
+              <label for="content-body" class="lbl">Metin veya HTML</label>
+              <button class="btn btn-w" style="padding:.4rem .8rem;font-size:.82rem" id="draft-btn" onclick="generateDraft()"><span class="ms">edit_note</span>Taslak yaz</button>
+            </div>
+            <textarea class="inp" id="content-body" placeholder="Dosya yüklemediysen içeriği buraya yaz..."></textarea>
+          </div>
+
+          <button class="btn btn-au btn-block" onclick="publishContent()"><span class="ms">publish</span>Yayınla</button>
+        </div>
+
+        <div class="panel stack" id="admin-stats">
+          <h3>Genel durum</h3>
+          <div class="mini-stats">
+            <div><b id="stat-total">0</b><span>Yayında içerik</span></div>
+            <div><b id="stat-logins">0</b><span>Bugünkü giriş</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="admin-students" class="admin-grid hidden">
+        <div class="panel stack">
+          <h3>Yeni öğrenci</h3>
+          <p style="color:var(--mute);font-weight:600">Adını yaz, öğrenciye vereceğin 6 haneli giriş kodu oluşsun.</p>
+          <div class="field"><label for="new-student-name">Ad soyad</label><input class="inp" id="new-student-name" placeholder="Öğrencinin adı"></div>
+          <button class="btn btn-p btn-block" onclick="createStudentAccount()"><span class="ms">person_add</span>Kod oluştur</button>
+        </div>
+        <div class="panel stack">
+          <h3>Kayıtlı öğrencilerim</h3>
+          <div class="stack" id="teacher-students-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFİL -->
+    <section class="page" id="page-settings">
+      <div class="page-head"><div><h2>Profilim</h2></div></div>
+      <div class="profile">
+        <div class="panel p-card">
+          <div class="p-photo">
+            <img id="settings-avatar-preview" alt="Profil fotoğrafı">
+            <label for="avatar-upload" title="Fotoğraf değiştir"><span class="ms">photo_camera</span><input type="file" id="avatar-upload" accept="image/*" onchange="handleUserPhotoUpload(this)"></label>
+          </div>
+          <div><h3 id="card-name-display">...</h3><p id="card-role-display" style="color:var(--mute);font-weight:700"></p></div>
+          <div style="width:100%">
+            <div class="lvl-top" style="color:var(--mute)"><span>Seviye <span id="card-level">1</span></span><span id="card-xp-text">0 / 500 XP</span></div>
+            <div class="bar"><i id="card-xp-bar"></i></div>
+          </div>
+        </div>
+        <div class="panel stack">
+          <h3>Bilgilerim</h3>
+          <div class="field"><label for="set-name">Görünen ad</label><input class="inp" id="set-name" placeholder="Adın"></div>
+          <div class="field"><label>E-posta</label><input class="inp" id="set-email" disabled></div>
+          <button class="btn btn-p" style="align-self:flex-start" onclick="updateProfile()">Kaydet</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAYITLAR -->
+    <section class="page" id="page-logs">
+      <div class="page-head"><div><h2>Kayıtlar</h2><p>Son 100 işlem</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kullanıcı</th><th>İşlem</th><th>Zaman</th></tr></thead>
+          <tbody id="logs-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- YARDIM -->
+    <section class="page" id="page-help">
+      <div class="page-head"><div><h2>Yardım</h2></div></div>
+      <div class="help">
+        <div class="panel">
+          <h3 style="margin-bottom:1rem">Sık sorulanlar</h3>
+          <details><summary>XP nasıl kazanırım?</summary><p>Oyun, sınav, PDF ve sunum gibi görevleri bitirip "Tamamladım" düğmesine basınca 25 XP kazanırsın. Her görevden bir kez XP alınır.</p></details>
+          <details><summary>Seviye nasıl atlarım?</summary><p>Her 500 XP'de bir seviye atlarsın. Seviyen yükseldikçe ligin de değişir: Filiz, Fidan, Çınar.</p></details>
+          <details><summary>Seri neyi gösterir?</summary><p>Üst üste kaç gün giriş yaptığını. Bir gün gelmezsen seri sıfırlanır.</p></details>
+          <details><summary>Giriş kodum yok, ne yapmalıyım?</summary><p>Öğrenci kodunu öğretmenin oluşturur. Öğretmeninden kodunu iste.</p></details>
+        </div>
+        <div class="panel contact">
+          <div class="tile"><span class="ms">support_agent</span></div>
+          <div>
+            <p style="color:var(--mute);font-weight:700;font-size:.85rem">Bize ulaş</p>
+            <h3>Sunay Çapa</h3>
+            <a href="mailto:sunaycapa3@gmail.com" style="color:var(--g6);font-weight:800">sunaycapa3@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">&copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.</footer>
+  <nav class="tabbar" id="nav-tab" aria-label="Alt menü"></nav>
 </div>
 
-<div class="min-h-screen w-full flex flex-col items-center justify-center p-6 bg-[#f8faf7] relative overflow-hidden" id="auth-screen">
-    <div class="max-w-4xl w-full flex flex-col items-center relative z-10">
-        <div class="mb-12 text-center">
-            <img alt="Sınavım Logo" class="w-32 h-32 object-contain rounded-full shadow-2xl mb-4 mx-auto bg-white p-2 border-2 border-primary/10" src="icon.png"/>
-            <h1 class="text-5xl font-black text-primary tracking-tighter mb-1 uppercase">Sınavım</h1>
-            <p class="text-on-surface-variant font-bold uppercase tracking-[0.3em] text-[10px] opacity-70">The Academic Excellence Platform</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 bg-white rounded-[3rem] shadow-2xl border border-outline-variant/10 w-full overflow-hidden">
-            <div class="p-10 md:p-14 flex flex-col gap-8">
-                <h3 class="text-3xl font-black text-primary tracking-tight">Giriş Yap</h3>
-                <div class="space-y-4">
-                    <div id="email-login-fields" class="space-y-4">
-                        <input class="w-full rounded-2xl border border-outline-variant/30 bg-white/50 p-4 text-sm font-bold outline-none focus:ring-8 focus:ring-primary/5 transition-all" id="login-email" placeholder="E-posta" type="email"/>
-                        <input class="w-full rounded-2xl border border-outline-variant/30 bg-white/50 p-4 text-sm font-bold outline-none focus:ring-8 focus:ring-primary/5 transition-all" id="login-password" placeholder="Şifre" type="password"/>
-                        <button class="w-full py-5 bg-primary text-on-primary rounded-3xl font-black uppercase text-[11px] tracking-widest shadow-xl shadow-primary/20 active:scale-95 transition-all" onclick="handleLogin()">Sisteme Gir</button>
-                    </div>
-                    
-                    <div id="code-login-fields" class="hidden space-y-4">
-                        <input class="w-full rounded-2xl border border-outline-variant/30 bg-white/50 p-4 text-sm font-bold outline-none focus:ring-8 focus:ring-primary/5 transition-all" id="login-code" placeholder="Giriş Kodu (Örn: 123456)" type="text"/>
-                        <button class="w-full py-5 bg-primary text-on-primary rounded-3xl font-black uppercase text-[11px] tracking-widest shadow-xl shadow-primary/20 active:scale-95 transition-all" onclick="handleCodeLogin()">Kodla Giriş Yap</button>
-                    </div>
-
-                    <button class="w-full py-3 text-[10px] font-black uppercase tracking-widest text-primary/60 hover:text-primary transition-all" onclick="toggleLoginMethod()" id="toggle-login-btn">Giriş Kodu Kullan</button>
-
-                    <button class="w-full py-4 bg-white border border-outline-variant/30 text-on-surface rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all mt-2" onclick="handleGoogleLogin()">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
-                        Google Giriş
-                    </button>
-                </div>
-            </div>
-            <div class="p-10 md:p-14 bg-primary/5 border-l border-outline-variant/10 flex flex-col gap-8">
-                <h3 class="text-3xl font-black text-secondary tracking-tight">Kayıt Ol</h3>
-                <div class="space-y-4">
-                    <input class="w-full rounded-2xl border border-outline-variant/30 bg-white/50 p-4 text-sm font-bold outline-none focus:ring-8 focus:ring-secondary/5 transition-all" id="reg-name" placeholder="Ad Soyad" type="text"/>
-                    <input class="w-full rounded-2xl border border-outline-variant/30 bg-white/50 p-4 text-sm font-bold outline-none focus:ring-8 focus:ring-secondary/5 transition-all" id="reg-email" placeholder="E-posta" type="email"/>
-                    <input class="w-full rounded-2xl border border-outline-variant/30 bg-white/50 p-4 text-sm font-bold outline-none focus:ring-8 focus:ring-secondary/5 transition-all" id="reg-password" placeholder="Şifre" type="password"/>
-                    
-                    <div id="otp-section" class="hidden space-y-4">
-                        <div class="h-px bg-secondary/10 my-4"></div>
-                        <p class="text-[10px] font-black text-secondary uppercase text-center tracking-widest">Mailine gelen 6 haneli kodu gir</p>
-                        <input class="w-full rounded-2xl border-2 border-secondary/30 bg-white p-4 text-center text-lg font-black tracking-[0.5em] outline-none focus:ring-8 focus:ring-secondary/5 transition-all" id="reg-otp" placeholder="000000" type="text" maxlength="6"/>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 mt-2">
-                        <label class="cursor-pointer border-2 border-outline-variant/10 rounded-2xl p-3 flex items-center justify-center gap-2 has-[:checked]:border-secondary has-[:checked]:bg-white bg-white/50 transition-all">
-                            <input type="radio" name="reg-role" value="student" class="hidden" checked>
-                            <span class="text-[10px] font-black uppercase">Öğrenci</span>
-                        </label>
-                        <label class="cursor-pointer border-2 border-outline-variant/10 rounded-2xl p-3 flex items-center justify-center gap-2 has-[:checked]:border-primary has-[:checked]:bg-white bg-white/50 transition-all">
-                            <input type="radio" name="reg-role" value="teacher" class="hidden">
-                            <span class="text-[10px] font-black uppercase">Öğretmen</span>
-                        </label>
-                    </div>
-                    <button id="reg-btn" class="w-full py-5 bg-secondary text-on-secondary rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-xl shadow-secondary/20 active:scale-95 transition-all" onclick="handleRegister()">Hesabı Aç</button>
-                </div>
-            </div>
-        </div>
+<!-- ================= KATMANLAR ================= -->
+<div id="viewer" class="viewer hidden">
+  <div class="viewer-sheet">
+    <div class="viewer-head">
+      <div id="viewer-icon" class="tile"><span class="ms">play_circle</span></div>
+      <div class="grow"><h3 id="viewer-title">İçerik</h3><p id="viewer-type"></p></div>
+      <a id="viewer-ext" class="btn btn-w hidden" target="_blank" rel="noopener"><span class="ms">open_in_new</span>Yeni sekmede aç</a>
+      <button class="icon-btn" onclick="closeViewer()" aria-label="Kapat"><span class="ms">close</span></button>
     </div>
-    
-    <!-- AUTH SCREEN FOOTER -->
-    <div class="absolute bottom-6 left-0 w-full text-center z-10 pointer-events-none">
-        <p class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.4em]">
-            &copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.
-        </p>
+    <iframe id="viewer-frame" title="İçerik" src="about:blank" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <div id="viewer-foot" class="viewer-foot hidden">
+      <span>İşin bitince XP'ni al.</span>
+      <button class="btn btn-au" onclick="completeTask()"><span class="ms">check_circle</span>Tamamladım (+25 XP)</button>
     </div>
+  </div>
 </div>
 
-<div class="hidden w-full flex" id="main-dashboard">
-    <nav class="h-screen w-72 fixed left-0 top-0 flex flex-col bg-white z-[100] border-r border-outline-variant/10 shadow-2xl transition-colors duration-300">
-        <div class="flex flex-col h-full p-8 space-y-10">
-            <div class="flex items-center gap-4">
-                <img alt="Logo" class="h-14 w-14 object-contain rounded-full bg-white p-1 border border-primary/10 shadow-lg" src="icon.png"/>
-                <div>
-                    <h1 class="text-xl font-black text-primary tracking-tighter uppercase leading-none flex items-center gap-2">
-                        Sınavım
-                        <span class="bg-primary/10 text-primary text-[8px] px-2 py-0.5 rounded-md tracking-[0.2em]">v2.0</span>
-                    </h1>
-                    <p class="text-[9px] text-[#404943] font-bold uppercase tracking-[0.2em] mt-1 opacity-60">The Academic Edge</p>
-                </div>
-            </div>
-
-            <div class="bg-surface-container-low p-6 rounded-[2.5rem] border border-outline-variant/10 shadow-inner space-y-6">
-                <div class="flex justify-between items-center px-1">
-                    <span class="text-[10px] font-black text-primary px-3 py-1.5 bg-primary-container rounded-xl uppercase tracking-widest shadow-sm">Level <span id="user-level">1</span></span>
-                    <div class="flex items-center gap-1.5 text-secondary font-black text-[11px] uppercase tracking-tighter">
-                        <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
-                        <span id="user-streak">1</span> GÜN
-                    </div>
-                </div>
-                <div class="space-y-3">
-                    <div class="w-full bg-white h-2.5 rounded-full overflow-hidden shadow-inner">
-                        <div id="xp-bar" class="xp-progress-bar h-full bg-primary rounded-full w-0"></div>
-                    </div>
-                    <div class="flex justify-between px-1 text-[9px] font-black text-on-surface-variant uppercase tracking-widest opacity-70">
-                        <span><span id="user-xp">0</span> XP</span>
-                        <span>500 XP</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex-1 space-y-2 flex flex-col font-['Nunito_Sans']">
-                <button id="nav-admin" onclick="showPage('admin')" class="nav-btn flex items-center gap-6 px-6 py-4 group" data-page="admin">
-                    <span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">grid_view</span>
-                    <span class="font-black text-[13px] uppercase tracking-[0.15em]">Yönetim</span>
-                </button>
-                <button onclick="showPage('pool')" class="nav-btn flex items-center gap-6 px-6 py-4 group" data-page="pool">
-                    <span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">school</span>
-                    <span class="font-black text-[13px] uppercase tracking-[0.15em]">Havuz</span>
-                </button>
-                <button onclick="showPage('games')" class="nav-btn flex items-center gap-6 px-6 py-4 group" data-page="games">
-                    <span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">videogame_asset</span>
-                    <span class="font-black text-[13px] uppercase tracking-[0.15em]">Oyunlar</span>
-                </button>
-                <button onclick="showPage('settings')" class="nav-btn flex items-center gap-6 px-6 py-4 group" data-page="settings">
-                    <span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">person</span>
-                    <span class="font-black text-[13px] uppercase tracking-[0.15em]">Profil</span>
-                </button>
-                <button id="nav-logs" onclick="showPage('logs')" class="nav-btn flex items-center gap-6 px-6 py-4 group" data-page="logs">
-                    <span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">history_edu</span>
-                    <span class="font-black text-[13px] uppercase tracking-[0.15em]">Kayıtlar</span>
-                </button>
-                <button onclick="showPage('help')" class="nav-btn flex items-center gap-6 px-6 py-4 group" data-page="help">
-                    <span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">help_center</span>
-                    <span class="font-black text-[13px] uppercase tracking-[0.15em]">Destek</span>
-                </button>
-            </div>
-
-            <div class="mt-auto p-4 bg-surface-container-low rounded-[2.5rem] flex items-center justify-between border border-outline-variant/10 shadow-lg">
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <div class="relative shrink-0">
-                        <img id="user-avatar-mini" src="" class="w-12 h-12 rounded-2xl border-2 border-primary/20 bg-white object-cover shadow-sm" />
-                        <span id="side-level-tag" class="absolute -bottom-1 -right-1 bg-primary text-white text-[8px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-lg">1</span>
-                    </div>
-                    <div class="flex flex-col truncate uppercase tracking-tighter">
-                        <span class="text-xs font-black text-on-surface truncate" id="user-name-mini">...</span>
-                        <span id="side-xp-mini" class="text-[9px] font-black text-secondary tracking-widest opacity-80">0 XP</span>
-                    </div>
-                </div>
-                <button class="text-on-surface-variant hover:text-error transition-all p-2.5 rounded-xl hover:bg-error/5" onclick="handleLogout()" title="Çıkış Yap">
-                    <span class="material-symbols-outlined text-[22px]">logout</span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <div class="flex-1 ml-72 flex flex-col min-h-screen bg-[#f8faf7] relative">
-        <header class="flex justify-between items-center w-full px-12 py-8 bg-transparent sticky top-0 z-40">
-            <h2 id="page-title" class="text-3xl font-black text-primary tracking-tighter uppercase">Panel</h2>
-            <div class="flex items-center gap-5">
-                <div id="ai-status" class="hidden flex items-center gap-2 text-[10px] font-black text-primary bg-white px-5 py-2.5 rounded-2xl border border-primary/10 tracking-[0.2em] shadow-sm uppercase animate-pulse">
-                    <span class="material-symbols-outlined text-[20px]">auto_awesome</span> Gemini AI
-                </div>
-                <button onclick="toggleAIMentor()" class="flex items-center gap-3 px-6 py-3.5 bg-primary text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">
-                    <span class="material-symbols-outlined text-[22px]">smart_toy</span> Mentor Pro
-                </button>
-            </div>
-        </header>
-
-        <main class="flex-1 px-12 pb-12 flex flex-col">
-            <section id="page-admin" class="page-section active space-y-12">
-                <div class="bg-white dark:bg-zinc-900 rounded-[3rem] p-12 border border-outline-variant/10 dark:border-white/5 shadow-xl space-y-12 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 w-64 h-64 bg-primary/5 rounded-bl-full -mr-10 -mt-10 pointer-events-none"></div>
-                    <div class="relative z-10 space-y-2">
-                        <h2 class="text-5xl font-black tracking-tighter uppercase text-primary dark:text-primary-container">Yönetim Merkezi</h2>
-                        <p class="text-on-surface-variant dark:text-zinc-400 font-black uppercase tracking-[0.3em] text-[11px] opacity-60">İçerik ve Öğrenci Yönetimi</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 relative z-10 border-b border-outline-variant/10 pb-8">
-                        <button onclick="setAdminTab('studio')" id="tab-studio" class="admin-tab-btn px-10 py-4 bg-primary text-white rounded-2xl font-black text-xs tracking-widest uppercase shadow-xl transition-all">İçerik Stüdyosu</button>
-                        <button onclick="setAdminTab('students')" id="tab-students" class="admin-tab-btn px-10 py-4 bg-surface-container-low text-primary rounded-2xl font-black text-xs tracking-widest uppercase hover:bg-primary/5 transition-all">Öğrenci Yönetimi</button>
-                    </div>
-
-                    <div id="admin-studio-content" class="grid grid-cols-1 xl:grid-cols-2 gap-12 relative z-10">
-                        <div class="space-y-8">
-                            <div class="flex flex-wrap gap-3 p-2 bg-surface-container-low dark:bg-zinc-800 rounded-[2rem] w-fit shadow-inner">
-                                <button onclick="setContentType('exam')" class="type-btn px-8 py-3.5 rounded-2xl bg-white dark:bg-zinc-700 shadow-xl font-black text-xs text-primary dark:text-primary-container tracking-widest uppercase" id="type-exam">SINAV</button>
-                                <button onclick="setContentType('doc')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-doc">DÖKÜMAN</button>
-                                <button onclick="setContentType('pdf')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-pdf">PDF</button>
-                                <button onclick="setContentType('pptx')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-pptx">PPTX</button>
-                                <button onclick="setContentType('link')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-link">LİNK</button>
-                                <button onclick="setContentType('duyuru')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-duyuru">DUYURU</button>
-                                <button onclick="setContentType('wordwall')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-wordwall">WORDWALL</button>
-                                <button onclick="setContentType('game')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-game">HTML OYUN</button>
-                                <button onclick="setContentType('video')" class="type-btn px-8 py-3.5 rounded-2xl font-black text-xs text-on-surface-variant dark:text-zinc-400 hover:text-primary dark:hover:text-primary-container tracking-widest uppercase" id="type-video">VİDEO</button>
-                            </div>
-
-                            <div class="space-y-6">
-                                <div class="space-y-2">
-                                    <label class="text-[11px] font-black text-on-surface-variant dark:text-zinc-400 uppercase ml-3 tracking-[0.3em]">İçerik Başlığı</label>
-                                    <input id="content-title" class="w-full bg-surface-container-low dark:bg-zinc-800 border-none rounded-3xl p-6 text-sm font-black outline-none focus:ring-[15px] focus:ring-primary/5 transition-all shadow-inner text-on-surface dark:text-white" placeholder="Örn: 2024 Deneme Sınavı #1"/>
-                                </div>
-                                
-                                <div id="file-field" class="space-y-2">
-                                    <label class="text-[11px] font-black text-on-surface-variant dark:text-zinc-400 uppercase ml-3 tracking-[0.3em]">Dosya Yükle (PDF, HTML, JPG)</label>
-                                    <div class="border-4 border-dashed border-outline-variant/30 dark:border-white/10 hover:border-primary/50 dark:hover:border-primary-container/50 transition-all rounded-[3rem] p-10 flex flex-col items-center justify-center cursor-pointer text-center group bg-surface-container-low/50 dark:bg-zinc-800/50" onclick="document.getElementById('file-upload').click()">
-                                        <div class="w-16 h-16 rounded-full bg-white dark:bg-zinc-700 shadow-sm flex items-center justify-center text-primary dark:text-primary-container mb-4 group-hover:scale-110 transition-transform">
-                                            <span class="material-symbols-outlined text-4xl">cloud_upload</span>
-                                        </div>
-                                        <p id="file-name-display" class="font-black text-sm text-on-surface dark:text-white uppercase tracking-tight">DOSYAYI SEÇİN</p>
-                                        <input type="file" id="file-upload" class="hidden" onchange="handleContentFileUpload(this)"/>
-                                    </div>
-                                </div>
-
-                                <div id="url-field" class="hidden space-y-2">
-                                    <label id="url-label" class="text-[11px] font-black text-on-surface-variant dark:text-zinc-400 uppercase ml-3 tracking-[0.3em]">Kaynak Linki</label>
-                                    <input id="content-url" class="w-full bg-surface-container-low dark:bg-zinc-800 border-none rounded-3xl p-6 text-sm outline-none focus:ring-[15px] focus:ring-primary/5 font-bold shadow-inner text-on-surface dark:text-white" placeholder="https://..."/>
-                                </div>
-
-                                <div id="code-field" class="hidden space-y-2">
-                                    <div class="flex justify-between items-center mb-1 px-1">
-                                        <label class="text-[11px] font-black text-on-surface-variant dark:text-zinc-400 uppercase tracking-[0.3em]">Ders İçeriği / Metin</label>
-                                        <button onclick="generateAIContent()" class="text-[10px] font-black text-primary dark:text-primary-container bg-primary/10 dark:bg-primary/20 px-4 py-2 rounded-2xl flex items-center gap-2 hover:bg-primary hover:text-white transition-all uppercase tracking-widest"><span class="material-symbols-outlined text-[16px]">auto_awesome</span> AI Taslağı Oluştur</button>
-                                    </div>
-                                    <textarea id="content-body" class="w-full bg-surface-container-low dark:bg-zinc-800 border-none rounded-[2.5rem] p-8 text-sm min-h-[400px] outline-none font-mono focus:ring-[15px] focus:ring-primary/5 transition-all shadow-inner text-on-surface dark:text-white" placeholder="Eğer dosya yüklemediyseniz içeriğinizi buraya yazın..."></textarea>
-                                </div>
-
-                                <button onclick="publishContent()" class="w-full py-8 bg-[#a67c52] dark:bg-secondary text-white rounded-[2.5rem] font-black text-sm shadow-2xl hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-5 uppercase tracking-[0.3em]">
-                                    Hemen Yayınla <span class="material-symbols-outlined text-3xl font-bold">rocket_launch</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="admin-stats-panel" class="space-y-8">
-                            <div class="p-10 bg-surface-container-low dark:bg-zinc-800 rounded-[3rem] border border-outline-variant/10 dark:border-white/5 text-center shadow-inner relative overflow-hidden h-fit">
-                                <div class="absolute right-0 bottom-0 w-32 h-32 bg-primary/5 rounded-tl-full pointer-events-none"></div>
-                                <h3 class="font-black text-[11px] mb-12 text-primary dark:text-primary-container uppercase tracking-[0.4em] border-b border-outline-variant/10 dark:border-white/5 pb-8 uppercase tracking-widest">Sistem İstatistikleri</h3>
-                                <div class="grid grid-cols-2 gap-10">
-                                    <div class="space-y-2">
-                                        <p class="text-[10px] font-black text-on-surface-variant dark:text-zinc-400 uppercase opacity-60">Havuz</p>
-                                        <p id="stat-total" class="text-6xl font-black text-primary dark:text-primary-container tracking-tighter">0</p>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <p class="text-[10px] font-black text-on-surface-variant dark:text-zinc-400 uppercase opacity-60">Girişler</p>
-                                        <p id="stat-logins" class="text-6xl font-black text-secondary dark:text-secondary-container tracking-tighter">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="admin-students-content" class="hidden space-y-12 relative z-10">
-                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-12">
-                            <div class="bg-surface-container-low dark:bg-zinc-800 rounded-[3rem] p-10 space-y-8">
-                                <h3 class="text-2xl font-black text-primary tracking-tight uppercase">Yeni Öğrenci Oluştur</h3>
-                                <div class="space-y-4">
-                                    <input id="new-student-name" class="w-full bg-white dark:bg-zinc-700 border-none rounded-2xl p-5 text-sm font-black outline-none focus:ring-8 focus:ring-primary/5 transition-all shadow-sm" placeholder="Öğrenci Ad Soyad"/>
-                                    <button onclick="createStudentAccount()" class="w-full py-6 bg-primary text-white rounded-2xl font-black text-xs tracking-widest uppercase shadow-xl hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-3">
-                                        ÖĞRENCİ VE KOD OLUŞTUR <span class="material-symbols-outlined">person_add</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="bg-white dark:bg-zinc-800 rounded-[3rem] border border-outline-variant/10 dark:border-white/5 p-10">
-                                <h3 class="text-2xl font-black text-secondary tracking-tight uppercase mb-8">Kayıtlı Öğrencilerim</h3>
-                                <div id="teacher-students-list" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                                    <p class="text-xs font-bold opacity-40 uppercase tracking-widest text-center py-10">Henüz öğrenci yok</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="page-pool" class="page-section">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-10 mb-16 px-4">
-                    <h2 class="text-6xl font-black text-primary tracking-tighter uppercase leading-none">İçerik Havuzu</h2>
-                    <div class="relative max-w-lg w-full">
-                        <span class="material-symbols-outlined absolute left-8 top-1/2 -translate-y-1/2 text-on-surface-variant text-3xl">search</span>
-                        <input id="pool-search" class="pl-20 pr-10 py-6 bg-white shadow-xl rounded-[2.5rem] border border-outline-variant/10 text-sm w-full outline-none focus:ring-8 focus:ring-primary/5 transition-all font-black uppercase tracking-tighter" placeholder="Arama yap..." />
-                    </div>
-                </div>
-                <div id="pool-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
-            </section>
-
-            <section id="page-games" class="page-section">
-                <div class="bg-gradient-to-r from-[#a67c52] to-[#f4dcc2] p-16 rounded-[4rem] mb-12 relative overflow-hidden shadow-2xl">
-                    <div class="absolute right-0 top-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -mr-40 -mt-40"></div>
-                    <div class="relative z-10 text-white space-y-4">
-                        <h2 class="text-6xl font-black tracking-tighter uppercase leading-none">Oyun Sahnesi</h2>
-                        <p class="font-black uppercase tracking-[0.5em] text-[13px] opacity-90 tracking-widest">Eğlenirken öğren, XP kazan!</p>
-                    </div>
-                </div>
-                <div id="games-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12"></div>
-                <div id="no-games-msg" class="hidden flex flex-col items-center justify-center p-32 bg-white rounded-[4rem] border-4 border-dashed border-outline-variant/10 text-center uppercase tracking-widest font-black opacity-40">Henüz Oyun Yok</div>
-            </section>
-
-            <section id="page-settings" class="page-section">
-                <div class="max-w-6xl mx-auto space-y-10">
-                    <h2 class="text-5xl font-black text-primary tracking-tighter uppercase tracking-wide">Profil</h2>
-                    <div class="bg-white p-20 rounded-[4rem] border border-outline-variant/5 shadow-2xl relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f8faf7] rounded-bl-[15rem] -mr-40 -mt-40 z-0"></div>
-                        <div class="relative z-10 space-y-20">
-                            <h3 class="text-6xl font-black text-primary tracking-tighter uppercase leading-none text-center md:text-left">Profil Yönetimi</h3>
-                            
-                            <div class="flex flex-col items-center text-center">
-                                <div class="relative mb-12">
-                                    <div class="w-64 h-64 rounded-[3.5rem] border-[12px] border-primary-container bg-white shadow-2xl overflow-hidden avatar-glow transition-all duration-700 hover:scale-105">
-                                        <img id="settings-avatar-preview" src="" class="w-full h-full object-cover" />
-                                    </div>
-                                    <label for="avatar-upload" class="absolute -bottom-6 -right-6 bg-primary text-white p-6 rounded-[2.5rem] shadow-2xl border-[8px] border-white cursor-pointer hover:scale-110 active:scale-90 transition-all flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-4xl font-black">photo_camera</span>
-                                        <input type="file" id="avatar-upload" class="hidden" accept="image/*" onchange="handleUserPhotoUpload(this)" />
-                                    </label>
-                                </div>
-                                <div class="space-y-4">
-                                    <h3 id="card-name-display" class="text-7xl font-black text-on-surface tracking-tighter uppercase leading-none tracking-wide">...</h3>
-                                    <div class="inline-flex items-center gap-4 px-10 py-4 bg-secondary/5 text-[#a67c52] rounded-full border border-secondary/10">
-                                        <span id="card-role-display" class="text-sm font-black uppercase tracking-[0.5em]">LEVEL 1 AKADEMİSYEN</span>
-                                    </div>
-                                </div>
-                                <div class="w-full max-w-lg space-y-6 mt-16">
-                                    <div class="flex justify-between items-center text-[13px] font-black text-[#404943] uppercase tracking-[0.4em] px-2">
-                                        <span>Gelişim İlerlemesi</span>
-                                        <span id="card-xp-text" class="text-primary font-black uppercase tracking-widest">0 / 500 XP</span>
-                                    </div>
-                                    <div class="w-full bg-[#eff2ee] h-5 rounded-[2.5rem] overflow-hidden p-1.5 shadow-inner">
-                                        <div id="card-xp-bar" class="xp-progress-bar h-full bg-gradient-to-r from-primary via-[#6b7a63] to-primary-container rounded-full"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="max-w-xl mx-auto space-y-10">
-                                <div class="space-y-4">
-                                    <label class="text-[13px] font-black text-[#404943] uppercase ml-6 tracking-[0.4em] opacity-60 uppercase tracking-widest font-black uppercase">Görünen İsim</label>
-                                    <input id="set-name" class="w-full bg-[#f8faf7] rounded-[2.5rem] border-none p-8 text-lg font-black outline-none focus:ring-[20px] focus:ring-primary/5 transition-all shadow-inner" placeholder="İsminiz..." />
-                                </div>
-                                <button onclick="updateProfile()" class="w-full py-10 bg-primary text-on-primary rounded-[3rem] font-black shadow-[0_30px_60px_-10px_rgba(74,124,89,0.3)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-[0.5em] text-sm">Ayarları Kaydet ve Güncelle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="page-logs" class="page-section">
-                <h2 class="text-4xl font-black text-primary mb-12 uppercase tracking-tighter uppercase leading-none">Kayıtlar</h2>
-                <div class="bg-white border border-outline-variant/5 rounded-[4rem] overflow-hidden shadow-2xl overflow-x-auto font-black uppercase tracking-widest">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-[#eff2ee] text-[#404943] text-[13px] tracking-[0.3em] uppercase tracking-widest font-black">
-                            <tr><th class="px-14 py-12">Kullanıcı</th><th class="px-14 py-12 text-center">İşlem</th><th class="px-14 py-12 text-right">Zaman</th></tr>
-                        </thead>
-                        <tbody id="logs-table-body" class="divide-y divide-outline-variant/5 text-on-surface/70"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="page-help" class="page-section">
-                <h2 class="text-4xl font-black text-primary mb-12 uppercase tracking-tighter text-center">Destek</h2>
-                <div class="bg-white p-24 rounded-[4rem] border border-outline-variant/10 shadow-2xl flex flex-col md:flex-row items-center justify-center gap-20 max-w-5xl mx-auto">
-                    <div class="w-48 h-48 rounded-[4rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white shadow-3xl shadow-primary/30"><span class="material-symbols-outlined text-8xl">support_agent</span></div>
-                    <div class="space-y-6 text-center md:text-left">
-                        <p class="text-sm font-black text-primary uppercase tracking-[0.6em] opacity-60 uppercase tracking-widest">Akademi İletişim</p>
-                        <h3 class="text-6xl font-black tracking-tighter uppercase leading-none">Sunay Çapa</h3>
-                        <a href="mailto:sunaycapa3@gmail.com" class="text-4xl font-black hover:text-primary transition-all border-b-8 border-primary/10 pb-4 inline-block tracking-tighter">sunaycapa3@gmail.com</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <!-- DASHBOARD YAZILIMCI İMZASI (FOOTER) -->
-        <footer class="w-full py-8 text-center mt-auto border-t border-outline-variant/5 bg-transparent relative z-10">
-            <div class="flex flex-col items-center justify-center gap-3">
-                <div class="flex items-center gap-2 text-[9px] font-black text-primary uppercase tracking-[0.5em] opacity-80">
-                    <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
-                    Sistem Aktif & Güvende
-                </div>
-                <p class="text-[10px] font-black text-[#404943]/40 uppercase tracking-[0.4em]">
-                    &copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.
-                </p>
-            </div>
-        </footer>
-    </div>
+<div id="modal" class="modal hidden" onclick="if(event.target===this)closeCustomModal()">
+  <div class="modal-box info" id="modal-box">
+    <span class="ms" id="modal-icon">info</span>
+    <h3 id="modal-title-text">Bilgi</h3>
+    <p id="modal-body-text"></p>
+    <button class="btn btn-p btn-block" onclick="closeCustomModal()">Tamam</button>
+  </div>
 </div>
 
-<!-- WELCOME GREETING OVERLAY -->
-<div id="welcome-overlay" class="hidden fixed inset-0 z-[20000] flex items-center justify-center bg-primary/20 backdrop-blur-3xl transition-opacity duration-1000">
-    <div class="bg-white dark:bg-zinc-900 rounded-[4rem] p-16 shadow-2xl border border-white/20 text-center space-y-8 max-w-lg w-full mx-4 animate-fadeIn">
-        <div class="w-32 h-32 rounded-[2.5rem] bg-primary/10 flex items-center justify-center text-primary mx-auto">
-            <span class="material-symbols-outlined text-7xl font-black">celebration</span>
-        </div>
-        <div>
-            <h2 id="welcome-message" class="text-5xl font-black tracking-tighter uppercase text-primary dark:text-primary-container">GÜNAYDIN!</h2>
-            <p id="welcome-submessage" class="text-on-surface-variant dark:text-zinc-400 font-black uppercase tracking-[0.2em] text-xs mt-4">Bugün harika işler başaracaksın!</p>
-        </div>
+<div id="coach-scrim" class="scrim hidden" onclick="toggleCoach()"></div>
+<aside id="coach" class="drawer" aria-label="Soru koçu">
+  <div class="drawer-head">
+    <div class="tile"><span class="ms">forum</span></div>
+    <div class="grow"><h3>Soru koçu</h3><p>Takıldığın yeri sor</p></div>
+    <button class="icon-btn" onclick="toggleCoach()" aria-label="Kapat"><span class="ms">close</span></button>
+  </div>
+  <div class="chat" id="coach-chat">
+    <div class="bub bot">Merhaba! Anlamadığın bir konuyu, çözemediğin bir soruyu ya da çalışma planını bana sorabilirsin.</div>
+    <div class="suggest" id="coach-suggest">
+      <button class="chip" onclick="askSuggested(this)">Bu konuyu bana basitçe anlat</button>
+      <button class="chip" onclick="askSuggested(this)">Bana 5 tane test sorusu sor</button>
+      <button class="chip" onclick="askSuggested(this)">Sınava 2 hafta var, plan yapar mısın?</button>
     </div>
-</div>
+  </div>
+  <div class="drawer-foot">
+    <div class="send">
+      <input class="inp" id="coach-input" placeholder="Sorunu yaz..." autocomplete="off">
+      <button class="btn btn-p" onclick="sendCoach()" aria-label="Gönder"><span class="ms">send</span></button>
+    </div>
+    <small>Yanıtlar otomatik hazırlanır, önemli bilgileri öğretmeninle kontrol et.</small>
+  </div>
+</aside>
 
-<audio id="levelup-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
+<div id="toast" class="toast" role="status"></div>
+<audio id="levelup-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="none"></audio>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBNPIIl0HjZtmO264uLIJco8KZRWgAM7mI",
-        authDomain: "sinavim-a22da.firebaseapp.com",
-        projectId: "sinavim-a22da",
-        storageBucket: "sinavim-a22da.firebasestorage.app",
-        messagingSenderId: "329264566843",
-        appId: "1:329264566843:web:975c239b63e8cf5191421e",
-        measurementId: "G-D7Z45QMMEL"
-    };
+/* ---------------- ayarlar ---------------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBNPIIl0HjZtmO264uLIJco8KZRWgAM7mI",
+  authDomain: "sinavim-a22da.firebaseapp.com",
+  projectId: "sinavim-a22da",
+  storageBucket: "sinavim-a22da.firebasestorage.app",
+  messagingSenderId: "329264566843",
+  appId: "1:329264566843:web:975c239b63e8cf5191421e",
+  measurementId: "G-D7Z45QMMEL"
+};
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'sinavim-v15-pro-max';
+const GEMINI_KEY = "AQ.Ab8RN6LH3yNExSwXWr_tXsqK_e2KOQO6yu6BAjmmR5INhB7Pew";
+const GEMINI_MODEL = "gemini-2.5-flash";
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'sinavim-v15-pro-max';
-    const geminiKey = "AQ.Ab8RN6LH3yNExSwXWr_tXsqK_e2KOQO6yu6BAjmmR5INhB7Pew"; 
+const ADMIN_EMAILS = [
+  'sunaycapa3@gmail.com', 'sunaycapa2@gmail.com', 'sunaycapa1@gmail.com',
+  'ayberkarici054@gmail.com', 'ahmetakifabus91@gmail.com'
+];
 
-    const ADMIN_EMAILS = [
-        'sunaycapa3@gmail.com', 'sunaycapa2@gmail.com', 'sunaycapa1@gmail.com',
-        'ayberkarici054@gmail.com', 'ahmetakifabus91@gmail.com'
-    ];
+const XP_PER_LEVEL = 500;
+const TASK_XP = 25;
+const PUBLISH_XP = 50;
 
-    let currentUser = null;
-    let userData = null;
-    let currentContentType = 'exam';
-    let currentPhotoBase64 = null;
-    let currentUploadedContentBase64 = null;
+const TYPES = {
+  exam:     { label: 'Sınav',    icon: 'quiz',           c: '#22603f', bg: '#e3f1e8' },
+  doc:      { label: 'Döküman',  icon: 'description',    c: '#475569', bg: '#e8ecf1' },
+  pdf:      { label: 'PDF',      icon: 'picture_as_pdf', c: '#c92a2a', bg: '#fde8e8' },
+  pptx:     { label: 'Sunum',    icon: 'slideshow',      c: '#c2600a', bg: '#fdeedb' },
+  video:    { label: 'Video',    icon: 'play_circle',    c: '#0b7fb5', bg: '#dff1fa' },
+  link:     { label: 'Bağlantı', icon: 'link',           c: '#0f8579', bg: '#dcf3ef' },
+  wordwall: { label: 'Wordwall', icon: 'extension',      c: '#b8266a', bg: '#fbe3ee' },
+  game:     { label: 'Oyun',     icon: 'sports_esports', c: '#4338ca', bg: '#e6e5fb' },
+  duyuru:   { label: 'Duyuru',   icon: 'campaign',       c: '#7a35d4', bg: '#eee6fb' }
+};
+const URL_TYPES  = ['video', 'wordwall', 'link', 'pdf', 'pptx'];
+const FILE_TYPES = ['exam', 'doc', 'game'];
+const TEXT_TYPES = ['doc', 'game', 'duyuru'];
+const GAME_TYPES = ['game', 'wordwall'];
+const DONE_TYPES = ['game', 'wordwall', 'exam', 'pptx', 'pdf'];
 
-    // Tüm Firebase ve DOM işlemlerini sayfa yüklendikten sonra (Race Condition'ı önlemek için) başlatıyoruz
-    document.addEventListener("DOMContentLoaded", () => {
-        
-        // --- UI TOOLS ---
-        window.showCustomModal = (title, msg, type = 'info') => {
-            const titleEl = document.getElementById('modal-title-text');
-            const msgEl = document.getElementById('modal-body-text');
-            const iconEl = document.getElementById('modal-icon-container')?.firstElementChild;
-            if(titleEl) titleEl.innerText = title;
-            if(msgEl) msgEl.innerText = msg;
-            if(iconEl) {
-                iconEl.innerText = type === 'error' ? 'report' : (type === 'success' ? 'verified' : 'info');
-                iconEl.className = `material-symbols-outlined text-8xl ${type === 'error' ? 'text-error' : 'text-primary'}`;
-            }
-            document.getElementById('custom-modal-overlay')?.style.setProperty('display', 'flex');
-        };
-        window.closeCustomModal = () => { document.getElementById('custom-modal-overlay')?.style.setProperty('display', 'none'); };
+const LEAGUES = [
+  { name: 'Filiz Ligi', icon: 'eco',    from: 1 },
+  { name: 'Fidan Ligi', icon: 'park',   from: 3 },
+  { name: 'Çınar Ligi', icon: 'forest', from: 6 }
+];
+const ROLE_LABEL = { admin: 'Yönetici', teacher: 'Öğretmen', student: 'Öğrenci' };
 
-        window.handleUserPhotoUpload = (input) => {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    currentPhotoBase64 = e.target.result;
-                    const preview = document.getElementById('settings-avatar-preview');
-                    if(preview) preview.src = currentPhotoBase64;
-                    showCustomModal("MÜKEMMEL", "Fotoğraf yüklendi, kaydetmeyi unutma!", "success");
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        };
+const NAV = [
+  { id: 'home',     label: 'Ana sayfa', icon: 'home',           top: true,  roles: ['admin', 'teacher', 'student'] },
+  { id: 'pool',     label: 'İçerikler', icon: 'library_books',  top: true,  roles: ['admin', 'teacher', 'student'] },
+  { id: 'games',    label: 'Oyunlar',   icon: 'sports_esports', top: true,  roles: ['admin', 'teacher', 'student'] },
+  { id: 'admin',    label: 'Yönetim',   icon: 'edit_square',    top: true,  roles: ['admin', 'teacher'] },
+  { id: 'settings', label: 'Profil',    icon: 'person',         top: false, roles: ['admin', 'teacher', 'student'] }
+];
 
-        window.handleContentFileUpload = (input) => {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                const nameDisplay = document.getElementById('file-name-display');
-                if(nameDisplay) nameDisplay.innerText = "SEÇİLEN: " + file.name;
-                const reader = new FileReader();
-                reader.onload = (e) => { currentUploadedContentBase64 = e.target.result; };
-                reader.readAsDataURL(file);
-            }
-        };
+/* ---------------- durum ---------------- */
+let currentUser = null;
+let userData = null;
+let contents = [];
+let filterType = 'all';
+let searchTerm = '';
+let currentContentType = 'exam';
+let uploadedBase64 = null;
+let pendingPhoto = null;
+let openItem = null;
+let blobUrl = null;
+const unsubs = {};
+const coachHistory = [];
 
-        // --- ADMIN & STUDENT MANAGEMENT ---
-        window.setAdminTab = (tab) => {
-            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('bg-primary', 'text-white', 'shadow-xl'));
-            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.add('bg-surface-container-low', 'text-primary'));
-            const btn = document.getElementById('tab-' + tab);
-            if(btn) {
-                btn.classList.add('bg-primary', 'text-white', 'shadow-xl');
-                btn.classList.remove('bg-surface-container-low', 'text-primary');
-            }
-            document.getElementById('admin-studio-content').classList.toggle('hidden', tab !== 'studio');
-            document.getElementById('admin-students-content').classList.toggle('hidden', tab !== 'students');
-            if(tab === 'students') listenToStudents();
-        };
+/* ---------------- yardımcılar ---------------- */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const tsOf = (c) => c.timestamp?.seconds ?? Date.now() / 1000;
+const statsRef = () => doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'stats');
+const isStaff = () => ['admin', 'teacher'].includes(userData?.role);
+const avatarFor = (uid) => `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid.substring(0, 5)}`;
 
-        window.createStudentAccount = async () => {
-            const nameEl = document.getElementById('new-student-name');
-            if(!nameEl || !nameEl.value.trim()) return showCustomModal("EKSİK BİLGİ", "Öğrenci adı gerekli.", "error");
-            
-            const name = nameEl.value.trim();
-            const code = Math.floor(100000 + Math.random() * 900000).toString(); // 6 digit code
-            
-            try {
-                // Create a student code entry
-                await setDoc(doc(db, 'artifacts', appId, 'studentCodes', code), {
-                    studentName: name,
-                    teacherId: currentUser.uid,
-                    teacherName: userData.displayName,
-                    createdAt: serverTimestamp(),
-                    isUsed: false
-                });
-                
-                showCustomModal("BAŞARILI", `Öğrenci için giriş kodu oluşturuldu: ${code}`, "success");
-                nameEl.value = "";
-                logActivity(`Öğrenci Kodu Oluşturdu: ${name}`);
-            } catch(e) { showCustomModal("HATA", "Kod oluşturulamadı.", "error"); }
-        };
+let toastTimer;
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
 
-        function listenToStudents() {
-            if(!currentUser) return;
-            onSnapshot(collection(db, 'artifacts', appId, 'studentCodes'), (snap) => {
-                const list = document.getElementById('teacher-students-list');
-                if(!list) return;
-                list.innerHTML = "";
-                let count = 0;
-                snap.docs.forEach(docSnap => {
-                    const data = docSnap.data();
-                    if(data.teacherId === currentUser.uid) {
-                        count++;
-                        list.innerHTML += `<div class="bg-surface-container-low dark:bg-zinc-700/50 p-6 rounded-3xl flex justify-between items-center border border-outline-variant/10">
-                            <div>
-                                <p class="font-black text-sm uppercase tracking-tight">${data.studentName}</p>
-                                <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest">KOD: ${docSnap.id}</p>
-                            </div>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-lg text-[9px] font-black uppercase tracking-widest">${data.isUsed ? 'AKTİF' : 'BEKLEMEDE'}</span>
-                        </div>`;
-                    }
-                });
-                if(count === 0) list.innerHTML = '<p class="text-xs font-bold opacity-40 uppercase tracking-widest text-center py-10">Henüz öğrenci yok</p>';
-            });
-        }
+window.showCustomModal = (title, msg, type = 'info') => {
+  const map = { error: ['error', 'err'], success: ['check_circle', 'ok'], info: ['info', 'info'] };
+  const [icon, cls] = map[type] || map.info;
+  $('modal-icon').textContent = icon;
+  $('modal-box').className = 'modal-box ' + cls;
+  $('modal-title-text').textContent = title;
+  $('modal-body-text').textContent = msg;
+  $('modal').classList.remove('hidden');
+};
+window.closeCustomModal = () => $('modal').classList.add('hidden');
 
-        window.toggleLoginMethod = () => {
-            const emailFields = document.getElementById('email-login-fields');
-            const codeFields = document.getElementById('code-login-fields');
-            const btn = document.getElementById('toggle-login-btn');
-            if(!emailFields || !codeFields || !btn) return;
-            
-            const isEmail = !emailFields.classList.contains('hidden');
-            emailFields.classList.toggle('hidden', isEmail);
-            codeFields.classList.toggle('hidden', !isEmail);
-            btn.innerText = isEmail ? "E-posta ile Giriş Yap" : "Giriş Kodu Kullan";
-        };
+const AUTH_ERRORS = {
+  'auth/invalid-credential': 'E-posta veya şifre hatalı.',
+  'auth/wrong-password': 'E-posta veya şifre hatalı.',
+  'auth/user-not-found': 'Bu e-posta ile kayıtlı hesap yok.',
+  'auth/invalid-email': 'E-posta adresi geçersiz.',
+  'auth/email-already-in-use': 'Bu e-posta ile zaten bir hesap var. Giriş yapmayı dene.',
+  'auth/weak-password': 'Şifre en az 6 karakter olmalı.',
+  'auth/too-many-requests': 'Çok fazla deneme yaptın. Biraz bekleyip tekrar dene.',
+  'auth/network-request-failed': 'İnternet bağlantını kontrol et.'
+};
+const authMsg = (e) => AUTH_ERRORS[e.code] || 'Bir sorun oluştu, tekrar dene.';
 
-        window.handleCodeLogin = async () => {
-            const codeEl = document.getElementById('login-code');
-            if(!codeEl || !codeEl.value.trim()) return showCustomModal("KOD GEREKLİ", "Lütfen öğretmeninizin verdiği kodu girin.", "error");
-            
-            const code = codeEl.value.trim();
-            showCustomModal("GİRİŞ YAPILIYOR", "Kod doğrulanıyor...", "info");
-            
-            try {
-                const codeSnap = await getDoc(doc(db, 'artifacts', appId, 'studentCodes', code));
-                if(codeSnap.exists()) {
-                    const studentData = codeSnap.data();
-                    // We'll use a virtual email for code login: code@student.sinavim
-                    const email = `${code}@student.sinavim`;
-                    const pass = "student123456"; // Default pass for code-based accounts
-                    
-                    try {
-                        await signInWithEmailAndPassword(auth, email, pass);
-                    } catch(authErr) {
-                        if(authErr.code === 'auth/user-not-found') {
-                            // First time using this code? Create the account.
-                            const res = await createUserWithEmailAndPassword(auth, email, pass);
-                            await updateFbProfile(res.user, { displayName: studentData.studentName });
-                            await setDoc(doc(db, 'artifacts', appId, 'users', res.user.uid, 'profile', 'stats'), {
-                                displayName: studentData.studentName,
-                                xp: 0, level: 1, streak: 1,
-                                lastLogin: new Date().toISOString(),
-                                avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${res.user.uid.substring(0,5)}`,
-                                role: 'student',
-                                teacherId: studentData.teacherId
-                            });
-                            await updateDoc(doc(db, 'artifacts', appId, 'studentCodes', code), { isUsed: true, uid: res.user.uid });
-                        } else { throw authErr; }
-                    }
-                    closeCustomModal();
-                } else { showCustomModal("GEÇERSİZ KOD", "Bu kod sistemde bulunamadı.", "error"); }
-            } catch(e) { showCustomModal("HATA", "Giriş yapılamadı: " + e.message, "error"); }
-        };
+/* ---------------- giriş / kayıt ---------------- */
+window.setAuthTab = (tab) => {
+  $('tab-login').classList.toggle('on', tab === 'login');
+  $('tab-register').classList.toggle('on', tab === 'register');
+  $('panel-login').classList.toggle('hidden', tab !== 'login');
+  $('panel-register').classList.toggle('hidden', tab !== 'register');
+};
+window.setLoginMethod = (m) => {
+  $('m-email').classList.toggle('on', m === 'email');
+  $('m-code').classList.toggle('on', m === 'code');
+  $('email-login-fields').classList.toggle('hidden', m !== 'email');
+  $('code-login-fields').classList.toggle('hidden', m !== 'code');
+};
 
-        window.completeTask = async () => {
-            const currentTitle = document.getElementById('content-overlay-title')?.innerText;
-            const currentType = document.getElementById('content-overlay-type')?.innerText;
-            if(!currentTitle) return;
-            
-            await addXP(25);
-            logActivity(`Tamamladı: ${currentTitle}`);
-            showCustomModal("TEBRİKLER", "25 XP kazandın! Çalışmaya devam et.", "success");
-            closeContentOverlay();
-        };
+window.handleLogin = async () => {
+  const email = $('login-email').value.trim();
+  const pass = $('login-password').value;
+  if (!email || !pass) return showCustomModal('Eksik bilgi', 'E-posta ve şifreni yaz.', 'error');
+  try { await signInWithEmailAndPassword(auth, email, pass); }
+  catch (e) { showCustomModal('Giriş yapılamadı', authMsg(e), 'error'); }
+};
 
-        // --- CONTENT VIEWER (IN-SITE BLOB RUNNER) ---
-        window.viewContentInSite = async (id) => {
-            showCustomModal("HAZIRLANIYOR", "İçerik yükleniyor, lütfen bekleyin...", "info");
-            try {
-                const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'contents', id));
-                if (snap.exists()) {
-                    const item = snap.data();
-                    const iframe = document.getElementById('content-iframe');
-                    const titleEl = document.getElementById('content-overlay-title');
-                    const typeEl = document.getElementById('content-overlay-type');
-                    const completeBtn = document.getElementById('complete-task-btn');
-                    
-                    if(titleEl) titleEl.innerText = item.title;
-                    if(typeEl) typeEl.innerText = item.type;
-                    if(completeBtn) completeBtn.style.display = (item.type === 'game' || item.type === 'wordwall' || item.type === 'exam' || item.type === 'pptx' || item.type === 'pdf') ? 'flex' : 'none';
+window.handleGoogleLogin = async () => {
+  try { await signInWithPopup(auth, new GoogleAuthProvider()); }
+  catch (e) { if (e.code !== 'auth/popup-closed-by-user') showCustomModal('Giriş yapılamadı', 'Google ile giriş tamamlanamadı.', 'error'); }
+};
 
-                    if(iframe) {
-                        iframe.removeAttribute('srcdoc');
-                        iframe.src = "about:blank";
+window.handleRegister = async () => {
+  const name = $('reg-name').value.trim();
+  const email = $('reg-email').value.trim();
+  const pass = $('reg-password').value;
+  const role = document.querySelector('input[name="reg-role"]:checked')?.value || 'student';
+  if (!name || !email) return showCustomModal('Eksik bilgi', 'Ad soyad ve e-posta gerekli.', 'error');
+  if (pass.length < 6) return showCustomModal('Şifre kısa', 'Şifre en az 6 karakter olmalı.', 'error');
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateFbProfile(res.user, { displayName: name });
+    await setDoc(doc(db, 'artifacts', appId, 'users', res.user.uid, 'profile', 'stats'), {
+      displayName: name, xp: 0, level: 1, streak: 1, done: [],
+      lastLogin: new Date().toISOString(),
+      avatar: avatarFor(res.user.uid),
+      role: ADMIN_EMAILS.includes(email) ? 'admin' : role
+    });
+  } catch (e) { showCustomModal('Hesap açılamadı', authMsg(e), 'error'); }
+};
 
-                        // Wordwall URL Parser
-                        if (item.type === 'wordwall' && item.url) {
-                            let embedUrl = item.url;
-                            if(embedUrl.includes("/resource/")) embedUrl = embedUrl.replace("/resource/", "/embed/resource/");
-                            else if(embedUrl.includes("/play/")) embedUrl = embedUrl.replace("/play/", "/embed/play/");
-                            iframe.src = embedUrl;
-                        }
-                        // YouTube Parser
-                        else if (item.type === 'video' && item.url) {
-                            let eUrl = item.url.replace("watch?v=", "embed/");
-                            if(eUrl.includes("youtu.be/")) eUrl = eUrl.replace("youtu.be/", "youtube.com/embed/");
-                            iframe.src = eUrl;
-                        }
-                        // PowerPoint Link Viewer (Google Docs Viewer)
-                        else if (item.type === 'pptx' && item.url) {
-                            iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(item.url)}&embedded=true`;
-                        }
-                        // PDF Link Viewer
-                        else if (item.type === 'pdf' && item.url) {
-                            iframe.src = item.url;
-                        }
-                        // General Link
-                        else if (item.type === 'link' && item.url) {
-                            iframe.src = item.url;
-                            showCustomModal("BAĞLANTI", "Eğer içerik yüklenmezse sağ üstteki butondan veya direkt linkten açabilirsiniz.", "info");
-                        }
-                        // HTML / Base64 Runner (Blob Support)
-                        else if (item.body && item.body.startsWith("data:")) {
-                            const blob = await (await fetch(item.body)).blob();
-                            iframe.src = URL.createObjectURL(blob);
-                        }
-                        // Text/HTML Code Runner
-                        else if (item.body) {
-                            iframe.srcdoc = item.body;
-                        }
-                    }
-                    
-                    closeCustomModal();
-                    document.getElementById('content-overlay')?.classList.add('active');
-                }
-            } catch(e) { showCustomModal("HATA", "İçerik yüklenemedi: " + e.message, "error"); }
-        };
-
-        window.closeContentOverlay = () => {
-            document.getElementById('content-overlay')?.classList.remove('active');
-            const iframe = document.getElementById('content-iframe');
-            if(iframe) iframe.src = "about:blank";
-        };
-
-        // --- FIREBASE CORE ---
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                await syncProfile();
-                checkDailyStreak();
-                initDashboard();
-            } else {
-                document.getElementById('main-dashboard')?.classList.add('hidden');
-                document.getElementById('auth-screen')?.classList.remove('hidden');
-                document.getElementById('ai-mentor-container')?.classList.add('hidden');
-            }
+window.handleCodeLogin = async () => {
+  const code = $('login-code').value.trim();
+  if (!code) return showCustomModal('Kod gerekli', 'Öğretmeninin verdiği 6 haneli kodu yaz.', 'error');
+  try {
+    const codeSnap = await getDoc(doc(db, 'artifacts', appId, 'studentCodes', code));
+    if (!codeSnap.exists()) return showCustomModal('Kod geçersiz', 'Bu kod bulunamadı. Öğretmeninle kontrol et.', 'error');
+    const student = codeSnap.data();
+    const email = `${code}@student.sinavim`;
+    const pass = 'student123456';
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+    } catch (err) {
+      // kodla ilk giriş: hesabı şimdi aç
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+        const res = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateFbProfile(res.user, { displayName: student.studentName });
+        await setDoc(doc(db, 'artifacts', appId, 'users', res.user.uid, 'profile', 'stats'), {
+          displayName: student.studentName, xp: 0, level: 1, streak: 1, done: [],
+          lastLogin: new Date().toISOString(),
+          avatar: avatarFor(res.user.uid),
+          role: 'student', teacherId: student.teacherId
         });
+        await updateDoc(doc(db, 'artifacts', appId, 'studentCodes', code), { isUsed: true, uid: res.user.uid });
+      } else throw err;
+    }
+  } catch (e) { showCustomModal('Giriş yapılamadı', authMsg(e), 'error'); }
+};
 
-        async function syncProfile() {
-            if(!currentUser) return;
-            const statsRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'stats');
-            let snap = await getDoc(statsRef);
-            const isAdmin = ADMIN_EMAILS.includes(currentUser.email);
-            if (!snap.exists()) {
-                userData = { displayName: currentUser.displayName || 'Akademisyen', xp: 0, level: 1, streak: 1, lastLogin: new Date().toISOString(), avatar: currentUser.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.uid.substring(0,5)}`, role: isAdmin ? 'admin' : 'student' };
-                await setDoc(statsRef, userData);
-            } else { userData = snap.data(); if(isAdmin && userData.role !== 'admin'){ userData.role='admin'; await updateDoc(statsRef, {role:'admin'}); }}
-            updateUI();
-        }
+window.handleLogout = () => signOut(auth);
 
-        async function checkDailyStreak() {
-            const today = new Date().toLocaleDateString('tr-TR');
-            const lastDate = userData.lastLogin ? new Date(userData.lastLogin).toLocaleDateString('tr-TR') : null;
-            if (today !== lastDate) {
-                let yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-                let newStreak = (lastDate === yesterday.toLocaleDateString('tr-TR')) ? (userData.streak || 0) + 1 : 1;
-                await updateDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'stats'), { streak: newStreak, lastLogin: new Date().toISOString() });
-                userData.streak = newStreak; updateUI();
-            }
-        }
+['login-email', 'login-password'].forEach((id) => $(id).addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); }));
+$('login-code').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleCodeLogin(); });
+$('login-code').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, ''); });
+$('reg-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleRegister(); });
+$('coach-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendCoach(); });
 
-        function initDashboard() {
-            document.getElementById('auth-screen')?.classList.add('hidden');
-            document.getElementById('main-dashboard')?.classList.remove('hidden');
-            document.getElementById('ai-mentor-container')?.classList.remove('hidden');
-            
-            const navAdmin = document.getElementById('nav-admin');
-            const navLogs = document.getElementById('nav-logs');
-            const adminStats = document.getElementById('admin-stats-panel');
-            
-            if (userData) {
-                showWelcomeGreeting(userData.displayName);
-                if (userData.role === 'admin') { 
-                    if(navAdmin) navAdmin.style.display = 'flex'; 
-                    if(navLogs) navLogs.style.display = 'flex'; 
-                    if(adminStats) adminStats.style.display = 'block'; 
-                    showPage('admin'); 
-                } 
-                else if (userData.role === 'teacher') { 
-                    if(navAdmin) navAdmin.style.display = 'flex'; 
-                    if(navLogs) navLogs.style.display = 'none'; 
-                    if(adminStats) adminStats.style.display = 'none'; 
-                    showPage('admin'); 
-                } 
-                else { 
-                    if(navAdmin) navAdmin.style.display = 'none'; 
-                    if(navLogs) navLogs.style.display = 'none'; 
-                    showPage('pool'); 
-                }
-            }
-            listenToContents(); listenToLogs(); logActivity('Akademiye Girildi');
-        }
+/* ---------------- oturum ---------------- */
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    Object.values(unsubs).forEach((u) => u && u());
+    Object.keys(unsubs).forEach((k) => delete unsubs[k]);
+    currentUser = null; userData = null; contents = [];
+    $('app').classList.add('hidden');
+    $('auth-screen').classList.remove('hidden');
+    return;
+  }
+  currentUser = user;
+  try {
+    await syncProfile();
+    await checkDailyStreak();
+    initApp();
+  } catch (e) {
+    console.error(e);
+    showCustomModal('Bağlantı sorunu', 'Profilin yüklenemedi. Sayfayı yenileyip tekrar dene.', 'error');
+  }
+});
 
-        function showWelcomeGreeting(name) {
-            const overlay = document.getElementById('welcome-overlay');
-            const msgEl = document.getElementById('welcome-message');
-            const subEl = document.getElementById('welcome-submessage');
-            if(!overlay || !msgEl || !subEl) return;
+async function syncProfile() {
+  const ref = statsRef();
+  const snap = await getDoc(ref);
+  const isAdmin = ADMIN_EMAILS.includes(currentUser.email);
+  if (!snap.exists()) {
+    userData = {
+      displayName: currentUser.displayName || 'Öğrenci', xp: 0, level: 1, streak: 1, done: [],
+      lastLogin: new Date().toISOString(),
+      avatar: currentUser.photoURL || avatarFor(currentUser.uid),
+      role: isAdmin ? 'admin' : 'student'
+    };
+    await setDoc(ref, userData);
+  } else {
+    userData = snap.data();
+    if (isAdmin && userData.role !== 'admin') { userData.role = 'admin'; await updateDoc(ref, { role: 'admin' }); }
+  }
+  userData.done = userData.done || [];
+}
 
-            const hour = new Date().getHours();
-            let greeting = "MERHABA";
-            if (hour >= 5 && hour < 12) greeting = "GÜNAYDIN";
-            else if (hour >= 12 && hour < 18) greeting = "TÜNAYDIN";
-            else if (hour >= 18 && hour < 23) greeting = "İYİ AKŞAMLAR";
-            else greeting = "İYİ GECELER";
+async function checkDailyStreak() {
+  const today = new Date().toLocaleDateString('tr-TR');
+  const last = userData.lastLogin ? new Date(userData.lastLogin).toLocaleDateString('tr-TR') : null;
+  if (today === last) return;
+  const y = new Date(); y.setDate(y.getDate() - 1);
+  const streak = last === y.toLocaleDateString('tr-TR') ? (userData.streak || 0) + 1 : 1;
+  await updateDoc(statsRef(), { streak, lastLogin: new Date().toISOString() });
+  userData.streak = streak;
+}
 
-            const quotes = [
-                "Bugün yeni bir zirveye tırmanmaya ne dersin?",
-                "Bilgi paylaştıkça çoğalır, öğrenmeye hazır mısın?",
-                "Her soru, seni hedefine bir adım daha yaklaştırır.",
-                "Başarı, hazırlık ve fırsatın buluştuğu yerdir.",
-                "Zihin bir kas gibidir, bugün onu biraz zorlayalım!",
-                "Küçük adımlar, büyük başarıların anahtarıdır.",
-                "Hataların seni yıldırmasın, onlar en iyi öğretmenlerindir.",
-                "Bugünkü çaban, yarınki gülümsemenin kaynağı olacak.",
-                "Odaklan, inan ve başar; senin için imkansız yok!",
-                "Öğrenmek bir yolculuktur, her anın tadını çıkar.",
-                "Zorluklar seni güçlendirmek içindir, pes etme!",
-                "Dün bitti, bugün yeni bir başlangıç. Haydi harekete geç!",
-                "Kendine inan, çünkü biz sana inanıyoruz.",
-                "Başarı bir varış noktası değil, bir yolculuktur.",
-                "Bilgi en büyük güçtür ve o güç şu an senin elinde."
-            ];
-            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+function initApp() {
+  $('auth-screen').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  renderNav();
+  renderUser();
+  buildTypeChips();
+  setContentType('exam');
+  $('admin-stats').classList.toggle('hidden', userData.role !== 'admin');
+  $('admin-studio').style.gridTemplateColumns = userData.role === 'admin' ? '' : 'minmax(0,760px)';
+  startContents();
+  if (userData.role === 'admin') startLogs();
+  logActivity('Akademiye Girildi');
+  showPage(isStaff() ? 'admin' : 'home');
+}
 
-            msgEl.innerText = `${greeting}, ${name.split(' ')[0].toUpperCase()}!`;
-            subEl.innerText = randomQuote;
+/* ---------------- gezinme ---------------- */
+function renderNav() {
+  const items = NAV.filter((n) => n.roles.includes(userData.role));
+  const btn = (n) => `<button data-page="${n.id}" onclick="showPage('${n.id}')"><span class="ms">${n.icon}</span>${n.label}</button>`;
+  $('nav-top').innerHTML = items.filter((n) => n.top).map(btn).join('');
+  $('nav-tab').innerHTML = items.map(btn).join('');
+  $('menu-logs').classList.toggle('hidden', userData.role !== 'admin');
+}
 
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-            setTimeout(() => {
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.classList.remove('flex');
-                    overlay.classList.add('hidden');
-                    overlay.style.opacity = '1';
-                }, 1000);
-            }, 3000);
-        }
+window.showPage = (page) => {
+  if (page === 'admin' && !isStaff()) page = 'home';
+  if (page === 'logs' && userData?.role !== 'admin') page = 'home';
+  document.querySelectorAll('.page').forEach((s) => s.classList.toggle('active', s.id === 'page-' + page));
+  document.querySelectorAll('[data-page]').forEach((b) => b.classList.toggle('active', b.dataset.page === page));
+  closeMenu();
+  window.scrollTo(0, 0);
+};
 
-        function updateUI() {
-            if (!userData) return;
-            const xpProgress = (userData.xp % 500 / 5) + '%';
-            const level = userData.level || 1;
-            
-            const userXpEl = document.getElementById('user-xp');
-            if(userXpEl) userXpEl.innerText = userData.xp;
-            
-            const userLevelEl = document.getElementById('user-level');
-            if(userLevelEl) userLevelEl.innerText = level;
-            
-            const userStreakEl = document.getElementById('user-streak');
-            if(userStreakEl) userStreakEl.innerText = userData.streak;
-            
-            const xpBarEl = document.getElementById('xp-bar');
-            if(xpBarEl) xpBarEl.style.width = xpProgress;
-            
-            const userNameMiniEl = document.getElementById('user-name-mini');
-            if(userNameMiniEl) userNameMiniEl.innerText = userData.displayName;
-            
-            document.querySelectorAll('#user-avatar-mini, #settings-avatar-preview').forEach(img => img.src = userData.avatar);
-            
-            const sideLevelTagEl = document.getElementById('side-level-tag');
-            if(sideLevelTagEl) sideLevelTagEl.innerText = level;
-            
-            const sideXpMiniEl = document.getElementById('side-xp-mini');
-            if(sideXpMiniEl) sideXpMiniEl.innerText = `${userData.xp} XP`;
-            
-            const cardNameDisplayEl = document.getElementById('card-name-display');
-            if(cardNameDisplayEl) cardNameDisplayEl.innerText = userData.displayName;
-            
-            const cardRoleDisplayEl = document.getElementById('card-role-display');
-            if(cardRoleDisplayEl) cardRoleDisplayEl.innerText = `LEVEL ${level} ${userData.role.toUpperCase()}`;
-            
-            const cardXpBarEl = document.getElementById('card-xp-bar');
-            if(cardXpBarEl) cardXpBarEl.style.width = xpProgress;
-            
-            const cardXpTextEl = document.getElementById('card-xp-text');
-            if(cardXpTextEl) cardXpTextEl.innerText = `${userData.xp % 500} / 500 XP`;
-            
-            const setNameEl = document.getElementById('set-name');
-            if(setNameEl) setNameEl.value = userData.displayName;
-        }
+window.toggleMenu = (e) => { e.stopPropagation(); $('user-menu').classList.toggle('hidden'); };
+function closeMenu() { $('user-menu').classList.add('hidden'); }
+document.addEventListener('click', (e) => { if (!e.target.closest('.menu-wrap')) closeMenu(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  closeMenu(); closeCustomModal();
+  if (!$('viewer').classList.contains('hidden')) closeViewer();
+  if ($('coach').classList.contains('open')) toggleCoach();
+});
 
-        // --- GEMINI AI ---
-        async function callGemini(prompt, systemMsg = "") {
-            const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
-            try {
-                document.getElementById('ai-status')?.classList.remove('hidden');
-                // Stable v1 REST API compatibility: Prepend system message to prompt
-                const fullPrompt = systemMsg ? `${systemMsg}\n\nKullanıcı Mesajı: ${prompt}` : prompt;
-                
-                const res = await fetch(url, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ 
-                        contents: [{ parts: [{ text: fullPrompt }] }]
-                    }) 
-                });
-                const data = await res.json();
-                document.getElementById('ai-status')?.classList.add('hidden');
-                if (data.error) {
-                    console.error("Gemini API Error:", data.error);
-                    return `Hata: ${data.error.message}`;
-                }
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Hata: Yanıt alınamadı.";
-            } catch (e) { 
-                console.error("Gemini Fetch Error:", e);
-                return "Bağlantı hatası: API anahtarınızı veya internetinizi kontrol edin."; 
-            }
-        }
+/* ---------------- kullanıcı bilgisi ---------------- */
+function leagueOf(level) {
+  let i = 0;
+  LEAGUES.forEach((l, k) => { if (level >= l.from) i = k; });
+  const cur = LEAGUES[i], next = LEAGUES[i + 1];
+  const pct = next ? Math.round(((level - cur.from) / (next.from - cur.from)) * 100) : 100;
+  return { cur, next, pct };
+}
 
-        window.sendAIMessage = async () => {
-            const input = document.getElementById('ai-input');
-            const chat = document.getElementById('ai-chat-box');
-            if(!input || !chat) return;
-            
-            const text = input.value.trim(); if (!text) return;
-            chat.innerHTML += `<div class="ai-bubble-user p-8 font-black text-sm self-end ml-auto max-w-[90%] shadow-2xl">${text}</div>`;
-            input.value = "";
-            const botDiv = document.createElement('div'); botDiv.className = "ai-bubble-bot p-8 font-bold text-sm self-start max-w-[90%] shadow-sm";
-            botDiv.innerHTML = '<div class="spinner border-primary border-t-transparent w-8 h-8 border-4"></div>'; chat.appendChild(botDiv); chat.scrollTop = chat.scrollHeight;
-            const res = await callGemini(text, "Sınavım uzman asistanısın.");
-            botDiv.innerHTML = res.replace(/\n/g, '<br>'); chat.scrollTop = chat.scrollHeight;
-        };
+function renderUser() {
+  if (!userData) return;
+  const xp = userData.xp || 0;
+  const level = userData.level || 1;
+  const inLevel = xp % XP_PER_LEVEL;
+  const pct = (inLevel / XP_PER_LEVEL) * 100 + '%';
 
-        window.generateAIContent = async () => {
-            const titleEl = document.getElementById('content-title');
-            if(!titleEl) return;
-            const title = titleEl.value.trim();
-            if (!title) return showCustomModal("BAŞLIK YOK", "Önce bir başlık yazın.", "error");
-            const res = await callGemini(`'${title}' için akademik ders notu hazırla. HTML formatında olsun.`, "İçerik asistanı.");
-            const bodyEl = document.getElementById('content-body');
-            if(bodyEl) bodyEl.value = res;
-        };
+  $('top-xp').textContent = xp;
+  $('top-streak').textContent = userData.streak || 1;
+  $('top-avatar').src = userData.avatar;
+  $('menu-name').textContent = userData.displayName;
+  $('menu-role').textContent = ROLE_LABEL[userData.role] || '';
 
-        // --- CONTENT FLOW ---
-        window.setContentType = (type) => {
-            currentContentType = type;
-            document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('bg-white', 'shadow-xl', 'text-primary'));
-            const typeEl = document.getElementById('type-' + type);
-            if(typeEl) typeEl.classList.add('bg-white', 'shadow-xl', 'text-primary');
-            
-            const urlField = document.getElementById('url-field');
-            if(urlField) urlField.style.display = (type === 'video' || type === 'wordwall') ? 'block' : 'none';
-            
-            const fileField = document.getElementById('file-field');
-            if(fileField) fileField.style.display = (type === 'exam' || type === 'doc' || type === 'game') ? 'block' : 'none';
-            
-            const codeField = document.getElementById('code-field');
-            if(codeField) codeField.style.display = (type === 'doc' || type === 'game' || type === 'duyuru') ? 'block' : 'none';
-        };
+  $('settings-avatar-preview').src = pendingPhoto || userData.avatar;
+  $('card-name-display').textContent = userData.displayName;
+  $('card-role-display').textContent = ROLE_LABEL[userData.role] || '';
+  $('card-level').textContent = level;
+  $('card-xp-text').textContent = `${inLevel} / ${XP_PER_LEVEL} XP`;
+  $('card-xp-bar').style.width = pct;
+  $('set-name').value = userData.displayName;
+  $('set-email').value = currentUser?.email || 'Kodla giriş yapıldı';
 
-        window.publishContent = async () => {
-            if (userData.role === 'student') return showCustomModal("YETKİSİZ", "Öğrenciler içerik paylaşamaz.", "error");
-            
-            const titleEl = document.getElementById('content-title');
-            const bodyEl = document.getElementById('content-body');
-            const urlEl = document.getElementById('content-url');
-            
-            if(!titleEl || !bodyEl || !urlEl) return;
-            
-            const title = titleEl.value.trim();
-            if (!title) return showCustomModal("BAŞLIK GEREKLİ", "Başlık zorunludur.", "error");
-            let finalBody = currentUploadedContentBase64 || bodyEl.value;
-            try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'contents'), { type: currentContentType, title, body: finalBody, url: urlEl.value, author: userData.displayName, timestamp: serverTimestamp() });
-                await addXP(50); logActivity(`Yayınladı: ${title}`);
-                showCustomModal("BAŞARILI", "Kütüphaneye eklendi!", "success");
-                titleEl.value = ""; bodyEl.value = ""; currentUploadedContentBase64 = null;
-            } catch (e) { showCustomModal("HATA", "İşlem başarısız.", "error"); }
-        };
+  const h = new Date().getHours();
+  const hi = h < 5 ? 'İyi geceler' : h < 12 ? 'Günaydın' : h < 18 ? 'İyi günler' : h < 23 ? 'İyi akşamlar' : 'İyi geceler';
+  $('home-greet').textContent = `${hi}, ${userData.displayName.split(' ')[0]}`;
+  $('home-sub').textContent = xp === 0
+    ? 'İlk görevini tamamla, ilk XP\'ni kazan.'
+    : `Sonraki seviyeye ${XP_PER_LEVEL - inLevel} XP var.`;
+  $('home-level').textContent = level;
+  $('home-xp').textContent = inLevel;
+  $('home-bar').style.width = pct;
 
-        function listenToContents() {
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'contents'), (snap) => {
-                const pool = document.getElementById('pool-list');
-                const games = document.getElementById('games-list');
-                if(!pool || !games) return;
-                
-                pool.innerHTML = ""; games.innerHTML = "";
-                let gameCount = 0;
-                
-                snap.docs.forEach(docSnap => {
-                    const item = docSnap.data(); const id = docSnap.id;
-                    pool.innerHTML += `<div class="bg-white p-10 rounded-[3.5rem] border border-outline-variant/10 shadow-2xl group hover:shadow-2xl transition-all relative overflow-hidden">
-                        <div class="flex justify-between items-start mb-6"><span class="text-[9px] font-black uppercase px-4 py-1.5 bg-primary/10 text-primary rounded-full">${item.type}</span><span class="text-[10px] font-black opacity-30 uppercase tracking-widest">${item.author}</span></div>
-                        <h4 class="font-black text-2xl mb-12 truncate uppercase tracking-tighter">${item.title}</h4>
-                        <button onclick="viewContentInSite('${id}')" class="w-full py-5 bg-primary/5 text-primary rounded-3xl font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Görüntüle</button>
-                    </div>`;
-                    if (item.type === 'game' || item.type === 'wordwall') {
-                        gameCount++;
-                        games.innerHTML += `<div class="bg-white p-10 rounded-[4rem] border border-outline-variant/10 shadow-2xl cursor-pointer flex flex-col justify-between hover:-translate-y-2 transition-all shadow-inner" onclick="viewContentInSite('${id}')">
-                            <div class="flex justify-between items-start mb-8"><div class="w-16 h-16 rounded-[2rem] bg-secondary/10 flex items-center justify-center text-secondary shadow-inner"><span class="material-symbols-outlined text-4xl">${item.type==='wordwall'?'link':'sports_esports'}</span></div><span class="bg-primary text-white text-[9px] font-black px-4 py-2 rounded-full uppercase">OYNA</span></div>
-                            <div><h4 class="font-black text-2xl mb-3 uppercase truncate leading-tight">${item.title}</h4></div>
-                        </div>`;
-                    }
-                });
-                const statTotal = document.getElementById('stat-total'); if(statTotal) statTotal.innerText = snap.size;
-                const noGames = document.getElementById('no-games-msg'); if(noGames) noGames.style.display = gameCount === 0 ? 'flex' : 'none';
-            });
-        }
+  const streak = Math.max(1, userData.streak || 1);
+  const names = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
+  let week = '';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const on = i < streak;
+    week += `<div class="day ${on ? 'on' : ''} ${i === 0 ? 'today' : ''}"><i>${on ? '<span class="ms">check</span>' : ''}</i>${i === 0 ? 'Bugün' : names[d.getDay()]}</div>`;
+  }
+  $('home-week').innerHTML = week;
+  $('home-streak-note').textContent = streak === 1 ? 'Bugün seriye başladın. Yarın da gel!' : `${streak} gün üst üste çalıştın.`;
 
-        async function logActivity(action) { if (!currentUser) return; await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'logs'), { email: currentUser.email, action, timestamp: serverTimestamp() }); }
-        function listenToLogs() { onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'logs'), (snap) => { const tbody = document.getElementById('logs-table-body'); if (!tbody) return; tbody.innerHTML = ""; const todayStr = new Date().toLocaleDateString('tr-TR'); const logs = snap.docs.map(d => d.data()).sort((a,b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0)); logs.forEach(log => { const date = log.timestamp ? new Date(log.timestamp.seconds * 1000) : new Date(); tbody.innerHTML += `<tr class="hover:bg-primary/5 transition-all"><td class="px-14 py-10 font-black text-sm text-primary uppercase">${log.email.split('@')[0]}</td><td class="px-14 py-10 text-sm font-bold opacity-70">${log.action}</td><td class="px-14 py-10 text-[11px] font-black opacity-30 text-right uppercase tracking-widest">${date.toLocaleString('tr-TR')}</td></tr>`; }); const statLogins = document.getElementById('stat-logins'); if (statLogins) statLogins.innerText = logs.filter(l => new Date(l.timestamp?.seconds*1000).toLocaleDateString('tr-TR') === todayStr).length; }); }
-        window.updateProfile = async () => { const setNameEl = document.getElementById('set-name'); if(!setNameEl) return; const name = setNameEl.value.trim(); const photo = currentPhotoBase64 || userData.avatar; try { await updateDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'stats'), { displayName: name, avatar: photo }); userData.displayName = name; userData.avatar = photo; updateUI(); showCustomModal("BAŞARILI", "Profil güncellendi!", "success"); } catch (e) { showCustomModal("HATA", "Kaydedilemedi.", "error"); } };
-        async function addXP(amount) { 
-            if(!userData) return; 
-            let newXP = (userData.xp || 0) + amount; 
-            let newLevel = Math.floor(newXP / 500) + 1; 
-            await updateDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'stats'), { xp: newXP, level: newLevel }); 
-            userData.xp = newXP; 
-            if(newLevel > (userData.level || 1)) { 
-                userData.level = newLevel; 
-                // CELEBRATION
-                if (window.confetti) {
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#4a7c59', '#a67c52', '#ffffff'] });
-                }
-                const audio = document.getElementById('levelup-sound');
-                if (audio) audio.play().catch(e => console.log("Audio play failed:", e));
-                
-                showCustomModal("LEVEL UP!", `Tebrikler! ${newLevel}. Seviyeye ulaştın! 🚀`, "success"); 
-            } 
-            updateUI(); 
-        }
-        window.showPage = (page) => { document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active')); const target = document.getElementById('page-' + page); if (target) target.classList.add('active'); document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); const btn = document.querySelector(`.nav-btn[data-page="${page}"]`); if(btn) btn.classList.add('active'); const titleMap = { admin: 'Yönetim', pool: 'Havuz', games: 'Oyunlar', settings: 'Profil', logs: 'Kayıtlar', help: 'Destek' }; const titleEl = document.getElementById('page-title'); if(titleEl) titleEl.innerText = titleMap[page] || 'Sınavım'; };
-        window.toggleAIMentor = () => { const drawer = document.getElementById('ai-mentor-drawer'); if(drawer) drawer.classList.toggle('open'); };
-        
-        window.handleLogin = async () => { const emailEl = document.getElementById('login-email'); const passEl = document.getElementById('login-password'); if(!emailEl || !passEl) return; try { await signInWithEmailAndPassword(auth, emailEl.value, passEl.value); } catch (e) { showCustomModal("HATA", "Giriş başarısız.", "error"); } };
-        window.handleGoogleLogin = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch (e) { showCustomModal("HATA", "Google hatası.", "error"); } };
-        window.handleRegister = async () => { 
-            const nameEl = document.getElementById('reg-name'); const emailEl = document.getElementById('reg-email'); const passEl = document.getElementById('reg-password');
-            if(!nameEl || !emailEl || !passEl) return;
-            const name = nameEl.value; const email = emailEl.value; const pass = passEl.value; 
-            const roleRadio = document.querySelector('input[name="reg-role"]:checked');
-            const role = roleRadio ? roleRadio.value : 'student'; 
-            if (pass.length < 6) return showCustomModal("GÜVENLİK", "Şifre kısa.", "error"); 
-            try { 
-                const res = await createUserWithEmailAndPassword(auth, email, pass); 
-                await updateFbProfile(res.user, { displayName: name }); 
-                await setDoc(doc(db, 'artifacts', appId, 'users', res.user.uid, 'profile', 'stats'), { displayName: name, xp: 0, level: 1, streak: 1, lastLogin: new Date().toISOString(), avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${res.user.uid.substring(0,5)}`, role: ADMIN_EMAILS.includes(email) ? 'admin' : role }); 
-                showCustomModal("BAŞARILI", "Hesap açıldı!", "success"); 
-            } catch (e) { showCustomModal("HATA", e.message, "error"); } 
-        };
-        window.handleLogout = () => { if(confirm("Çıkış?")) signOut(auth); };
-        
-    }); // DOMContentLoaded SONU
+  const lg = leagueOf(level);
+  $('home-league').innerHTML = `
+    <div class="league-badge"><span class="ms">${lg.cur.icon}</span></div>
+    <h3>${lg.cur.name}</h3>
+    <p>${lg.next ? `${lg.next.name}'ne ${lg.next.from - level} seviye kaldı.` : 'En üst ligdesin, tebrikler!'}</p>
+    <div class="bar"><i style="width:${lg.pct}%"></i></div>`;
+
+  renderContents();
+}
+
+window.handleUserPhotoUpload = (input) => {
+  const file = input.files?.[0];
+  if (!file) return;
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = () => {
+    const s = 256, c = document.createElement('canvas');
+    c.width = c.height = s;
+    const m = Math.min(img.width, img.height);
+    c.getContext('2d').drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, s, s);
+    pendingPhoto = c.toDataURL('image/jpeg', 0.85);
+    $('settings-avatar-preview').src = pendingPhoto;
+    URL.revokeObjectURL(url);
+    toast('Fotoğraf hazır. Kaydet\'e basmayı unutma.');
+  };
+  img.src = url;
+};
+
+window.updateProfile = async () => {
+  const name = $('set-name').value.trim();
+  if (!name) return showCustomModal('Ad boş olamaz', 'Görünen adını yaz.', 'error');
+  const avatar = pendingPhoto || userData.avatar;
+  try {
+    await updateDoc(statsRef(), { displayName: name, avatar });
+    try { await updateFbProfile(currentUser, { displayName: name }); } catch (_) {}
+    userData.displayName = name; userData.avatar = avatar; pendingPhoto = null;
+    renderUser();
+    toast('Profilin güncellendi');
+  } catch (e) { showCustomModal('Kaydedilemedi', 'Profil güncellenemedi, tekrar dene.', 'error'); }
+};
+
+/* ---------------- XP ---------------- */
+async function addXP(amount, extra = {}) {
+  if (!userData) return;
+  const xp = (userData.xp || 0) + amount;
+  const level = Math.floor(xp / XP_PER_LEVEL) + 1;
+  const prev = userData.level || 1;
+  await updateDoc(statsRef(), { xp, level, ...extra });
+  userData.xp = xp; userData.level = level;
+  renderUser();
+  if (level > prev) {
+    if (window.confetti) confetti({ particleCount: 140, spread: 75, origin: { y: 0.6 }, colors: ['#2b7550', '#c9a044', '#ffffff'] });
+    $('levelup-sound').play().catch(() => {});
+    showCustomModal('Seviye atladın!', `${level}. seviyeye ulaştın.`, 'success');
+  }
+}
+
+/* ---------------- içerik listesi ---------------- */
+function startContents() {
+  if (unsubs.contents) unsubs.contents();
+  unsubs.contents = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'contents'), (snap) => {
+    contents = snap.docs.map((d) => ({ id: d.id, ...d.data() })).sort((a, b) => tsOf(b) - tsOf(a));
+    $('stat-total').textContent = contents.length;
+    renderContents();
+  });
+}
+
+function cardHTML(item, cta) {
+  const t = TYPES[item.type] || TYPES.doc;
+  const isDone = (userData?.done || []).includes(item.id);
+  return `<button class="item" onclick="openContent('${item.id}')">
+    <div class="item-top">
+      <div class="tile" style="background:${t.bg};color:${t.c}"><span class="ms">${t.icon}</span></div>
+      <span class="tag" style="background:${t.bg};color:${t.c}">${t.label}</span>
+    </div>
+    <h4>${esc(item.title)}</h4>
+    <div class="item-foot"><span>${esc(item.author || '')}</span>
+      ${isDone ? '<span class="done"><span class="ms">check_circle</span>Bitti</span>' : `<span class="done">${cta}</span>`}
+    </div>
+  </button>`;
+}
+
+function emptyHTML(icon, title, hint = '') {
+  return `<div class="empty" style="grid-column:1/-1"><span class="ms">${icon}</span><div>${title}</div>${hint ? `<small>${hint}</small>` : ''}</div>`;
+}
+
+function renderContents() {
+  if (!userData) return;
+
+  // ana sayfa
+  const counts = {};
+  contents.forEach((c) => { counts[c.type] = (counts[c.type] || 0) + 1; });
+  const tiles = Object.keys(TYPES).filter((k) => counts[k]);
+  $('home-tiles').innerHTML = tiles.length
+    ? tiles.map((k) => { const t = TYPES[k]; return `<button class="tile-btn" onclick="filterFromHome('${k}')">
+        <div class="tile" style="background:${t.bg};color:${t.c}"><span class="ms">${t.icon}</span></div>
+        <div><b>${t.label}</b><small>${counts[k]} içerik</small></div></button>`; }).join('')
+    : emptyHTML('inbox', 'Henüz içerik eklenmedi', 'Öğretmenin yayınladıkça burada görünecek.');
+
+  $('home-recent').innerHTML = contents.length
+    ? contents.slice(0, 6).map((c) => { const t = TYPES[c.type] || TYPES.doc; const d = (userData.done || []).includes(c.id);
+        return `<button class="row" onclick="openContent('${c.id}')">
+          <div class="tile" style="background:${t.bg};color:${t.c}"><span class="ms">${t.icon}</span></div>
+          <div class="grow"><h4>${esc(c.title)}</h4><p>${t.label} &middot; ${esc(c.author || '')}</p></div>
+          ${d ? '<span class="done"><span class="ms">check_circle</span></span>' : '<span class="ms go">chevron_right</span>'}</button>`; }).join('')
+    : '';
+
+  const notices = contents.filter((c) => c.type === 'duyuru').slice(0, 2);
+  $('home-notices').innerHTML = notices.map((c) => `<button class="notice" onclick="openContent('${c.id}')">
+      <span class="ms">campaign</span><div><b>${esc(c.title)}</b><small>${esc(c.author || '')}</small></div></button>`).join('');
+
+  // içerikler sayfası
+  const chips = [['all', 'Hepsi', contents.length]].concat(Object.keys(TYPES).filter((k) => counts[k]).map((k) => [k, TYPES[k].label, counts[k]]));
+  $('pool-chips').innerHTML = chips.map(([k, l, n]) => `<button class="chip ${filterType === k ? 'on' : ''}" onclick="setFilter('${k}')">${l} (${n})</button>`).join('');
+  const q = searchTerm.toLocaleLowerCase('tr');
+  const shown = contents.filter((c) => (filterType === 'all' || c.type === filterType)
+    && (!q || (c.title || '').toLocaleLowerCase('tr').includes(q) || (c.author || '').toLocaleLowerCase('tr').includes(q)));
+  $('pool-list').innerHTML = shown.length ? shown.map((c) => cardHTML(c, 'Aç')).join('')
+    : emptyHTML('search_off', contents.length ? 'Aramana uyan içerik yok' : 'Henüz içerik yok', contents.length ? 'Filtreyi değiştirmeyi dene.' : '');
+
+  // oyunlar
+  const games = contents.filter((c) => GAME_TYPES.includes(c.type));
+  $('games-list').innerHTML = games.length ? games.map((c) => cardHTML(c, 'Oyna')).join('')
+    : emptyHTML('sports_esports', 'Henüz oyun yok', 'Öğretmenin oyun eklediğinde burada görünecek.');
+}
+
+window.setSearch = (v) => { searchTerm = v.trim(); renderContents(); };
+window.setFilter = (t) => { filterType = t; renderContents(); };
+window.filterFromHome = (t) => { filterType = t; renderContents(); showPage('pool'); };
+
+/* ---------------- içerik görüntüleyici ---------------- */
+const SANDBOX = 'allow-scripts allow-forms allow-popups allow-modals allow-presentation allow-pointer-lock';
+
+function youtubeEmbed(url) {
+  try {
+    const u = new URL(url);
+    let id = '';
+    if (u.hostname.includes('youtu.be')) id = u.pathname.slice(1);
+    else if (u.pathname.startsWith('/shorts/') || u.pathname.startsWith('/embed/')) id = u.pathname.split('/')[2];
+    else id = u.searchParams.get('v') || '';
+    return id ? `https://www.youtube.com/embed/${id}` : url;
+  } catch (_) { return url; }
+}
+
+function plainToHtml(text) {
+  return `<!doctype html><meta charset="utf-8"><body style="font-family:system-ui,sans-serif;line-height:1.7;padding:2rem;max-width:760px;margin:auto;white-space:pre-wrap;color:#1b2922">${esc(text)}</body>`;
+}
+
+window.openContent = async (id) => {
+  const item = contents.find((c) => c.id === id);
+  if (!item) return;
+  openItem = item;
+  const t = TYPES[item.type] || TYPES.doc;
+  $('viewer-title').textContent = item.title;
+  $('viewer-type').textContent = `${t.label} · ${item.author || ''}`;
+  $('viewer-icon').style.cssText = `background:${t.bg};color:${t.c}`;
+  $('viewer-icon').firstElementChild.textContent = t.icon;
+  $('viewer-foot').classList.toggle('hidden', !DONE_TYPES.includes(item.type));
+
+  const frame = $('viewer-frame');
+  const ext = $('viewer-ext');
+  frame.removeAttribute('srcdoc');
+  frame.removeAttribute('sandbox');
+  if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+  let external = '';
+
+  try {
+    if (item.type === 'wordwall' && item.url) {
+      external = item.url;
+      frame.src = item.url.replace('/resource/', '/embed/resource/').replace('/play/', '/embed/play/');
+    } else if (item.type === 'video' && item.url) {
+      external = item.url;
+      frame.src = youtubeEmbed(item.url);
+    } else if (item.type === 'pptx' && item.url) {
+      external = item.url;
+      frame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(item.url)}&embedded=true`;
+    } else if ((item.type === 'pdf' || item.type === 'link') && item.url) {
+      external = item.url;
+      frame.src = item.url;
+    } else if (item.body && item.body.startsWith('data:text/html')) {
+      // Yüklenen HTML dosyası: ana sayfadan yalıtılmış çalışır
+      frame.setAttribute('sandbox', SANDBOX);
+      frame.srcdoc = await (await fetch(item.body)).text();
+    } else if (item.body && item.body.startsWith('data:')) {
+      blobUrl = URL.createObjectURL(await (await fetch(item.body)).blob());
+      frame.src = blobUrl;
+    } else if (item.body) {
+      frame.setAttribute('sandbox', SANDBOX);
+      frame.srcdoc = /<[a-z!][\s\S]*>/i.test(item.body) ? item.body : plainToHtml(item.body);
+    } else {
+      frame.src = 'about:blank';
+    }
+  } catch (e) {
+    return showCustomModal('İçerik açılamadı', 'Bir sorun oluştu, biraz sonra tekrar dene.', 'error');
+  }
+
+  ext.classList.toggle('hidden', !external);
+  if (external) ext.href = external;
+  $('viewer').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeViewer = () => {
+  $('viewer').classList.add('hidden');
+  const frame = $('viewer-frame');
+  frame.removeAttribute('srcdoc');
+  frame.src = 'about:blank';
+  if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+  document.body.style.overflow = '';
+  openItem = null;
+};
+
+window.completeTask = async () => {
+  if (!openItem) return;
+  const item = openItem;
+  if ((userData.done || []).includes(item.id)) {
+    closeViewer();
+    return toast('Bu görevi zaten tamamladın.');
+  }
+  try {
+    userData.done = [...(userData.done || []), item.id];
+    await addXP(TASK_XP, { done: arrayUnion(item.id) });
+    logActivity(`Tamamladı: ${item.title}`);
+    closeViewer();
+    toast(`+${TASK_XP} XP kazandın`);
+  } catch (e) {
+    userData.done = userData.done.filter((x) => x !== item.id);
+    showCustomModal('Kaydedilemedi', 'XP eklenemedi, tekrar dene.', 'error');
+  }
+};
+
+/* ---------------- yönetim ---------------- */
+function buildTypeChips() {
+  $('type-chips').innerHTML = Object.entries(TYPES).map(([k, t]) => `<button class="chip" id="type-${k}" onclick="setContentType('${k}')">${t.label}</button>`).join('');
+}
+
+const URL_LABELS = { video: 'YouTube bağlantısı', wordwall: 'Wordwall bağlantısı', pdf: 'PDF bağlantısı', pptx: 'Sunum bağlantısı (herkese açık olmalı)', link: 'Sayfa adresi' };
+
+window.setContentType = (type) => {
+  currentContentType = type;
+  document.querySelectorAll('#type-chips .chip').forEach((b) => b.classList.toggle('on', b.id === 'type-' + type));
+  $('url-field').classList.toggle('hidden', !URL_TYPES.includes(type));
+  $('file-field').classList.toggle('hidden', !FILE_TYPES.includes(type));
+  $('code-field').classList.toggle('hidden', !TEXT_TYPES.includes(type));
+  $('url-label').textContent = URL_LABELS[type] || 'Bağlantı';
+};
+
+window.handleContentFileUpload = (input) => {
+  const file = input.files?.[0];
+  if (!file) return;
+  if (file.size > 700 * 1024) {
+    input.value = '';
+    return showCustomModal('Dosya çok büyük', 'En fazla 700 KB yükleyebilirsin. Büyük dosyaları PDF türüyle bağlantı olarak ekle.', 'error');
+  }
+  $('file-name-display').textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = (e) => { uploadedBase64 = e.target.result; };
+  reader.readAsDataURL(file);
+};
+
+window.publishContent = async () => {
+  if (!isStaff()) return showCustomModal('Yetki yok', 'İçeriği yalnızca öğretmenler yayınlayabilir.', 'error');
+  const title = $('content-title').value.trim();
+  const url = $('content-url').value.trim();
+  const useText = TEXT_TYPES.includes(currentContentType);
+  const body = uploadedBase64 || (useText ? $('content-body').value.trim() : '');
+
+  if (!title) return showCustomModal('Başlık gerekli', 'İçeriğe bir başlık yaz.', 'error');
+  if (URL_TYPES.includes(currentContentType) && !/^https?:\/\//i.test(url)) return showCustomModal('Bağlantı hatalı', 'Bağlantı http:// veya https:// ile başlamalı.', 'error');
+  if (!URL_TYPES.includes(currentContentType) && !body) return showCustomModal('İçerik boş', 'Bir dosya yükle ya da metin yaz.', 'error');
+
+  try {
+    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'contents'), {
+      type: currentContentType, title, body,
+      url: URL_TYPES.includes(currentContentType) ? url : '',
+      author: userData.displayName, timestamp: serverTimestamp()
+    });
+    await addXP(PUBLISH_XP);
+    logActivity(`Yayınladı: ${title}`);
+    $('content-title').value = ''; $('content-body').value = ''; $('content-url').value = '';
+    $('file-upload').value = ''; $('file-name-display').textContent = 'Dosya seçmek için tıkla';
+    uploadedBase64 = null;
+    toast('İçerik yayınlandı');
+  } catch (e) { showCustomModal('Yayınlanamadı', 'İçerik kaydedilemedi. Dosya çok büyük olabilir.', 'error'); }
+};
+
+window.setAdminTab = (tab) => {
+  $('tab-studio').classList.toggle('on', tab === 'studio');
+  $('tab-students').classList.toggle('on', tab === 'students');
+  $('admin-studio').classList.toggle('hidden', tab !== 'studio');
+  $('admin-students').classList.toggle('hidden', tab !== 'students');
+  if (tab === 'students') listenToStudents();
+};
+
+window.createStudentAccount = async () => {
+  const name = $('new-student-name').value.trim();
+  if (!name) return showCustomModal('Ad gerekli', 'Öğrencinin adını yaz.', 'error');
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  try {
+    await setDoc(doc(db, 'artifacts', appId, 'studentCodes', code), {
+      studentName: name, teacherId: currentUser.uid, teacherName: userData.displayName,
+      createdAt: serverTimestamp(), isUsed: false
+    });
+    $('new-student-name').value = '';
+    logActivity(`Öğrenci kodu oluşturdu: ${name}`);
+    showCustomModal('Kod hazır', `${name} için giriş kodu:\n${code}`, 'success');
+  } catch (e) { showCustomModal('Kod oluşturulamadı', 'Tekrar dene.', 'error'); }
+};
+
+window.copyCode = (code) => { navigator.clipboard?.writeText(code).then(() => toast('Kod kopyalandı')); };
+
+function listenToStudents() {
+  if (unsubs.students) unsubs.students();
+  unsubs.students = onSnapshot(collection(db, 'artifacts', appId, 'studentCodes'), (snap) => {
+    const mine = snap.docs.filter((d) => d.data().teacherId === currentUser.uid);
+    $('teacher-students-list').innerHTML = mine.length ? mine.map((d) => {
+      const s = d.data();
+      return `<div class="student">
+        <div class="grow"><b>${esc(s.studentName)}</b><div class="code">${d.id}</div></div>
+        <span class="badge ${s.isUsed ? 'ok' : ''}">${s.isUsed ? 'Giriş yaptı' : 'Bekliyor'}</span>
+        <button class="icon-btn" onclick="copyCode('${d.id}')" aria-label="Kodu kopyala"><span class="ms">content_copy</span></button>
+      </div>`; }).join('')
+      : '<div class="empty"><span class="ms">group</span><div>Henüz öğrenci yok</div></div>';
+  });
+}
+
+/* ---------------- kayıtlar ---------------- */
+async function logActivity(action) {
+  if (!currentUser) return;
+  try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'logs'), { email: currentUser.email || 'kod-girisi', action, timestamp: serverTimestamp() }); } catch (_) {}
+}
+
+function startLogs() {
+  if (unsubs.logs) unsubs.logs();
+  unsubs.logs = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'logs'), (snap) => {
+    const logs = snap.docs.map((d) => d.data()).sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+    const today = new Date().toLocaleDateString('tr-TR');
+    $('stat-logins').textContent = logs.filter((l) => l.action === 'Akademiye Girildi' && l.timestamp && new Date(l.timestamp.seconds * 1000).toLocaleDateString('tr-TR') === today).length;
+    $('logs-table-body').innerHTML = logs.slice(0, 100).map((l) => {
+      const d = l.timestamp ? new Date(l.timestamp.seconds * 1000) : new Date();
+      return `<tr><td>${esc((l.email || '').split('@')[0])}</td><td>${esc(l.action)}</td><td>${d.toLocaleString('tr-TR')}</td></tr>`;
+    }).join('');
+  });
+}
+
+/* ---------------- soru koçu ---------------- */
+window.toggleCoach = () => {
+  const open = !$('coach').classList.contains('open');
+  $('coach').classList.toggle('open', open);
+  $('coach-scrim').classList.toggle('hidden', !open);
+  if (open) setTimeout(() => $('coach-input').focus(), 300);
+};
+
+async function askGemini(history, system) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: system }] },
+        contents: history.map((m) => ({ role: m.role, parts: [{ text: m.text }] }))
+      })
+    });
+    const data = await res.json();
+    if (data.error) { console.error(data.error); return null; }
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+  } catch (e) { console.error(e); return null; }
+}
+
+const COACH_SYSTEM = 'Sen Sınavım platformunda öğrencilere yardım eden, Türkçe konuşan bir ders koçusun. Kısa, net ve arkadaşça yanıt ver. Cevabı doğrudan vermek yerine önce yol göster, gerekirse örnek çöz.';
+
+function fmt(t) {
+  return esc(t).replace(/^\s*[*-]\s+/gm, '• ').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+}
+
+window.askSuggested = (btn) => { $('coach-input').value = btn.textContent; sendCoach(); };
+
+window.sendCoach = async () => {
+  const input = $('coach-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const chat = $('coach-chat');
+  $('coach-suggest')?.remove();
+  chat.insertAdjacentHTML('beforeend', `<div class="bub me">${esc(text)}</div>`);
+  input.value = '';
+  const wait = document.createElement('div');
+  wait.className = 'bub bot';
+  wait.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+  chat.appendChild(wait);
+  chat.scrollTop = chat.scrollHeight;
+
+  coachHistory.push({ role: 'user', text });
+  const reply = await askGemini(coachHistory.slice(-10), COACH_SYSTEM);
+  if (reply) { coachHistory.push({ role: 'model', text: reply }); wait.innerHTML = fmt(reply); }
+  else { coachHistory.pop(); wait.textContent = 'Şu an yanıt veremiyorum. Biraz sonra tekrar dene.'; }
+  chat.scrollTop = chat.scrollHeight;
+};
+
+window.generateDraft = async () => {
+  const title = $('content-title').value.trim();
+  if (!title) return showCustomModal('Başlık gerekli', 'Taslak için önce başlığı yaz.', 'error');
+  const btn = $('draft-btn');
+  btn.disabled = true; btn.lastChild.textContent = 'Yazılıyor...';
+  const res = await askGemini([{ role: 'user', text: `"${title}" konusu için öğrencilere yönelik kısa bir ders notu hazırla. Sadece HTML gövde içeriği ver (h2, p, ul kullan), kod bloğu işareti kullanma.` }], 'Sen bir öğretmen yardımcısısın. Türkçe yaz.');
+  btn.disabled = false; btn.lastChild.textContent = 'Taslak yaz';
+  if (!res) return showCustomModal('Taslak yazılamadı', 'Şu an taslak hazırlanamadı. Biraz sonra tekrar dene.', 'error');
+  $('content-body').value = res.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/, '').trim();
+};
 </script>
 </body>
 </html>
