@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sınavım</title>
 <meta name="theme-color" content="#0b2a5b">
-<link rel="icon" type="image/png" href="icon.png">
+<link rel="icon" type="image/png" href="/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -326,6 +326,121 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--g9);color:#fff;font-weight:700;padding:.75rem 1.3rem;border-radius:14px;z-index:400;transition:all .25s;box-shadow:var(--shadow-lg)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
+/* ---------- tanıtım sayfası ---------- */
+#landing{min-height:100vh;background:var(--bg)}
+.l-in{max-width:1180px;margin:0 auto;padding-left:1.5rem;padding-right:1.5rem}
+.l-head{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--line)}
+.l-head .l-in{display:flex;align-items:center;gap:1rem;height:68px}
+.brand-l{display:flex;align-items:center;gap:.6rem;font-family:var(--head);font-size:1.35rem;color:var(--g7)}
+.brand-l img{width:40px;height:40px;border-radius:14px}
+.l-nav{display:flex;gap:.3rem;margin-left:1rem}
+.l-nav button{padding:.5rem .9rem;border-radius:12px;font-weight:700;color:var(--mute)}
+.l-nav button:hover{background:var(--g0);color:var(--g7)}
+.l-cta{display:flex;gap:.6rem;margin-left:auto}
+.l-hero{display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center;padding-top:3.5rem;padding-bottom:3.5rem}
+.l-hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem);color:var(--g9);line-height:1.08;max-width:14ch}
+.l-hero .lead{font-size:1.15rem;color:var(--mute);margin:1.1rem 0 1.6rem;max-width:46ch}
+.l-btns{display:flex;gap:.7rem;flex-wrap:wrap}
+.l-note{margin-top:1rem;font-size:.88rem;color:var(--mute);max-width:46ch}
+.demo{background:#fff;border:1.5px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);padding:1.2rem;display:flex;flex-direction:column;gap:1rem;min-height:440px}
+.demo-body{flex:1;display:flex;flex-direction:column;gap:.9rem;padding:.3rem .3rem 0}
+.demo-q{font-family:var(--head);font-size:1.3rem;color:var(--g9)}
+.demo-prog{height:8px;border-radius:9px;background:var(--g1);overflow:hidden}
+.demo-prog i{display:block;height:100%;background:var(--g6);width:0;transition:width .3s}
+.opts{display:grid;gap:.6rem}
+.opt{padding:.85rem 1rem;border-radius:var(--r-s);border:1.5px solid var(--line);background:#fff;font-weight:700;text-align:left;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--g6);background:var(--g0)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:#1f9d63;background:#e5f6ee;color:#146c43}
+.opt.wrong{border-color:var(--danger);background:#fdeaea;color:#a02a27}
+.demo-fb{font-size:.92rem;color:var(--mute);min-height:2.8em}
+.demo-foot{font-size:.8rem;color:var(--mute);text-align:center}
+.demo-end{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;text-align:center}
+.demo-end .ms{font-size:56px;color:var(--au)}
+.demo-end p{color:var(--mute);max-width:32ch}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1rem}
+.pairs .col{display:grid;gap:.6rem;align-content:start}
+.pairs .opt{text-align:center}
+.pairs .opt.sel{border-color:var(--g6);background:var(--g1)}
+.pairs .opt.done{border-color:#1f9d63;background:#e5f6ee;color:#146c43;opacity:.7}
+.l-sec{padding:3rem 1.5rem;max-width:1180px;margin:0 auto}
+.l-sec h2{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--g9);margin-bottom:1.4rem}
+.feat,.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.feat .card{background:#fff;border:1.5px solid var(--line);border-radius:var(--r-xl);padding:1.6rem;display:flex;flex-direction:column;gap:.8rem;box-shadow:var(--shadow-sm)}
+.feat h3{font-size:1.2rem}
+.feat p,.step p{color:var(--mute)}
+.step{background:#fff;border:1.5px solid var(--line);border-radius:var(--r-xl);padding:1.6rem;display:flex;flex-direction:column;gap:.7rem}
+.step .n{width:42px;height:42px;border-radius:50%;background:var(--au);color:#3a2404;display:grid;place-items:center;font-family:var(--head);font-size:1.25rem}
+.l-final{margin:1rem auto 3rem;max-width:1180px;padding:0 1.5rem}
+.l-final>div{background:linear-gradient(150deg,var(--g9),var(--g6));color:#fff;border-radius:var(--r-xl);padding:2.6rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+.l-final h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+.l-foot{border-top:1.5px solid var(--line);background:#fff}
+.l-foot .l-in{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between;padding-top:1.4rem;padding-bottom:1.4rem}
+.l-foot small{color:var(--mute)}
+.legal-links{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem}
+.legal-links button,.legal-links a{font-size:.85rem;font-weight:600;color:var(--mute);text-decoration:none}
+.legal-links button:hover,.legal-links a:hover{color:var(--g6);text-decoration:underline}
+.legal-links.on-dark button,.legal-links.on-dark a{color:#b9cdf3}
+.legal-links.on-dark button:hover,.legal-links.on-dark a:hover{color:#fff}
+.foot .legal-links{justify-content:center;margin-bottom:.5rem}
+
+/* ---------- giriş ekranı ek ---------- */
+.back-link{align-self:flex-start;display:inline-flex;align-items:center;gap:.3rem;font-weight:700;color:var(--mute);font-size:.9rem}
+.back-link:hover{color:var(--g6)}
+.back-link .ms{font-size:20px}
+.forgot{align-self:flex-end;margin-top:-.4rem;font-size:.85rem}
+.consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--mute);cursor:pointer}
+.consent input{margin-top:.2rem;width:18px;height:18px;accent-color:var(--g6);flex-shrink:0}
+.consent button,.auth-legal button{color:var(--g6);font-weight:700;text-decoration:underline}
+.auth-legal{font-size:.78rem;color:var(--mute);text-align:center}
+.auth-box .legal-links{justify-content:center;margin-top:.4rem}
+
+/* ---------- tanıtım: giriş ekranı görünümü (mavi) ---------- */
+.l-head{background:var(--g9);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:none}
+.brand-l{color:#fff}
+.brand-l img{background:#fff;padding:2px}
+.l-nav button{color:#b9cdf3}
+.l-nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+.l-top{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--g9),var(--g7) 70%)}
+.l-top::before,.l-top::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.l-top::before{width:620px;height:620px;right:-240px;bottom:-260px;border:16px solid rgba(255,255,255,.08)}
+.l-top::after{width:440px;height:440px;right:-150px;bottom:-170px;border:5px solid var(--au);opacity:.8}
+.l-top .l-hero{position:relative;z-index:1}
+.l-hero h1{color:#fff}
+.l-hero .lead{color:#cfdcf7}
+.l-note{color:#a9c0ee}
+.l-hero .btn-w{border-color:transparent}
+.demo{box-shadow:0 30px 60px -20px rgba(4,18,48,.5)}
+.l-sec h2{color:var(--g9)}
+.step{background:var(--g7);border-color:transparent;color:#fff}
+.step p{color:#c9d9f7}
+.l-foot{background:var(--g9);border-top:0}
+.l-foot small{color:#9fb3dc}
+@media (max-width:900px){
+  .l-top::before{width:420px;height:420px;right:-200px;bottom:-200px}
+  .l-top::after{width:300px;height:300px;right:-130px;bottom:-130px}
+}
+
+/* ---------- yasal metin penceresi ---------- */
+.legal-box{background:#fff;border-radius:var(--r-l);width:100%;max-width:660px;max-height:min(86vh,740px);display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}
+.legal-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1rem .9rem 1.6rem;border-bottom:1.5px solid var(--line)}
+.legal-head h3{font-size:1.3rem}
+.legal-body{padding:1rem 1.6rem 1.6rem;overflow-y:auto;color:#33425f;font-size:.95rem}
+.legal-body h4{font-family:var(--body);font-size:1rem;color:var(--g9);margin:1.2rem 0 .3rem}
+.legal-body p,.legal-body li{margin-bottom:.45rem}
+.legal-body ul{padding-left:1.2rem}
+.legal-body .upd{color:var(--mute);font-size:.85rem}
+.legal-body a{color:var(--g6);font-weight:700}
+
+@media (max-width:900px){
+  .l-nav{display:none}
+  .l-hero{grid-template-columns:minmax(0,1fr);gap:2rem;padding-top:2rem;padding-bottom:2rem}
+  .feat,.steps{grid-template-columns:minmax(0,1fr)}
+  .l-in,.l-sec,.l-final{padding-left:1rem;padding-right:1rem}
+  .l-cta .btn{padding:.6rem 1rem;font-size:.88rem}
+  .brand-l span{display:none}
+}
+
 /* ---------- küçük ekranlar ---------- */
 @media (max-width:900px){
   #auth-screen{grid-template-columns:1fr}
@@ -375,10 +490,103 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 </head>
 <body>
 
+<!-- ================= TANITIM ================= -->
+<div id="landing" class="hidden">
+  <header class="l-head">
+    <div class="l-in">
+      <div class="brand-l"><img src="/icon.png" alt=""><span>Sınavım</span></div>
+      <nav class="l-nav" aria-label="Sayfa bölümleri">
+        <button onclick="scrollToId('dene')">Önizleme</button>
+        <button onclick="scrollToId('ozellikler')">Neler var?</button>
+        <button onclick="scrollToId('nasil')">Nasıl çalışır?</button>
+      </nav>
+      <div class="l-cta">
+        <button class="btn btn-w" onclick="showAuth('login')">Giriş yap</button>
+        <button class="btn btn-au" onclick="showAuth('register')">Kayıt ol</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="l-top">
+  <section class="l-in l-hero">
+    <div>
+      <h1>Türkiye'nin ders çalışma ve sınav yeri</h1>
+      <p class="lead">Öğretmeninin hazırladığı sınavları çöz, konu videolarını izle, oyunlarla tekrar yap. Her görev XP kazandırır, her gün seriyi uzatır.</p>
+      <div class="l-btns">
+        <button class="btn btn-au" onclick="showAuth('register')"><span class="ms">person_add</span>Ücretsiz kayıt ol</button>
+        <button class="btn btn-w" onclick="showAuth('login')">Giriş yap</button>
+      </div>
+      <p class="l-note">Öğretmeninden 6 haneli kod aldıysan "Giriş yap" ekranında "Öğrenci kodu"nu seç.</p>
+    </div>
+
+    <div class="demo" id="dene">
+      <div class="seg" role="tablist" aria-label="Önizleme türü">
+        <button id="demo-tab-quiz" class="on" onclick="demoTab('quiz')">Mini sınav</button>
+        <button id="demo-tab-game" onclick="demoTab('game')">Eşleştirme oyunu</button>
+      </div>
+      <div class="demo-prog" aria-hidden="true"><i id="demo-prog"></i></div>
+      <div class="demo-body" id="demo-body"></div>
+      <p class="demo-foot">Bu bir önizlemedir, sonuçlar kaydedilmez.</p>
+    </div>
+  </section>
+  </div>
+
+  <section class="l-sec" id="ozellikler">
+    <h2>Çalışmak için gereken her şey bir arada</h2>
+    <div class="feat">
+      <div class="card">
+        <div class="tile" style="background:#e3edfd;color:#1549a3"><span class="ms">quiz</span></div>
+        <h3>Sınavlar, dökümanlar, videolar</h3>
+        <p>Öğretmenlerin yayınladığı sınavları, PDF ve sunumları, konu anlatım videolarını uygulamadan çıkmadan aç.</p>
+      </div>
+      <div class="card">
+        <div class="tile" style="background:#e6e5fb;color:#4338ca"><span class="ms">sports_esports</span></div>
+        <h3>Oyunlarla tekrar</h3>
+        <p>Wordwall ve HTML oyunlarıyla konuyu eğlenerek pekiştir. Oyunlar ayrı bir sekmede toplanır.</p>
+      </div>
+      <div class="card">
+        <div class="tile" style="background:#fdeed2;color:#b9710a"><span class="ms">local_fire_department</span></div>
+        <h3>XP, seri ve ligler</h3>
+        <p>Her tamamlanan görev 25 XP verir. Her gün gelip serini uzat, Filiz Ligi'nden Çınar Ligi'ne yüksel.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="l-sec" id="nasil">
+    <h2>Nasıl çalışır?</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Hesabını aç</h3><p>E-posta ile kayıt ol ya da öğretmeninin verdiği kodla doğrudan giriş yap.</p></div>
+      <div class="step"><div class="n">2</div><h3>Bir içerik seç</h3><p>Sınav, video ya da oyun. İçerikler uygulamanın içinde açılır.</p></div>
+      <div class="step"><div class="n">3</div><h3>Bitir, XP kazan</h3><p>Görevi tamamla, 25 XP al ve seviyeni yükselt.</p></div>
+    </div>
+  </section>
+
+  <section class="l-final">
+    <div>
+      <h2>İlk sınavını çözmeye hazır mısın?</h2>
+      <div class="l-btns" style="justify-content:center">
+        <button class="btn btn-au" onclick="showAuth('register')">Ücretsiz kayıt ol</button>
+        <button class="btn" style="background:rgba(255,255,255,.14);color:#fff" onclick="showAuth('login')">Giriş yap</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="l-foot">
+    <div class="l-in">
+      <div class="legal-links on-dark">
+        <button onclick="openLegal('terms')">Kullanım Koşulları</button>
+        <button onclick="openLegal('privacy')">Gizlilik Politikası</button>
+        <a href="mailto:sunaycapa3@gmail.com">İletişim</a>
+      </div>
+      <small>&copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.</small>
+    </div>
+  </footer>
+</div>
+
 <!-- ================= GİRİŞ ================= -->
-<div id="auth-screen">
+<div id="auth-screen" class="hidden">
   <aside class="auth-side">
-    <img class="auth-logo" src="icon.png" alt="Sınavım">
+    <img class="auth-logo" src="/icon.png" alt="Sınavım">
     <div>
       <h1>Türkiye'nin ders çalışma ve sınav yeri</h1>
       <ul>
@@ -387,11 +595,19 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
         <li><span class="ms">local_fire_department</span>Her gün çalış, seri yap, seviye atla</li>
       </ul>
     </div>
-    <p style="position:relative;z-index:1;font-size:.78rem;color:#9fbcac">&copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.</p>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:.6rem">
+      <div class="legal-links on-dark">
+        <button onclick="openLegal('terms')">Kullanım Koşulları</button>
+        <button onclick="openLegal('privacy')">Gizlilik Politikası</button>
+        <a href="mailto:sunaycapa3@gmail.com">İletişim</a>
+      </div>
+      <p style="font-size:.78rem;color:#9fbcac">&copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.</p>
+    </div>
   </aside>
 
   <main class="auth-main">
     <div class="auth-box">
+      <button class="back-link" onclick="showLanding()"><span class="ms">arrow_back</span>Ana sayfa</button>
       <div class="seg" role="tablist">
         <button id="tab-login" class="on" onclick="setAuthTab('login')">Giriş yap</button>
         <button id="tab-register" onclick="setAuthTab('register')">Kayıt ol</button>
@@ -407,6 +623,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
         <div id="email-login-fields" class="stack">
           <div class="field"><label for="login-email">E-posta</label><input class="inp" id="login-email" type="email" autocomplete="email" placeholder="ornek@mail.com"></div>
           <div class="field"><label for="login-password">Şifre</label><input class="inp" id="login-password" type="password" autocomplete="current-password" placeholder="Şifreni yaz"></div>
+          <button class="link-btn forgot" type="button" onclick="handlePasswordReset()">Şifremi unuttum</button>
           <button class="btn btn-p btn-block" onclick="handleLogin()">Giriş yap</button>
         </div>
         <div id="code-login-fields" class="stack hidden">
@@ -417,6 +634,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
         <button class="btn btn-w btn-block" onclick="handleGoogleLogin()">
           <img class="google-ico" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">Google ile devam et
         </button>
+        <p class="auth-legal">Devam ederek <button type="button" onclick="openLegal('terms')">Kullanım Koşulları</button> ve <button type="button" onclick="openLegal('privacy')">Gizlilik Politikası</button>'nı kabul etmiş olursun.</p>
       </section>
 
       <!-- kayıt -->
@@ -432,8 +650,14 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
             <label><input type="radio" name="reg-role" value="teacher"><span><span class="ms">badge</span>Öğretmenim</span></label>
           </div>
         </div>
+        <label class="consent"><input type="checkbox" id="reg-terms"><span><button type="button" onclick="event.preventDefault();openLegal('terms')">Kullanım Koşulları</button>'nı ve <button type="button" onclick="event.preventDefault();openLegal('privacy')">Gizlilik Politikası</button>'nı okudum, kabul ediyorum. 18 yaşından küçüksem veli veya vasimin bilgisi dahilinde kayıt oluyorum.</span></label>
         <button class="btn btn-au btn-block" onclick="handleRegister()">Hesap aç</button>
       </section>
+      <div class="legal-links">
+        <button onclick="openLegal('terms')">Kullanım Koşulları</button>
+        <button onclick="openLegal('privacy')">Gizlilik Politikası</button>
+        <a href="mailto:sunaycapa3@gmail.com">İletişim</a>
+      </div>
     </div>
   </main>
 </div>
@@ -442,7 +666,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 <div id="app" class="hidden">
  <div class="shell">
   <aside class="sidebar">
-    <button class="side-logo" onclick="showPage('home')" aria-label="Ana sayfa"><img src="icon.png" alt="Sınavım"></button>
+    <button class="side-logo" onclick="showPage('home')" aria-label="Ana sayfa"><img src="/icon.png" alt="Sınavım"></button>
     <nav class="side-nav" id="nav-top" aria-label="Ana menü"></nav>
     <div class="side-foot">
       <button class="icon-btn" onclick="showPage('help')" aria-label="Yardım" title="Yardım"><span class="ms">help</span></button>
@@ -456,7 +680,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
   </div>
   <header class="topbar">
     <div class="topbar-in">
-      <button class="brand-mobile" onclick="showPage('home')"><img src="icon.png" alt=""><span>Sınavım</span></button>
+      <button class="brand-mobile" onclick="showPage('home')"><img src="/icon.png" alt=""><span>Sınavım</span></button>
       <div class="greet"><span class="eyebrow">Hoş geldin</span><span id="greet-name">...</span></div>
       <div class="top-right">
         <div class="stat-pill xp" title="Toplam XP"><span class="ms">bolt</span><span id="top-xp">0</span></div>
@@ -655,6 +879,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
           <details><summary>XP nasıl kazanırım?</summary><p>Oyun, sınav, PDF ve sunum gibi görevleri bitirip "Tamamladım" düğmesine basınca 25 XP kazanırsın. Her görevden bir kez XP alınır.</p></details>
           <details><summary>Seviye nasıl atlarım?</summary><p>Her 500 XP'de bir seviye atlarsın. Seviyen yükseldikçe ligin de değişir: Filiz, Fidan, Çınar.</p></details>
           <details><summary>Seri neyi gösterir?</summary><p>Üst üste kaç gün giriş yaptığını. Bir gün gelmezsen seri sıfırlanır.</p></details>
+          <details><summary>Şifremi unuttum, ne yapmalıyım?</summary><p>Giriş ekranında e-postanı yaz ve "Şifremi unuttum"a bas; sana şifre sıfırlama bağlantısı gönderilir. Google ile giriş yapıyorsan şifren yoktur. Öğrenci kodunu unuttuysan öğretmeninden iste.</p></details>
           <details><summary>Giriş kodum yok, ne yapmalıyım?</summary><p>Öğrenci kodunu öğretmenin oluşturur. Öğretmeninden kodunu iste.</p></details>
         </div>
         <div class="panel contact">
@@ -669,7 +894,14 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
     </section>
   </main>
 
-  <footer class="foot">&copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.</footer>
+  <footer class="foot">
+    <div class="legal-links">
+      <button onclick="openLegal('terms')">Kullanım Koşulları</button>
+      <button onclick="openLegal('privacy')">Gizlilik Politikası</button>
+      <button onclick="showPage('help')">Yardım ve iletişim</button>
+    </div>
+    &copy; 2026 Nokta Giyim INC - Bütün hakları Ayberk ARICI'ya aittir.
+  </footer>
   </div>
  </div>
   <nav class="tabbar" id="nav-tab" aria-label="Alt menü"></nav>
@@ -689,6 +921,13 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
       <span>İşin bitince XP'ni al.</span>
       <button class="btn btn-au" onclick="completeTask()"><span class="ms">check_circle</span>Tamamladım (+25 XP)</button>
     </div>
+  </div>
+</div>
+
+<div id="legal" class="modal hidden" onclick="if(event.target===this)closeLegal()">
+  <div class="legal-box" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+    <div class="legal-head"><h3 id="legal-title">Yasal metin</h3><button class="icon-btn" id="legal-close" onclick="closeLegal()" aria-label="Kapat"><span class="ms">close</span></button></div>
+    <div class="legal-body" id="legal-body"></div>
   </div>
 </div>
 
@@ -730,7 +969,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 /* ---------------- ayarlar ---------------- */
@@ -845,6 +1084,212 @@ const AUTH_ERRORS = {
 };
 const authMsg = (e) => AUTH_ERRORS[e.code] || 'Bir sorun oluştu, tekrar dene.';
 
+/* ---------------- yasal metinler ---------------- */
+const CONTACT = '<a href="mailto:sunaycapa3@gmail.com">sunaycapa3@gmail.com</a>';
+const LEGAL = {
+  terms: {
+    title: 'Kullanım Koşulları',
+    html: `
+<p class="upd">Son güncelleme: 31 Ekim 2026</p>
+<p>Sınavım, Nokta Giyim INC tarafından işletilen çevrimiçi ders çalışma ve sınav platformudur. Hesap açarak veya siteyi kullanarak aşağıdaki koşulları kabul etmiş olursun.</p>
+<h4>1. Hesap ve güvenlik</h4>
+<ul>
+<li>Kayıt sırasında doğru bilgi vermelisin. Şifren ve öğrenci kodun sana özeldir, başkasıyla paylaşma.</li>
+<li>18 yaşından küçükler platformu veli veya vasilerinin bilgisi ve onayıyla kullanır.</li>
+<li>Hesabının ele geçirildiğini düşünüyorsan hemen bize yaz.</li>
+</ul>
+<h4>2. İçerikler</h4>
+<ul>
+<li>Öğretmenlerin yayınladığı içeriklerden onları yayınlayan kişi sorumludur.</li>
+<li>Başkasının telif hakkını ihlal eden, hukuka aykırı, zararlı, kışkırtıcı veya çocuklara uygun olmayan içerik yayınlamak yasaktır.</li>
+<li>Bu tür içerikleri önceden haber vermeden kaldırma ve ilgili hesabı askıya alma hakkımız saklıdır.</li>
+</ul>
+<h4>3. Yasaklanan davranışlar</h4>
+<ul>
+<li>Başkasının hesabına izinsiz girmek veya başka biri gibi davranmak.</li>
+<li>XP, seviye veya seriyi hile ile artırmak; hileli hesaplarda puanlar sıfırlanabilir.</li>
+<li>Platforma zarar verecek kod, dosya veya bağlantı yüklemek; diğer kullanıcılara hakaret etmek veya onları rahatsız etmek.</li>
+</ul>
+<h4>4. XP, seviye ve ligler</h4>
+<p>XP, seviye, seri ve ligler motivasyon amaçlıdır; parasal bir değeri yoktur ve başka bir şeyle değiştirilemez.</p>
+<h4>5. Soru koçu</h4>
+<p>Soru koçunun yanıtları otomatik hazırlanır ve hata içerebilir. Önemli bilgileri öğretmeninle veya resmî kaynaklarla kontrol et; yanıtlar bir öğretmenin yerine geçmez.</p>
+<h4>6. Hizmetin sunumu ve sorumluluk</h4>
+<p>Hizmet "olduğu gibi" sunulur. Bakım, teknik arıza veya üçüncü taraf altyapı kesintileri nedeniyle zaman zaman erişilemeyebilir. Yasaların izin verdiği ölçüde, hizmetin kullanımından doğan dolaylı zararlardan sorumlu değiliz.</p>
+<h4>7. Fikri mülkiyet</h4>
+<p>Platformun tasarımı, yazılımı ve markası Nokta Giyim INC ve Ayberk ARICI'ya aittir. Öğretmenlerin yüklediği içeriklerin hakları ilgili kişilerde kalır.</p>
+<h4>8. Değişiklik ve fesih</h4>
+<p>Bu koşullar güncellenebilir; önemli değişiklikleri platformda duyururuz. Koşulları ihlal edersen hesabını askıya alabilir veya kapatabiliriz. Hesabını kapatmak için bize yazabilirsin.</p>
+<h4>9. Uygulanacak hukuk</h4>
+<p>Bu koşullara Türkiye Cumhuriyeti hukuku uygulanır.</p>
+<h4>10. İletişim</h4>
+<p>Sorular için: ${CONTACT}</p>`
+  },
+  privacy: {
+    title: 'Gizlilik Politikası',
+    html: `
+<p class="upd">Son güncelleme: 31 Ekim 2026</p>
+<p>Bu metin, Sınavım'ı kullanırken kişisel verilerinin nasıl işlendiğini 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında açıklar.</p>
+<h4>Veri sorumlusu</h4>
+<p>Nokta Giyim INC (Sınavım). İletişim: ${CONTACT}</p>
+<h4>Hangi verileri topluyoruz?</h4>
+<ul>
+<li>Hesap bilgileri: ad soyad, e-posta adresi (kodla girişte öğretmenin girdiği ad ve giriş kodu), rol (öğrenci veya öğretmen).</li>
+<li>İsteğe bağlı profil fotoğrafı. Fotoğraf yüklemezsen, rastgele bir avatar kullanılır.</li>
+<li>Kullanım verileri: XP, seviye, günlük seri, tamamladığın görevler.</li>
+<li>İşlem kayıtları: giriş yapma ve içerik yayınlama gibi işlemlerin zamanı (yöneticiler görebilir).</li>
+<li>Soru koçuna yazdığın mesajlar.</li>
+</ul>
+<h4>Verileri neden işliyoruz?</h4>
+<ul>
+<li>Hesabını açmak, giriş yapmanı sağlamak ve platformu sunmak (sözleşmenin ifası).</li>
+<li>XP, seviye ve seri gibi özellikleri çalıştırmak ve öğretmenlerin içerik ve öğrenci yönetimini sağlamak.</li>
+<li>Güvenliği sağlamak, kötüye kullanımı önlemek ve hataları gidermek (meşru menfaat).</li>
+<li>Soru koçu özelliğiyle sorularına yanıt hazırlamak.</li>
+</ul>
+<h4>Verilerini kimlerle paylaşıyoruz?</h4>
+<ul>
+<li>Google Firebase (kimlik doğrulama ve veri tabanı) ve Google Gemini (soru koçu): Sorduğun sorular yanıt hazırlanması için Google'a iletilir. Bu nedenle soru koçuna kişisel bilgilerini, şifreni veya telefon numaranı yazma.</li>
+<li>Varsayılan avatarlar için DiceBear servisi, yazı tipleri ve bazı kütüphaneler için üçüncü taraf sunucular kullanılır; bu istekler sırasında IP adresin ilgili sunuculara ulaşır.</li>
+<li>Yukarıdaki hizmet sağlayıcıların sunucuları yurt dışında olabilir; bu durumda aktarım KVKK'nın 9. maddesine uygun yapılır.</li>
+<li>Verilerini satmıyoruz ve reklam amacıyla paylaşmıyoruz. Yasal bir zorunluluk olmadıkça başka kişi veya kurumlara aktarmıyoruz.</li>
+</ul>
+<h4>Çerezler ve tarayıcı depolaması</h4>
+<p>Oturumunu açık tutmak için tarayıcında kimlik doğrulama bilgisi saklanır. Analiz veya reklam amaçlı izleme çerezi kullanmıyoruz.</p>
+<h4>Saklama süresi</h4>
+<p>Verilerini hesabın açık olduğu sürece saklarız. Hesabının silinmesini istediğinde verilerini makul bir süre içinde sileriz veya anonim hale getiririz; güvenlik kayıtları yasal gereklilikler kadar tutulabilir.</p>
+<h4>18 yaşından küçükler</h4>
+<p>18 yaşından küçük kullanıcıların veli veya vasi bilgisi ve onayıyla kayıt olması gerekir. Veli ve vasiler, çocuklarının verileriyle ilgili aşağıdaki haklarını bizim adımıza kullanabilir.</p>
+<h4>KVKK kapsamındaki hakların</h4>
+<p>KVKK'nın 11. maddesi uyarınca; verilerinin işlenip işlenmediğini öğrenme, işlenmişse bilgi isteme, işlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme, yanlış işlenmişse düzeltilmesini, silinmesini veya yok edilmesini isteme, bunların aktarıldığı kişilere bildirilmesini isteme ve zarara uğraman halinde zararın giderilmesini talep etme haklarına sahipsin.</p>
+<h4>Başvuru</h4>
+<p>Haklarını kullanmak için ${CONTACT} adresine yazabilirsin. Başvurunu en geç otuz gün içinde yanıtlarız.</p>`
+  }
+};
+
+window.openLegal = (key) => {
+  const item = LEGAL[key];
+  if (!item) return;
+  $('legal-title').textContent = item.title;
+  $('legal-body').innerHTML = item.html;
+  $('legal-body').scrollTop = 0;
+  $('legal').classList.remove('hidden');
+  $('legal-close').focus();
+};
+window.closeLegal = () => $('legal').classList.add('hidden');
+
+/* ---------------- tanıtım ve önizleme ---------------- */
+window.showAuth = (tab = 'login') => {
+  $('landing').classList.add('hidden');
+  $('auth-screen').classList.remove('hidden');
+  setAuthTab(tab);
+  window.scrollTo(0, 0);
+  history.replaceState(null, '', tab === 'register' ? '#kayit' : '#giris');
+};
+window.showLanding = () => {
+  $('auth-screen').classList.add('hidden');
+  $('landing').classList.remove('hidden');
+  window.scrollTo(0, 0);
+  history.replaceState(null, '', location.pathname + location.search);
+};
+window.scrollToId = (id) => $(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+window.addEventListener('hashchange', () => {
+  if (currentUser) return;
+  if (location.hash === '#giris' || location.hash === '#kayit') showAuth(location.hash === '#kayit' ? 'register' : 'login');
+});
+
+const DEMO_QUIZ = [
+  { q: 'Hangisi bir asal sayıdır?', o: ['9', '15', '17', '21'], a: 2, e: '17 yalnızca 1 ve kendisine bölünür.' },
+  { q: 'Suyun deniz seviyesindeki kaynama noktası kaç °C\'dir?', o: ['50', '90', '100', '120'], a: 2, e: 'Deniz seviyesinde su 100 °C\'de kaynar.' },
+  { q: 'Işık yılı neyin birimidir?', o: ['Zaman', 'Uzaklık', 'Hız', 'Kütle'], a: 1, e: 'Işığın bir yılda aldığı yoldur; bir uzaklık birimidir.' }
+];
+const DEMO_PAIRS = [['H₂O', 'Su'], ['CO₂', 'Karbondioksit'], ['NaCl', 'Sofra tuzu'], ['O₂', 'Oksijen']];
+let demoMode = 'quiz', dq = 0, dScore = 0, dLocked = false;
+let gL = [], gR = [], gSel = null, gDone = 0;
+
+const shuffle = (arr) => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const setDemoProg = (p) => { $('demo-prog').style.width = p + '%'; };
+
+window.demoTab = (mode) => {
+  demoMode = mode;
+  $('demo-tab-quiz').classList.toggle('on', mode === 'quiz');
+  $('demo-tab-game').classList.toggle('on', mode === 'game');
+  if (mode === 'quiz') { dq = 0; dScore = 0; renderDemoQuiz(); } else startDemoGame();
+};
+
+function renderDemoQuiz() {
+  const body = $('demo-body');
+  if (dq >= DEMO_QUIZ.length) {
+    setDemoProg(100);
+    body.innerHTML = `<div class="demo-end"><span class="ms">emoji_events</span><h3>${dScore} / ${DEMO_QUIZ.length} doğru</h3>
+      <p>Üye olsaydın ${dScore * 25} XP kazanırdın. Kayıt ol; XP'in, serin ve seviyen kaydedilsin.</p>
+      <button class="btn btn-au" onclick="showAuth('register')">Ücretsiz kayıt ol</button>
+      <button class="btn btn-w" onclick="demoTab('quiz')">Tekrar dene</button></div>`;
+    return;
+  }
+  const q = DEMO_QUIZ[dq];
+  dLocked = false;
+  setDemoProg((dq / DEMO_QUIZ.length) * 100);
+  body.innerHTML = `<p class="lbl">Soru ${dq + 1} / ${DEMO_QUIZ.length}</p>
+    <div class="demo-q">${q.q}</div>
+    <div class="opts">${q.o.map((t, i) => `<button class="opt" onclick="demoPick(${i})">${t}</button>`).join('')}</div>
+    <p class="demo-fb" id="demo-fb" aria-live="polite"></p>
+    <button class="btn btn-p hidden" id="demo-next" onclick="demoNext()">${dq === DEMO_QUIZ.length - 1 ? 'Sonucu gör' : 'Sonraki soru'}</button>`;
+}
+window.demoPick = (i) => {
+  if (dLocked) return;
+  dLocked = true;
+  const q = DEMO_QUIZ[dq];
+  document.querySelectorAll('#demo-body .opt').forEach((b, k) => {
+    b.disabled = true;
+    if (k === q.a) b.classList.add('right');
+    else if (k === i) b.classList.add('wrong');
+  });
+  if (i === q.a) dScore++;
+  $('demo-fb').textContent = (i === q.a ? 'Doğru! ' : 'Yanlış. ') + q.e;
+  $('demo-next').classList.remove('hidden');
+};
+window.demoNext = () => { dq++; renderDemoQuiz(); };
+
+function startDemoGame() {
+  gL = shuffle(DEMO_PAIRS.map((p, id) => ({ id, t: p[0], done: false })));
+  gR = shuffle(DEMO_PAIRS.map((p, id) => ({ id, t: p[1], done: false })));
+  gSel = null; gDone = 0;
+  renderDemoGame();
+}
+function renderDemoGame(wrong) {
+  setDemoProg((gDone / DEMO_PAIRS.length) * 100);
+  const btn = (side, it, idx) => {
+    const sel = gSel && gSel.side === side && gSel.idx === idx;
+    const bad = wrong && ((wrong.side === side && wrong.idx === idx) || (gSel === null && wrong.other === side + idx));
+    return `<button class="opt ${it.done ? 'done' : ''} ${sel ? 'sel' : ''} ${bad ? 'wrong' : ''}" ${it.done ? 'disabled' : ''} onclick="demoMatch('${side}',${idx})">${it.t}</button>`;
+  };
+  if (gDone === DEMO_PAIRS.length) {
+    $('demo-body').innerHTML = `<div class="demo-end"><span class="ms">emoji_events</span><h3>Hepsini eşleştirdin!</h3>
+      <p>Gerçek oyunlarda her tamamlanan görev 25 XP kazandırır.</p>
+      <button class="btn btn-au" onclick="showAuth('register')">Ücretsiz kayıt ol</button>
+      <button class="btn btn-w" onclick="demoTab('game')">Tekrar oyna</button></div>`;
+    return;
+  }
+  $('demo-body').innerHTML = `<div class="demo-q">Formülü adıyla eşleştir</div>
+    <div class="pairs"><div class="col">${gL.map((it, i) => btn('L', it, i)).join('')}</div><div class="col">${gR.map((it, i) => btn('R', it, i)).join('')}</div></div>
+    <p class="demo-fb" aria-live="polite">${gDone} / ${DEMO_PAIRS.length} eşleşti</p>`;
+}
+window.demoMatch = (side, idx) => {
+  if (gSel && gSel.side === side) { gSel = { side, idx }; return renderDemoGame(); }
+  if (!gSel) { gSel = { side, idx }; return renderDemoGame(); }
+  const a = gSel.side === 'L' ? gL[gSel.idx] : gR[gSel.idx];
+  const b = side === 'L' ? gL[idx] : gR[idx];
+  if (a.id === b.id) {
+    a.done = b.done = true; gDone++; gSel = null; renderDemoGame();
+  } else {
+    const first = gSel;
+    gSel = null;
+    renderDemoGame({ side, idx, other: first.side + first.idx });
+    setTimeout(() => { if (demoMode === 'game') renderDemoGame(); }, 600);
+  }
+};
+
 /* ---------------- giriş / kayıt ---------------- */
 window.setAuthTab = (tab) => {
   $('tab-login').classList.toggle('on', tab === 'login');
@@ -867,6 +1312,23 @@ window.handleLogin = async () => {
   catch (e) { showCustomModal('Giriş yapılamadı', authMsg(e), 'error'); }
 };
 
+window.handlePasswordReset = async () => {
+  const email = $('login-email').value.trim();
+  if (!email) {
+    $('login-email').focus();
+    return showCustomModal('E-posta gerekli', 'Önce e-posta adresini yaz, sonra "Şifremi unuttum"a tekrar bas.', 'info');
+  }
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (e) {
+    if (['auth/invalid-email', 'auth/too-many-requests', 'auth/network-request-failed'].includes(e.code)) {
+      return showCustomModal('Gönderilemedi', authMsg(e), 'error');
+    }
+    console.warn(e.code); // kayıtlı olmayan adresi belli etmemek için aynı mesajı gösteriyoruz
+  }
+  showCustomModal('Bağlantı gönderildi', `${email} adresi kayıtlıysa şifre sıfırlama bağlantısı gönderdik. Gelen kutunu ve gereksiz (spam) klasörünü kontrol et.\n\nGoogle ile giriş yapıyorsan şifren yoktur; "Google ile devam et"i kullan.`, 'success');
+};
+
 window.handleGoogleLogin = async () => {
   try { await signInWithPopup(auth, new GoogleAuthProvider()); }
   catch (e) { if (e.code !== 'auth/popup-closed-by-user') showCustomModal('Giriş yapılamadı', 'Google ile giriş tamamlanamadı.', 'error'); }
@@ -879,6 +1341,7 @@ window.handleRegister = async () => {
   const role = document.querySelector('input[name="reg-role"]:checked')?.value || 'student';
   if (!name || !email) return showCustomModal('Eksik bilgi', 'Ad soyad ve e-posta gerekli.', 'error');
   if (pass.length < 6) return showCustomModal('Şifre kısa', 'Şifre en az 6 karakter olmalı.', 'error');
+  if (!$('reg-terms').checked) return showCustomModal('Onay gerekli', 'Kayıt olmak için Kullanım Koşulları ve Gizlilik Politikası\'nı kabul etmelisin.', 'error');
   try {
     const res = await createUserWithEmailAndPassword(auth, email, pass);
     await updateFbProfile(res.user, { displayName: name });
@@ -934,7 +1397,9 @@ onAuthStateChanged(auth, async (user) => {
     Object.keys(unsubs).forEach((k) => delete unsubs[k]);
     currentUser = null; userData = null; contents = [];
     $('app').classList.add('hidden');
-    $('auth-screen').classList.remove('hidden');
+    if (location.hash === '#giris' || location.hash === '#kayit') showAuth(location.hash === '#kayit' ? 'register' : 'login');
+    else showLanding();
+    if (!$('demo-body').innerHTML) renderDemoQuiz();
     return;
   }
   currentUser = user;
@@ -979,6 +1444,8 @@ async function checkDailyStreak() {
 
 function initApp() {
   $('auth-screen').classList.add('hidden');
+  $('landing').classList.add('hidden');
+  history.replaceState(null, '', location.pathname + location.search);
   $('app').classList.remove('hidden');
   renderNav();
   renderUser();
@@ -1016,7 +1483,7 @@ function closeMenu() { $('user-menu').classList.add('hidden'); }
 document.addEventListener('click', (e) => { if (!e.target.closest('.menu-wrap')) closeMenu(); });
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
-  closeMenu(); closeCustomModal();
+  closeMenu(); closeCustomModal(); closeLegal();
   if (!$('viewer').classList.contains('hidden')) closeViewer();
   if ($('coach').classList.contains('open')) toggleCoach();
 });
