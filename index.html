@@ -1048,6 +1048,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app-check.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
@@ -1063,6 +1064,12 @@ const firebaseConfig = {
 };
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+// App Check: yapay zeka isteklerini yalnızca bu siteden gelen istekler için kabul ettirir.
+// Site anahtarını Firebase Console > App Check > reCAPTCHA v3 kaydından alıp aşağıya yaz.
+const RECAPTCHA_SITE_KEY = '';
+if (RECAPTCHA_SITE_KEY) {
+  initializeAppCheck(app, { provider: new ReCaptchaV3Provider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true });
+}
 const db   = getFirestore(app);
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'sinavim-v15-pro-max';
 
@@ -2254,7 +2261,7 @@ window.toggleCoach = () => {
 
 // Yapay zeka Firebase AI Logic üzerinden çalışır: anahtar kodda yok, Firebase tarafında durur.
 // Yedek olarak (Firebase AI kapalıysa) Netlify fonksiyonu denenir.
-const AI_MODEL = 'gemini-2.5-flash';
+const AI_MODEL = 'gemini-3.8-flash';
 const AI_SYSTEMS = {
   coach: 'Sen Sınavım platformunda öğrencilere yardım eden, Türkçe konuşan bir ders koçusun. Kısa, net ve arkadaşça yanıt ver. Cevabı doğrudan vermek yerine önce yol göster, gerekirse örnek çöz.',
   draft: 'Sen bir öğretmen yardımcısısın. Türkçe yaz.'
