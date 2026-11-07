@@ -1047,9 +1047,9 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 <audio id="levelup-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="none"></audio>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 /* ---------------- ayarlar ---------------- */
 const firebaseConfig = {
@@ -1409,7 +1409,8 @@ window.handlePasswordReset = async () => {
     return showCustomModal('E-posta gerekli', 'Önce e-posta adresini yaz, sonra "Şifremi unuttum"a tekrar bas.', 'info');
   }
   try {
-    await sendPasswordResetEmail(auth, email);
+    auth.languageCode = 'tr'; // Firebase'in hazır Türkçe şablonu ve sayfası kullanılsın
+    await sendPasswordResetEmail(auth, email, { url: location.origin + '/#giris' });
   } catch (e) {
     if (['auth/invalid-email', 'auth/too-many-requests', 'auth/network-request-failed'].includes(e.code)) {
       return showCustomModal('Gönderilemedi', authMsg(e), 'error');
@@ -2251,8 +2252,36 @@ window.toggleCoach = () => {
   if (open) setTimeout(() => $('coach-input').focus(), 300);
 };
 
-// Gemini anahtarı sunucuda (Netlify fonksiyonu) durur; tarayıcı yalnızca oturum belirteciyle o fonksiyonu çağırır.
+// Yapay zeka Firebase AI Logic üzerinden çalışır: anahtar kodda yok, Firebase tarafında durur.
+// Yedek olarak (Firebase AI kapalıysa) Netlify fonksiyonu denenir.
+const AI_MODEL = 'gemini-2.5-flash';
+const AI_SYSTEMS = {
+  coach: 'Sen Sınavım platformunda öğrencilere yardım eden, Türkçe konuşan bir ders koçusun. Kısa, net ve arkadaşça yanıt ver. Cevabı doğrudan vermek yerine önce yol göster, gerekirse örnek çöz.',
+  draft: 'Sen bir öğretmen yardımcısısın. Türkçe yaz.'
+};
+let aiModels = null;
+
 async function askCoach(mode, messages) {
+  let msgs = messages
+    .filter((m) => m && (m.role === 'user' || m.role === 'model') && typeof m.text === 'string' && m.text.trim())
+    .slice(-10).map((m) => ({ role: m.role, text: m.text.slice(0, 2000) }));
+  if (!msgs.length) return null;
+  if (mode === 'draft') {
+    const title = msgs[msgs.length - 1].text.slice(0, 200);
+    msgs = [{ role: 'user', text: `"${title}" konusu için öğrencilere yönelik kısa bir ders notu hazırla. Sadece HTML gövde içeriği ver (h2, p, ul kullan), kod bloğu işareti kullanma.` }];
+  }
+  try {
+    if (!aiModels) {
+      const { getAI, getGenerativeModel, GoogleAIBackend } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-ai.js');
+      const ai = getAI(app, { backend: new GoogleAIBackend() });
+      aiModels = {};
+      for (const k of Object.keys(AI_SYSTEMS)) aiModels[k] = getGenerativeModel(ai, { model: AI_MODEL, systemInstruction: AI_SYSTEMS[k] });
+    }
+    const result = await aiModels[mode].generateContent({ contents: msgs.map((m) => ({ role: m.role, parts: [{ text: m.text }] })) });
+    const text = result.response.text();
+    if (text) return text;
+  } catch (e) { console.error('firebase-ai', e); }
+  // Yedek: Netlify fonksiyonu
   try {
     const token = await currentUser.getIdToken();
     const res = await fetch('/.netlify/functions/coach', {
@@ -2260,10 +2289,9 @@ async function askCoach(mode, messages) {
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
       body: JSON.stringify({ mode, messages })
     });
-    if (!res.ok) { console.error('coach', res.status); return null; }
-    const data = await res.json();
-    return data.text || null;
-  } catch (e) { console.error(e); return null; }
+    if (!res.ok) return null;
+    return (await res.json()).text || null;
+  } catch (e) { return null; }
 }
 
 function fmt(t) {
