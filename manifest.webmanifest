@@ -1,0 +1,14 @@
+{
+  "name": "Sınavım",
+  "short_name": "Sınavım",
+  "description": "Türkiye'nin ders çalışma ve sınav yeri",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b2a5b",
+  "theme_color": "#0b2a5b",
+  "lang": "tr",
+  "icons": [
+    { "src": "/icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
