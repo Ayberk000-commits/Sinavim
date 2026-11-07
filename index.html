@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sınavım</title>
 <meta name="theme-color" content="#0b2a5b">
+<meta name="description" content="Sınavım: sınavlar, dökümanlar, videolar ve oyunlarla ders çalışma ve sınav platformu. XP kazan, seri yap, seviye atla.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sınavım - Türkiye'nin ders çalışma ve sınav yeri">
+<meta property="og:description" content="Sınavları çöz, videoları izle, oyunlarla tekrar yap. Her görev XP kazandırır.">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon.png">
 <link rel="icon" type="image/png" href="/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,12 +115,10 @@ textarea.inp{min-height:260px;resize:vertical;font-family:ui-monospace,Menlo,Con
 .brand-mobile{display:none;align-items:center;gap:.55rem;font-family:var(--head);font-size:1.25rem;color:var(--g7);cursor:pointer}
 .brand-mobile img{width:36px;height:36px;border-radius:12px}
 
-/* ---------- duyuru şeridi ---------- */
-.annc{display:flex;align-items:center;gap:.8rem;background:linear-gradient(90deg,var(--g9),var(--g6));color:#fff;padding:.7rem 1.5rem;font-size:.85rem;font-weight:600}
-.annc .ms{font-size:20px;color:var(--au);flex-shrink:0}
-.annc span{flex:1}
-.annc button{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;color:#cfdcf7}
-.annc button:hover{background:rgba(255,255,255,.12);color:#fff}
+
+
+
+
 
 /* ---------- üst çubuk ---------- */
 .topbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1.5px solid var(--line)}
@@ -421,6 +425,35 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
   .l-top::after{width:300px;height:300px;right:-130px;bottom:-130px}
 }
 
+/* ---------- favori, liderlik, rozet ---------- */
+.item-wrap{position:relative}
+.item-wrap .item .tag{margin-right:2.6rem}
+.fav{position:absolute;top:.8rem;right:.8rem;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#aebfe3;background:rgba(255,255,255,.9);z-index:1}
+.fav .ms{font-size:22px;font-variation-settings:'FILL' 0,'wght' 500}
+.fav:hover{color:var(--au);background:var(--au-l)}
+.fav.on{color:var(--au)}
+.fav.on .ms{font-variation-settings:'FILL' 1,'wght' 500}
+.lb{display:flex;flex-direction:column;gap:.6rem}
+.lb-row{display:flex;align-items:center;gap:1rem;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-m);padding:.7rem 1rem}
+.lb-row.me{border-color:var(--g6);background:var(--g0)}
+.lb-rank{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--head);font-size:1.05rem;background:var(--g1);color:var(--g7);flex-shrink:0}
+.lb-row:nth-child(1) .lb-rank{background:#fcd34d;color:#5b3a00}
+.lb-row:nth-child(2) .lb-rank{background:#dfe4ec;color:#3a4558}
+.lb-row:nth-child(3) .lb-rank{background:#f1c9a0;color:#5a3412}
+.lb-row img{width:44px;height:44px;border-radius:14px;object-fit:cover;background:var(--g0);flex-shrink:0}
+.lb-row b{display:block}
+.lb-row small{color:var(--mute)}
+.lb-xp{margin-left:auto;font-family:var(--head);font-size:1.15rem;color:var(--g7);white-space:nowrap}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem}
+.bdg{display:flex;flex-direction:column;align-items:center;gap:.4rem;text-align:center;padding:1rem .8rem;border:1.5px solid var(--line);border-radius:var(--r-m)}
+.bdg .ms{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;font-size:28px;background:var(--au-l);color:var(--au-d)}
+.bdg b{font-size:.95rem}
+.bdg small{color:var(--mute);font-size:.8rem}
+.bdg.locked{opacity:.55}
+.bdg.locked .ms{background:var(--g0);color:#9fb2dc;filter:grayscale(1)}
+.profile .wide{grid-column:1/-1}
+.cont-label{color:var(--mute);font-size:.8rem;font-weight:600}
+
 /* ---------- yasal metin penceresi ---------- */
 .legal-box{background:#fff;border-radius:var(--r-l);width:100%;max-width:660px;max-height:min(86vh,740px);display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}
 .legal-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1rem .9rem 1.6rem;border-bottom:1.5px solid var(--line)}
@@ -463,7 +496,6 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
   .toast{bottom:88px}
 }
 @media (max-width:520px){
-  .annc{padding:.6rem 1rem;font-size:.76rem;gap:.5rem}
   .topbar-in{gap:.5rem;padding:.7rem .8rem}
   .top-right{gap:.35rem}
   .greet{font-size:1.05rem;min-width:0}
@@ -489,6 +521,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 </style>
 </head>
 <body>
+<noscript><p style="padding:2rem;font-family:sans-serif">Sınavım'ı kullanmak için tarayıcında JavaScript açık olmalı.</p></noscript>
 
 <!-- ================= TANITIM ================= -->
 <div id="landing" class="hidden">
@@ -673,11 +706,6 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
     </div>
   </aside>
   <div class="shell-main">
-  <div class="annc" id="annc">
-    <span class="ms">auto_awesome</span>
-    <span>Sınavım yenilendi! Soru koçu, oyunlar ve yeni ders akışıyla çalışmak artık daha kolay.</span>
-    <button onclick="document.getElementById('annc').remove()" aria-label="Kapat"><span class="ms" style="font-size:18px">close</span></button>
-  </div>
   <header class="topbar">
     <div class="topbar-in">
       <button class="brand-mobile" onclick="showPage('home')"><img src="/icon.png" alt=""><span>Sınavım</span></button>
@@ -755,6 +783,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
       </div>
 
       <div id="home-notices"></div>
+      <div id="home-continue"></div>
 
       <h2 class="sec-title">Ne çalışmak istersin?</h2>
       <div class="tiles" id="home-tiles"></div>
@@ -779,13 +808,20 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
       <div class="grid" id="games-list"></div>
     </section>
 
+    <!-- LİDERLİK -->
+    <section class="page" id="page-leaderboard">
+      <div class="page-head"><div><h2>Liderlik tablosu</h2><p>En çok XP kazanan 20 öğrenci. Adını profilinden gizleyebilirsin.</p></div></div>
+      <div class="lb" id="lb-list"></div>
+    </section>
+
     <!-- YÖNETİM -->
     <section class="page" id="page-admin">
       <div class="page-head">
         <div><h2>Yönetim</h2><p>İçerik yayınla ve öğrencilerini yönet</p></div>
-        <div class="seg" style="min-width:280px">
+        <div class="seg" style="min-width:340px">
           <button id="tab-studio" class="on" onclick="setAdminTab('studio')">İçerik ekle</button>
           <button id="tab-students" onclick="setAdminTab('students')">Öğrencilerim</button>
+          <button id="tab-admins" class="hidden" onclick="setAdminTab('admins')">Yöneticiler</button>
         </div>
       </div>
 
@@ -809,7 +845,8 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
             <textarea class="inp" id="content-body" placeholder="Dosya yüklemediysen içeriği buraya yaz..."></textarea>
           </div>
 
-          <button class="btn btn-au btn-block" onclick="publishContent()"><span class="ms">publish</span>Yayınla</button>
+          <button class="btn btn-au btn-block" id="publish-btn" onclick="publishContent()"><span class="ms">publish</span><span id="publish-label">Yayınla</span></button>
+          <button class="btn btn-w btn-block hidden" id="edit-cancel" onclick="cancelEdit()">Düzenlemeyi bırak</button>
         </div>
 
         <div class="panel stack" id="admin-stats">
@@ -833,6 +870,22 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
           <div class="stack" id="teacher-students-list"></div>
         </div>
       </div>
+
+      <div id="admin-admins" class="admin-grid hidden">
+        <div class="panel stack">
+          <h3>Yönetici ekle</h3>
+          <p style="color:var(--mute);font-weight:600">Yöneticiler tüm içerikleri düzenleyip silebilir, duyuru yayınlayabilir ve yönetici ekleyip çıkarabilir. Yalnızca güvendiğin kişilerin e-postasını ekle. Yönetici, e-postasını doğrulamış (örneğin Google ile giriş yapmış) olmalı.</p>
+          <div class="field"><label for="new-admin-email">E-posta</label><input class="inp" id="new-admin-email" type="email" placeholder="kisi@gmail.com"></div>
+          <button class="btn btn-p btn-block" onclick="addAdmin()"><span class="ms">admin_panel_settings</span>Yönetici yap</button>
+          <h3 style="margin-top:1rem">Temizlik</h3>
+          <button class="btn btn-w btn-block" onclick="deleteAllAnnouncements()"><span class="ms">campaign</span>Tüm duyuruları sil</button>
+          <button class="btn btn-w btn-block" onclick="clearLogs()"><span class="ms">delete_sweep</span>Kayıtları temizle</button>
+        </div>
+        <div class="panel stack">
+          <h3>Yöneticiler</h3>
+          <div class="stack" id="admins-list"></div>
+        </div>
+      </div>
     </section>
 
     <!-- PROFİL -->
@@ -854,7 +907,12 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
           <h3>Bilgilerim</h3>
           <div class="field"><label for="set-name">Görünen ad</label><input class="inp" id="set-name" placeholder="Adın"></div>
           <div class="field"><label>E-posta</label><input class="inp" id="set-email" disabled></div>
+          <label class="consent" id="lb-toggle-wrap"><input type="checkbox" id="set-lb"><span>Liderlik tablosunda adım görünsün (soyadım yalnızca baş harfle gösterilir)</span></label>
           <button class="btn btn-p" style="align-self:flex-start" onclick="updateProfile()">Kaydet</button>
+        </div>
+        <div class="panel stack wide">
+          <h3>Rozetlerim <small id="badge-count" style="color:var(--mute);font-family:var(--body);font-weight:600;font-size:.9rem"></small></h3>
+          <div class="badges" id="badges"></div>
         </div>
       </div>
     </section>
@@ -880,6 +938,8 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
           <details><summary>Seviye nasıl atlarım?</summary><p>Her 500 XP'de bir seviye atlarsın. Seviyen yükseldikçe ligin de değişir: Filiz, Fidan, Çınar.</p></details>
           <details><summary>Seri neyi gösterir?</summary><p>Üst üste kaç gün giriş yaptığını. Bir gün gelmezsen seri sıfırlanır.</p></details>
           <details><summary>Şifremi unuttum, ne yapmalıyım?</summary><p>Giriş ekranında e-postanı yaz ve "Şifremi unuttum"a bas; sana şifre sıfırlama bağlantısı gönderilir. Google ile giriş yapıyorsan şifren yoktur. Öğrenci kodunu unuttuysan öğretmeninden iste.</p></details>
+          <details><summary>Liderlik tablosunda kimler görünür?</summary><p>XP'ye göre ilk 20 öğrenci. Adın soyadının baş harfiyle gösterilir. Profilinden "Liderlik tablosunda adım görünsün" seçeneğini kapatırsan listede yer almazsın.</p></details>
+          <details><summary>Rozetler ve favoriler nedir?</summary><p>Görev tamamlayıp seri yaptıkça rozet kazanırsın, rozetlerin profilinde durur. İçerik kartlarındaki yıldızla favori ekleyebilir, "İçerikler" sayfasındaki "Favoriler" filtresiyle bulabilirsin.</p></details>
           <details><summary>Giriş kodum yok, ne yapmalıyım?</summary><p>Öğrenci kodunu öğretmenin oluşturur. Öğretmeninden kodunu iste.</p></details>
         </div>
         <div class="panel contact">
@@ -913,6 +973,8 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
     <div class="viewer-head">
       <div id="viewer-icon" class="tile"><span class="ms">play_circle</span></div>
       <div class="grow"><h3 id="viewer-title">İçerik</h3><p id="viewer-type"></p></div>
+      <button id="viewer-edit" class="btn btn-w hidden" onclick="editContent()"><span class="ms">edit</span>Düzenle</button>
+      <button id="viewer-del" class="btn btn-w hidden" onclick="deleteOpenContent()"><span class="ms">delete</span>Sil</button>
       <a id="viewer-ext" class="btn btn-w hidden" target="_blank" rel="noopener"><span class="ms">open_in_new</span>Yeni sekmede aç</a>
       <button class="icon-btn" onclick="closeViewer()" aria-label="Kapat"><span class="ms">close</span></button>
     </div>
@@ -970,7 +1032,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 /* ---------------- ayarlar ---------------- */
 const firebaseConfig = {
@@ -986,8 +1048,6 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'sinavim-v15-pro-max';
-const GEMINI_KEY = "AQ.Ab8RN6LH3yNExSwXWr_tXsqK_e2KOQO6yu6BAjmmR5INhB7Pew";
-const GEMINI_MODEL = "gemini-2.5-flash";
 
 const ADMIN_EMAILS = [
   'sunaycapa3@gmail.com', 'sunaycapa2@gmail.com', 'sunaycapa1@gmail.com',
@@ -1026,9 +1086,21 @@ const NAV = [
   { id: 'home',     label: 'Ana sayfa', icon: 'home',           top: true,  roles: ['admin', 'teacher', 'student'] },
   { id: 'pool',     label: 'İçerikler', icon: 'library_books',  top: true,  roles: ['admin', 'teacher', 'student'] },
   { id: 'games',    label: 'Oyunlar',   icon: 'sports_esports', top: true,  roles: ['admin', 'teacher', 'student'] },
+  { id: 'leaderboard', label: 'Liderlik', icon: 'leaderboard', top: true,  roles: ['admin', 'teacher', 'student'] },
   { id: 'admin',    label: 'Yönetim',   icon: 'edit_square',    top: true,  roles: ['admin', 'teacher'] },
   { id: 'settings', label: 'Profil',    icon: 'person',         top: false, roles: ['admin', 'teacher', 'student'] }
 ];
+
+const BADGES = [
+  { id: 'ilk',    icon: 'flag',                  name: 'İlk adım',     desc: 'İlk görevini tamamla',  test: (u) => (u.done || []).length >= 1 },
+  { id: 'on',     icon: 'task_alt',              name: 'Çalışkan',     desc: '10 görev tamamla',      test: (u) => (u.done || []).length >= 10 },
+  { id: 'seri3',  icon: 'local_fire_department', name: '3 gün seri',   desc: '3 gün üst üste gel',    test: (u) => (u.streak || 0) >= 3 },
+  { id: 'seri7',  icon: 'whatshot',              name: 'Haftalık seri', desc: '7 gün üst üste gel',   test: (u) => (u.streak || 0) >= 7 },
+  { id: 'sev3',   icon: 'park',                  name: 'Fidan Ligi',   desc: '3. seviyeye ulaş',      test: (u) => (u.level || 1) >= 3 },
+  { id: 'sev6',   icon: 'forest',                name: 'Çınar Ligi',   desc: '6. seviyeye ulaş',      test: (u) => (u.level || 1) >= 6 },
+  { id: 'xp1000', icon: 'bolt',                  name: '1000 XP',      desc: '1000 XP topla',         test: (u) => (u.xp || 0) >= 1000 }
+];
+const earnedBadges = (u) => BADGES.filter((b) => b.test(u)).map((b) => b.id);
 
 /* ---------------- durum ---------------- */
 let currentUser = null;
@@ -1128,7 +1200,7 @@ const LEGAL = {
   privacy: {
     title: 'Gizlilik Politikası',
     html: `
-<p class="upd">Son güncelleme: 31 Ekim 2026</p>
+<p class="upd">Son güncelleme: 5 Kasım 2026</p>
 <p>Bu metin, Sınavım'ı kullanırken kişisel verilerinin nasıl işlendiğini 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında açıklar.</p>
 <h4>Veri sorumlusu</h4>
 <p>Nokta Giyim INC (Sınavım). İletişim: ${CONTACT}</p>
@@ -1136,7 +1208,8 @@ const LEGAL = {
 <ul>
 <li>Hesap bilgileri: ad soyad, e-posta adresi (kodla girişte öğretmenin girdiği ad ve giriş kodu), rol (öğrenci veya öğretmen).</li>
 <li>İsteğe bağlı profil fotoğrafı. Fotoğraf yüklemezsen, rastgele bir avatar kullanılır.</li>
-<li>Kullanım verileri: XP, seviye, günlük seri, tamamladığın görevler.</li>
+<li>Kullanım verileri: XP, seviye, günlük seri, tamamladığın görevler, favorilerin ve son açtığın içerik.</li>
+<li>Liderlik tablosu (öğrenciysen): adın (soyadının yalnızca baş harfiyle), seviyen ve XP'in tüm üyelere görünür. Profilinden kapatabilirsin; kapattığında kaydın listeden silinir.</li>
 <li>İşlem kayıtları: giriş yapma ve içerik yayınlama gibi işlemlerin zamanı (yöneticiler görebilir).</li>
 <li>Soru koçuna yazdığın mesajlar.</li>
 </ul>
@@ -1324,7 +1397,10 @@ window.handlePasswordReset = async () => {
     if (['auth/invalid-email', 'auth/too-many-requests', 'auth/network-request-failed'].includes(e.code)) {
       return showCustomModal('Gönderilemedi', authMsg(e), 'error');
     }
-    console.warn(e.code); // kayıtlı olmayan adresi belli etmemek için aynı mesajı gösteriyoruz
+    if (e.code !== 'auth/user-not-found') {
+      console.error(e.code, e.message);
+      return showCustomModal('Gönderilemedi', `Firebase hata verdi: ${e.code || 'bilinmeyen'}\nBu genelde Firebase ayarından kaynaklanır (E-posta/Şifre girişi kapalı veya site adresi yetkili alan adlarında yok).`, 'error');
+    }
   }
   showCustomModal('Bağlantı gönderildi', `${email} adresi kayıtlıysa şifre sıfırlama bağlantısı gönderdik. Gelen kutunu ve gereksiz (spam) klasörünü kontrol et.\n\nGoogle ile giriş yapıyorsan şifren yoktur; "Google ile devam et"i kullan.`, 'success');
 };
@@ -1349,7 +1425,7 @@ window.handleRegister = async () => {
       displayName: name, xp: 0, level: 1, streak: 1, done: [],
       lastLogin: new Date().toISOString(),
       avatar: avatarFor(res.user.uid),
-      role: ADMIN_EMAILS.includes(email) ? 'admin' : role
+      role: role === 'teacher' ? 'teacher' : 'student'
     });
   } catch (e) { showCustomModal('Hesap açılamadı', authMsg(e), 'error'); }
 };
@@ -1413,23 +1489,35 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+async function resolveAdmin() {
+  const email = (currentUser.email || '').toLowerCase();
+  if (!email || !currentUser.emailVerified) return false;
+  if (ADMIN_EMAILS.includes(email)) return true;
+  try { return (await getDoc(doc(db, 'artifacts', appId, 'admins', email))).exists(); } catch (_) { return false; }
+}
+
 async function syncProfile() {
   const ref = statsRef();
   const snap = await getDoc(ref);
-  const isAdmin = ADMIN_EMAILS.includes(currentUser.email);
+  const isAdmin = await resolveAdmin();
+  const listed = ADMIN_EMAILS.includes((currentUser.email || '').toLowerCase());
   if (!snap.exists()) {
     userData = {
       displayName: currentUser.displayName || 'Öğrenci', xp: 0, level: 1, streak: 1, done: [],
       lastLogin: new Date().toISOString(),
       avatar: currentUser.photoURL || avatarFor(currentUser.uid),
-      role: isAdmin ? 'admin' : 'student'
+      role: isAdmin ? 'teacher' : 'student'
     };
     await setDoc(ref, userData);
   } else {
     userData = snap.data();
-    if (isAdmin && userData.role !== 'admin') { userData.role = 'admin'; await updateDoc(ref, { role: 'admin' }); }
+    if (userData.role === 'admin' && !isAdmin) { userData.role = 'teacher'; await updateDoc(ref, { role: 'teacher' }).catch(() => {}); }
   }
+  // Yönetici yetkisi veritabanındaki role alanından değil, yönetici listesinden gelir.
+  if (isAdmin) userData.role = 'admin';
+  else if (listed) setTimeout(() => toast('Yönetici olmak için e-postanı doğrulamalı veya Google ile girmelisin'), 1500);
   userData.done = userData.done || [];
+  userData.fav = userData.fav || [];
 }
 
 async function checkDailyStreak() {
@@ -1454,7 +1542,10 @@ function initApp() {
   $('admin-stats').classList.toggle('hidden', userData.role !== 'admin');
   $('admin-studio').style.gridTemplateColumns = userData.role === 'admin' ? '' : 'minmax(0,760px)';
   startContents();
-  if (userData.role === 'admin') startLogs();
+  startLeaderboard();
+  syncLeaderboard();
+  $('tab-admins').classList.toggle('hidden', userData.role !== 'admin');
+  if (userData.role === 'admin') { startLogs(); startAdmins(); }
   logActivity('Akademiye Girildi');
   showPage(isStaff() ? 'admin' : 'home');
 }
@@ -1552,6 +1643,15 @@ function renderUser() {
     <div class="bar"><i style="width:${lg.pct}%"></i></div>
     <button class="btn btn-p" style="margin-top:.4rem" onclick="showPage('pool')"><span class="ms">bolt</span>Çalışmaya başla</button>`;
 
+  $('set-lb').checked = !userData.hideLb;
+  $('lb-toggle-wrap').classList.toggle('hidden', userData.role !== 'student');
+  const got = earnedBadges(userData);
+  $('badge-count').textContent = `${got.length} / ${BADGES.length}`;
+  $('badges').innerHTML = BADGES.map((b) => {
+    const on = got.includes(b.id);
+    return `<div class="bdg ${on ? '' : 'locked'}"><span class="ms">${on ? b.icon : 'lock'}</span><b>${b.name}</b><small>${b.desc}</small></div>`;
+  }).join('');
+
   renderContents();
 }
 
@@ -1578,10 +1678,12 @@ window.updateProfile = async () => {
   if (!name) return showCustomModal('Ad boş olamaz', 'Görünen adını yaz.', 'error');
   const avatar = pendingPhoto || userData.avatar;
   try {
-    await updateDoc(statsRef(), { displayName: name, avatar });
+    const hideLb = !$('set-lb').checked;
+    await updateDoc(statsRef(), { displayName: name, avatar, hideLb });
     try { await updateFbProfile(currentUser, { displayName: name }); } catch (_) {}
-    userData.displayName = name; userData.avatar = avatar; pendingPhoto = null;
+    userData.displayName = name; userData.avatar = avatar; userData.hideLb = hideLb; pendingPhoto = null;
     renderUser();
+    syncLeaderboard();
     toast('Profilin güncellendi');
   } catch (e) { showCustomModal('Kaydedilemedi', 'Profil güncellenemedi, tekrar dene.', 'error'); }
 };
@@ -1595,11 +1697,49 @@ async function addXP(amount, extra = {}) {
   await updateDoc(statsRef(), { xp, level, ...extra });
   userData.xp = xp; userData.level = level;
   renderUser();
+  syncLeaderboard();
   if (level > prev) {
     if (window.confetti) confetti({ particleCount: 140, spread: 75, origin: { y: 0.6 }, colors: ['#2b7550', '#c9a044', '#ffffff'] });
     $('levelup-sound').play().catch(() => {});
     showCustomModal('Seviye atladın!', `${level}. seviyeye ulaştın.`, 'success');
   }
+}
+
+/* ---------------- liderlik tablosu ---------------- */
+let lbRows = [];
+const shortName = (n) => {
+  const p = String(n || '').trim().split(/\s+/).filter(Boolean);
+  return p.length > 1 ? `${p[0]} ${p[p.length - 1][0].toLocaleUpperCase('tr')}.` : (p[0] || 'Öğrenci');
+};
+const lbRef = () => doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard', currentUser.uid);
+
+async function syncLeaderboard() {
+  if (!currentUser || !userData || userData.role !== 'student') return;
+  try {
+    if (userData.hideLb) await deleteDoc(lbRef());
+    else await setDoc(lbRef(), {
+      uid: currentUser.uid, name: shortName(userData.displayName),
+      avatar: /^https?:/.test(userData.avatar || '') ? userData.avatar : '',
+      xp: userData.xp || 0, level: userData.level || 1
+    });
+  } catch (e) { console.warn('leaderboard', e.code); }
+}
+
+function startLeaderboard() {
+  if (unsubs.lb) unsubs.lb();
+  unsubs.lb = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard'), (snap) => {
+    lbRows = snap.docs.map((d) => d.data()).sort((a, b) => (b.xp || 0) - (a.xp || 0)).slice(0, 20);
+    renderLeaderboard();
+  });
+}
+
+function renderLeaderboard() {
+  $('lb-list').innerHTML = lbRows.length ? lbRows.map((r, i) => `<div class="lb-row ${r.uid === currentUser?.uid ? 'me' : ''}">
+      <div class="lb-rank">${i + 1}</div>
+      <img src="${esc(r.avatar || avatarFor(r.uid || 'x'))}" alt="">
+      <div><b>${esc(r.name)}</b><small>Seviye ${r.level || 1}</small></div>
+      <div class="lb-xp">${r.xp || 0} XP</div></div>`).join('')
+    : '<div class="empty"><span class="ms">leaderboard</span><div>Henüz kimse listede yok</div><small>İlk görevini tamamla, listeye ilk sen gir.</small></div>';
 }
 
 /* ---------------- içerik listesi ---------------- */
@@ -1615,7 +1755,8 @@ function startContents() {
 function cardHTML(item, cta) {
   const t = TYPES[item.type] || TYPES.doc;
   const isDone = (userData?.done || []).includes(item.id);
-  return `<button class="item" onclick="openContent('${item.id}')">
+  const isFav = (userData?.fav || []).includes(item.id);
+  return `<div class="item-wrap"><button class="item" onclick="openContent('${item.id}')">
     <div class="item-top">
       <div class="tile" style="background:${t.bg};color:${t.c}"><span class="ms">${t.icon}</span></div>
       <span class="tag" style="background:${t.bg};color:${t.c}">${t.label}</span>
@@ -1624,8 +1765,18 @@ function cardHTML(item, cta) {
     <div class="item-foot"><span>${esc(item.author || '')}</span>
       ${isDone ? '<span class="done"><span class="ms">check_circle</span>Bitti</span>' : `<span class="done">${cta}</span>`}
     </div>
-  </button>`;
+  </button>
+  <button class="fav ${isFav ? 'on' : ''}" onclick="toggleFav('${item.id}')" aria-pressed="${isFav}" aria-label="${isFav ? 'Favorilerden çıkar' : 'Favorilere ekle'}"><span class="ms">star</span></button></div>`;
 }
+
+window.toggleFav = async (id) => {
+  const before = userData.fav || [];
+  const has = before.includes(id);
+  userData.fav = has ? before.filter((x) => x !== id) : [...before, id];
+  renderContents();
+  try { await updateDoc(statsRef(), { fav: has ? arrayRemove(id) : arrayUnion(id) }); }
+  catch (e) { userData.fav = before; renderContents(); toast('Favori kaydedilemedi'); }
+};
 
 function emptyHTML(icon, title, hint = '') {
   return `<div class="empty" style="grid-column:1/-1"><span class="ms">${icon}</span><div>${title}</div>${hint ? `<small>${hint}</small>` : ''}</div>`;
@@ -1653,15 +1804,30 @@ function renderContents() {
           ${d ? '<span class="done"><span class="ms">check_circle</span></span>' : '<span class="ms go">chevron_right</span>'}</button>`; }).join('')
     : '';
 
+  const lastItem = contents.find((c) => c.id === userData.last && c.type !== 'duyuru');
+  if (lastItem && !(userData.done || []).includes(lastItem.id)) {
+    const lt = TYPES[lastItem.type] || TYPES.doc;
+    $('home-continue').innerHTML = `<h2 class="sec-title">Kaldığın yerden devam et</h2>
+      <button class="row" onclick="openContent('${lastItem.id}')">
+        <div class="tile" style="background:${lt.bg};color:${lt.c}"><span class="ms">${lt.icon}</span></div>
+        <div class="grow"><h4>${esc(lastItem.title)}</h4><p>${lt.label} &middot; ${esc(lastItem.author || '')}</p></div>
+        <span class="ms go">chevron_right</span></button>`;
+  } else $('home-continue').innerHTML = '';
+
   const notices = contents.filter((c) => c.type === 'duyuru').slice(0, 2);
   $('home-notices').innerHTML = notices.map((c) => `<button class="notice" onclick="openContent('${c.id}')">
       <span class="ms">campaign</span><div><b>${esc(c.title)}</b><small>${esc(c.author || '')}</small></div></button>`).join('');
 
   // içerikler sayfası
-  const chips = [['all', 'Hepsi', contents.length]].concat(Object.keys(TYPES).filter((k) => counts[k]).map((k) => [k, TYPES[k].label, counts[k]]));
+  const favs = userData.fav || [];
+  const favCount = contents.filter((c) => favs.includes(c.id)).length;
+  if (filterType === 'fav' && !favCount) filterType = 'all';
+  const chips = [['all', 'Hepsi', contents.length]]
+    .concat(favCount ? [['fav', 'Favoriler', favCount]] : [])
+    .concat(Object.keys(TYPES).filter((k) => counts[k]).map((k) => [k, TYPES[k].label, counts[k]]));
   $('pool-chips').innerHTML = chips.map(([k, l, n]) => `<button class="chip ${filterType === k ? 'on' : ''}" onclick="setFilter('${k}')">${l} (${n})</button>`).join('');
   const q = searchTerm.toLocaleLowerCase('tr');
-  const shown = contents.filter((c) => (filterType === 'all' || c.type === filterType)
+  const shown = contents.filter((c) => (filterType === 'all' || (filterType === 'fav' ? favs.includes(c.id) : c.type === filterType))
     && (!q || (c.title || '').toLocaleLowerCase('tr').includes(q) || (c.author || '').toLocaleLowerCase('tr').includes(q)));
   $('pool-list').innerHTML = shown.length ? shown.map((c) => cardHTML(c, 'Aç')).join('')
     : emptyHTML('search_off', contents.length ? 'Aramana uyan içerik yok' : 'Henüz içerik yok', contents.length ? 'Filtreyi değiştirmeyi dene.' : '');
@@ -1694,10 +1860,32 @@ function plainToHtml(text) {
   return `<!doctype html><meta charset="utf-8"><body style="font-family:system-ui,sans-serif;line-height:1.7;padding:2rem;max-width:760px;margin:auto;white-space:pre-wrap;color:#1b2922">${esc(text)}</body>`;
 }
 
+const canDelete = (item) => userData?.role === 'admin' || (!!item.uid && item.uid === currentUser?.uid);
+const canEdit = canDelete;
+
+window.deleteOpenContent = async () => {
+  if (!openItem || !canDelete(openItem)) return;
+  const item = openItem;
+  if (!confirm(`"${item.title}" silinsin mi? Bu işlem geri alınamaz.`)) return;
+  try {
+    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'contents', item.id));
+    logActivity(`Sildi: ${item.title}`);
+    closeViewer();
+    toast('İçerik silindi');
+  } catch (e) { showCustomModal('Silinemedi', 'İçerik silinemedi. Bu içeriği silme yetkin olmayabilir, tekrar dene.', 'error'); }
+};
+
 window.openContent = async (id) => {
   const item = contents.find((c) => c.id === id);
   if (!item) return;
   openItem = item;
+  if (userData.last !== id && item.type !== 'duyuru') {
+    userData.last = id;
+    updateDoc(statsRef(), { last: id }).catch(() => {});
+    renderContents();
+  }
+  $('viewer-del').classList.toggle('hidden', !canDelete(item));
+  $('viewer-edit').classList.toggle('hidden', !canEdit(item));
   const t = TYPES[item.type] || TYPES.doc;
   $('viewer-title').textContent = item.title;
   $('viewer-type').textContent = `${t.label} · ${item.author || ''}`;
@@ -1766,11 +1954,13 @@ window.completeTask = async () => {
     return toast('Bu görevi zaten tamamladın.');
   }
   try {
+    const hadBadges = earnedBadges(userData);
     userData.done = [...(userData.done || []), item.id];
     await addXP(TASK_XP, { done: arrayUnion(item.id) });
     logActivity(`Tamamladı: ${item.title}`);
     closeViewer();
-    toast(`+${TASK_XP} XP kazandın`);
+    const fresh = BADGES.find((b) => !hadBadges.includes(b.id) && b.test(userData));
+    toast(fresh ? `+${TASK_XP} XP ve yeni rozet: ${fresh.name}` : `+${TASK_XP} XP kazandın`);
   } catch (e) {
     userData.done = userData.done.filter((x) => x !== item.id);
     showCustomModal('Kaydedilemedi', 'XP eklenemedi, tekrar dene.', 'error');
@@ -1779,7 +1969,7 @@ window.completeTask = async () => {
 
 /* ---------------- yönetim ---------------- */
 function buildTypeChips() {
-  $('type-chips').innerHTML = Object.entries(TYPES).map(([k, t]) => `<button class="chip" id="type-${k}" onclick="setContentType('${k}')">${t.label}</button>`).join('');
+  $('type-chips').innerHTML = Object.entries(TYPES).filter(([k]) => k !== 'duyuru' || userData.role === 'admin').map(([k, t]) => `<button class="chip" id="type-${k}" onclick="setContentType('${k}')">${t.label}</button>`).join('');
 }
 
 const URL_LABELS = { video: 'YouTube bağlantısı', wordwall: 'Wordwall bağlantısı', pdf: 'PDF bağlantısı', pptx: 'Sunum bağlantısı (herkese açık olmalı)', link: 'Sayfa adresi' };
@@ -1808,20 +1998,33 @@ window.handleContentFileUpload = (input) => {
 
 window.publishContent = async () => {
   if (!isStaff()) return showCustomModal('Yetki yok', 'İçeriği yalnızca öğretmenler yayınlayabilir.', 'error');
+  if (currentContentType === 'duyuru' && userData.role !== 'admin') return showCustomModal('Yetki yok', 'Duyuruyu yalnızca yöneticiler yayınlayabilir.', 'error');
   const title = $('content-title').value.trim();
   const url = $('content-url').value.trim();
   const useText = TEXT_TYPES.includes(currentContentType);
   const body = uploadedBase64 || (useText ? $('content-body').value.trim() : '');
+  const keepOld = !!editingId && !body && FILE_TYPES.includes(currentContentType);
 
   if (!title) return showCustomModal('Başlık gerekli', 'İçeriğe bir başlık yaz.', 'error');
   if (URL_TYPES.includes(currentContentType) && !/^https?:\/\//i.test(url)) return showCustomModal('Bağlantı hatalı', 'Bağlantı http:// veya https:// ile başlamalı.', 'error');
-  if (!URL_TYPES.includes(currentContentType) && !body) return showCustomModal('İçerik boş', 'Bir dosya yükle ya da metin yaz.', 'error');
+  if (!URL_TYPES.includes(currentContentType) && !body && !keepOld) return showCustomModal('İçerik boş', 'Bir dosya yükle ya da metin yaz.', 'error');
 
+  if (editingId) {
+    try {
+      const data = { type: currentContentType, title, url: URL_TYPES.includes(currentContentType) ? url : '', editedAt: serverTimestamp() };
+      if (!keepOld) data.body = body;
+      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'contents', editingId), data);
+      logActivity(`Düzenledi: ${title}`);
+      cancelEdit();
+      toast('Değişiklikler kaydedildi');
+    } catch (e) { showCustomModal('Kaydedilemedi', 'İçerik güncellenemedi. Bu içeriği düzenleme yetkin olmayabilir.', 'error'); }
+    return;
+  }
   try {
     await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'contents'), {
       type: currentContentType, title, body,
       url: URL_TYPES.includes(currentContentType) ? url : '',
-      author: userData.displayName, timestamp: serverTimestamp()
+      author: userData.displayName, uid: currentUser.uid, timestamp: serverTimestamp()
     });
     await addXP(PUBLISH_XP);
     logActivity(`Yayınladı: ${title}`);
@@ -1832,11 +2035,40 @@ window.publishContent = async () => {
   } catch (e) { showCustomModal('Yayınlanamadı', 'İçerik kaydedilemedi. Dosya çok büyük olabilir.', 'error'); }
 };
 
+let editingId = null;
+function resetStudioForm() {
+  $('content-title').value = ''; $('content-body').value = ''; $('content-url').value = '';
+  $('file-upload').value = ''; $('file-name-display').textContent = 'Dosya seçmek için tıkla';
+  uploadedBase64 = null;
+}
+window.cancelEdit = () => {
+  editingId = null; resetStudioForm();
+  $('publish-label').textContent = 'Yayınla';
+  $('edit-cancel').classList.add('hidden');
+};
+window.editContent = () => {
+  if (!openItem || !canEdit(openItem)) return;
+  const item = openItem;
+  closeViewer();
+  showPage('admin'); setAdminTab('studio');
+  resetStudioForm();
+  editingId = item.id;
+  setContentType(item.type);
+  $('content-title').value = item.title || '';
+  $('content-url').value = item.url || '';
+  if (TEXT_TYPES.includes(item.type) && item.body && !item.body.startsWith('data:')) $('content-body').value = item.body;
+  $('publish-label').textContent = 'Değişiklikleri kaydet';
+  $('edit-cancel').classList.remove('hidden');
+  toast('Düzenleme modu: dosya seçmezsen eski dosya kalır');
+};
+
 window.setAdminTab = (tab) => {
   $('tab-studio').classList.toggle('on', tab === 'studio');
   $('tab-students').classList.toggle('on', tab === 'students');
   $('admin-studio').classList.toggle('hidden', tab !== 'studio');
   $('admin-students').classList.toggle('hidden', tab !== 'students');
+  $('tab-admins').classList.toggle('on', tab === 'admins');
+  $('admin-admins').classList.toggle('hidden', tab !== 'admins');
   if (tab === 'students') listenToStudents();
 };
 
@@ -1855,18 +2087,25 @@ window.createStudentAccount = async () => {
   } catch (e) { showCustomModal('Kod oluşturulamadı', 'Tekrar dene.', 'error'); }
 };
 
+window.deleteStudentCode = async (code) => {
+  if (!confirm('Bu öğrenci kodu silinsin mi?')) return;
+  try { await deleteDoc(doc(db, 'artifacts', appId, 'studentCodes', code)); logActivity('Öğrenci kodu sildi'); toast('Kod silindi'); }
+  catch (e) { showCustomModal('Silinemedi', 'Kod silinemedi.', 'error'); }
+};
+
 window.copyCode = (code) => { navigator.clipboard?.writeText(code).then(() => toast('Kod kopyalandı')); };
 
 function listenToStudents() {
   if (unsubs.students) unsubs.students();
   unsubs.students = onSnapshot(collection(db, 'artifacts', appId, 'studentCodes'), (snap) => {
-    const mine = snap.docs.filter((d) => d.data().teacherId === currentUser.uid);
+    const mine = snap.docs.filter((d) => userData.role === 'admin' || d.data().teacherId === currentUser.uid);
     $('teacher-students-list').innerHTML = mine.length ? mine.map((d) => {
       const s = d.data();
       return `<div class="student">
         <div class="grow"><b>${esc(s.studentName)}</b><div class="code">${d.id}</div></div>
         <span class="badge ${s.isUsed ? 'ok' : ''}">${s.isUsed ? 'Giriş yaptı' : 'Bekliyor'}</span>
         <button class="icon-btn" onclick="copyCode('${d.id}')" aria-label="Kodu kopyala"><span class="ms">content_copy</span></button>
+        <button class="icon-btn" onclick="deleteStudentCode('${d.id}')" aria-label="Sil"><span class="ms">delete</span></button>
       </div>`; }).join('')
       : '<div class="empty"><span class="ms">group</span><div>Henüz öğrenci yok</div></div>';
   });
@@ -1878,9 +2117,56 @@ async function logActivity(action) {
   try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'logs'), { email: currentUser.email || 'kod-girisi', action, timestamp: serverTimestamp() }); } catch (_) {}
 }
 
+let logIds = [];
+window.clearLogs = async () => {
+  if (userData.role !== 'admin' || !confirm('Tüm kayıtlar silinsin mi?')) return;
+  try { await Promise.all(logIds.map((id) => deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'logs', id)))); toast('Kayıtlar temizlendi'); }
+  catch (e) { showCustomModal('Silinemedi', 'Kayıtlar silinemedi.', 'error'); }
+};
+
+window.deleteAllAnnouncements = async () => {
+  if (userData.role !== 'admin') return;
+  const list = contents.filter((c) => c.type === 'duyuru');
+  if (!list.length) return toast('Silinecek duyuru yok');
+  if (!confirm(`${list.length} duyuru silinsin mi? Bu işlem geri alınamaz.`)) return;
+  try {
+    await Promise.all(list.map((c) => deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'contents', c.id))));
+    logActivity('Tüm duyuruları sildi');
+    toast('Duyurular silindi');
+  } catch (e) { showCustomModal('Silinemedi', 'Duyurular silinemedi.', 'error'); }
+};
+
+let adminRows = [];
+function startAdmins() {
+  if (unsubs.admins) unsubs.admins();
+  unsubs.admins = onSnapshot(collection(db, 'artifacts', appId, 'admins'), (snap) => { adminRows = snap.docs.map((d) => d.id); renderAdmins(); });
+}
+function renderAdmins() {
+  const fixed = ADMIN_EMAILS.map((e) => `<div class="student"><div class="grow"><b>${esc(e)}</b></div><span class="badge ok">Ana yönetici</span></div>`);
+  const extra = adminRows.filter((e) => !ADMIN_EMAILS.includes(e)).map((e) => `<div class="student"><div class="grow"><b>${esc(e)}</b></div><button class="icon-btn" onclick="removeAdmin('${esc(e)}')" aria-label="Yöneticiliği kaldır"><span class="ms">person_remove</span></button></div>`);
+  $('admins-list').innerHTML = fixed.concat(extra).join('');
+}
+window.addAdmin = async () => {
+  if (userData.role !== 'admin') return;
+  const email = $('new-admin-email').value.trim().toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showCustomModal('E-posta hatalı', 'Geçerli bir e-posta yaz.', 'error');
+  try {
+    await setDoc(doc(db, 'artifacts', appId, 'admins', email), { email, addedBy: currentUser.email, addedAt: serverTimestamp() });
+    logActivity(`Yönetici ekledi: ${email}`);
+    $('new-admin-email').value = '';
+    toast('Yönetici eklendi');
+  } catch (e) { showCustomModal('Eklenemedi', 'Yönetici eklenemedi. Firestore kurallarını yayınladın mı?', 'error'); }
+};
+window.removeAdmin = async (email) => {
+  if (userData.role !== 'admin' || !confirm(`${email} yöneticilikten çıkarılsın mı?`)) return;
+  try { await deleteDoc(doc(db, 'artifacts', appId, 'admins', email)); logActivity(`Yöneticiliği kaldırdı: ${email}`); toast('Yönetici kaldırıldı'); }
+  catch (e) { showCustomModal('Kaldırılamadı', 'İşlem yapılamadı.', 'error'); }
+};
+
 function startLogs() {
   if (unsubs.logs) unsubs.logs();
   unsubs.logs = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'logs'), (snap) => {
+    logIds = snap.docs.map((d) => d.id);
     const logs = snap.docs.map((d) => d.data()).sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
     const today = new Date().toLocaleDateString('tr-TR');
     $('stat-logins').textContent = logs.filter((l) => l.action === 'Akademiye Girildi' && l.timestamp && new Date(l.timestamp.seconds * 1000).toLocaleDateString('tr-TR') === today).length;
@@ -1899,24 +2185,20 @@ window.toggleCoach = () => {
   if (open) setTimeout(() => $('coach-input').focus(), 300);
 };
 
-async function askGemini(history, system) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
+// Gemini anahtarı sunucuda (Netlify fonksiyonu) durur; tarayıcı yalnızca oturum belirteciyle o fonksiyonu çağırır.
+async function askCoach(mode, messages) {
   try {
-    const res = await fetch(url, {
+    const token = await currentUser.getIdToken();
+    const res = await fetch('/.netlify/functions/coach', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents: history.map((m) => ({ role: m.role, parts: [{ text: m.text }] }))
-      })
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+      body: JSON.stringify({ mode, messages })
     });
+    if (!res.ok) { console.error('coach', res.status); return null; }
     const data = await res.json();
-    if (data.error) { console.error(data.error); return null; }
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+    return data.text || null;
   } catch (e) { console.error(e); return null; }
 }
-
-const COACH_SYSTEM = 'Sen Sınavım platformunda öğrencilere yardım eden, Türkçe konuşan bir ders koçusun. Kısa, net ve arkadaşça yanıt ver. Cevabı doğrudan vermek yerine önce yol göster, gerekirse örnek çöz.';
 
 function fmt(t) {
   return esc(t).replace(/^\s*[*-]\s+/gm, '• ').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
@@ -1939,7 +2221,7 @@ window.sendCoach = async () => {
   chat.scrollTop = chat.scrollHeight;
 
   coachHistory.push({ role: 'user', text });
-  const reply = await askGemini(coachHistory.slice(-10), COACH_SYSTEM);
+  const reply = await askCoach('coach', coachHistory.slice(-10));
   if (reply) { coachHistory.push({ role: 'model', text: reply }); wait.innerHTML = fmt(reply); }
   else { coachHistory.pop(); wait.textContent = 'Şu an yanıt veremiyorum. Biraz sonra tekrar dene.'; }
   chat.scrollTop = chat.scrollHeight;
@@ -1950,7 +2232,7 @@ window.generateDraft = async () => {
   if (!title) return showCustomModal('Başlık gerekli', 'Taslak için önce başlığı yaz.', 'error');
   const btn = $('draft-btn');
   btn.disabled = true; btn.lastChild.textContent = 'Yazılıyor...';
-  const res = await askGemini([{ role: 'user', text: `"${title}" konusu için öğrencilere yönelik kısa bir ders notu hazırla. Sadece HTML gövde içeriği ver (h2, p, ul kullan), kod bloğu işareti kullanma.` }], 'Sen bir öğretmen yardımcısısın. Türkçe yaz.');
+  const res = await askCoach('draft', [{ role: 'user', text: title }]);
   btn.disabled = false; btn.lastChild.textContent = 'Taslak yaz';
   if (!res) return showCustomModal('Taslak yazılamadı', 'Şu an taslak hazırlanamadı. Biraz sonra tekrar dene.', 'error');
   $('content-body').value = res.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/, '').trim();
