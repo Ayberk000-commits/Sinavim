@@ -640,11 +640,28 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 
   <main class="auth-main">
     <div class="auth-box">
-      <button class="back-link" onclick="showLanding()"><span class="ms">arrow_back</span>Ana sayfa</button>
-      <div class="seg" role="tablist">
+      <button class="back-link" id="auth-back" onclick="showLanding()"><span class="ms">arrow_back</span>Ana sayfa</button>
+      <div class="seg" role="tablist" id="auth-tabs">
         <button id="tab-login" class="on" onclick="setAuthTab('login')">Giriş yap</button>
         <button id="tab-register" onclick="setAuthTab('register')">Kayıt ol</button>
       </div>
+
+      <!-- şifre sıfırlama -->
+      <section id="panel-reset" class="stack hidden">
+        <div id="reset-form" class="stack">
+          <h2>Yeni şifreni belirle</h2>
+          <p id="reset-for" style="color:var(--mute);font-weight:600"></p>
+          <div class="field"><label for="reset-pass">Yeni şifre</label><input class="inp" id="reset-pass" type="password" autocomplete="new-password" placeholder="En az 6 karakter"></div>
+          <div class="field"><label for="reset-pass2">Yeni şifre (tekrar)</label><input class="inp" id="reset-pass2" type="password" autocomplete="new-password" placeholder="Şifreni tekrar yaz"></div>
+          <button class="btn btn-p btn-block" onclick="submitReset()">Şifreyi kaydet</button>
+        </div>
+        <div id="reset-done" class="stack hidden" style="text-align:center">
+          <span class="ms" id="reset-ico" style="font-size:56px;color:var(--g6)">check_circle</span>
+          <h2 id="reset-title">Şifren değişti</h2>
+          <p id="reset-msg" style="color:var(--mute);font-weight:600">Yeni şifrenle giriş yapabilirsin.</p>
+          <button class="btn btn-p btn-block" onclick="leaveReset()">Giriş yap</button>
+        </div>
+      </section>
 
       <!-- giriş -->
       <section id="panel-login" class="stack">
@@ -1031,7 +1048,7 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile as updateFbProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 /* ---------------- ayarlar ---------------- */
@@ -1402,7 +1419,7 @@ window.handlePasswordReset = async () => {
       return showCustomModal('Gönderilemedi', `Firebase hata verdi: ${e.code || 'bilinmeyen'}\nBu genelde Firebase ayarından kaynaklanır (E-posta/Şifre girişi kapalı veya site adresi yetkili alan adlarında yok).`, 'error');
     }
   }
-  showCustomModal('Bağlantı gönderildi', `${email} adresi kayıtlıysa şifre sıfırlama bağlantısı gönderdik. Gelen kutunu ve gereksiz (spam) klasörünü kontrol et.\n\nGoogle ile giriş yapıyorsan şifren yoktur; "Google ile devam et"i kullan.`, 'success');
+  showCustomModal('Mail yolda', `${email} adresine şifre yenileme bağlantısı gönderdik. Birkaç dakika içinde gelmezse Önemsiz (Spam) klasörüne de bak.`, 'success');
 };
 
 window.handleGoogleLogin = async () => {
@@ -1466,8 +1483,57 @@ $('login-code').addEventListener('input', (e) => { e.target.value = e.target.val
 $('reg-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleRegister(); });
 $('coach-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendCoach(); });
 
+/* ---------------- şifre yenileme sayfası ---------------- */
+const urlParams = new URLSearchParams(location.search);
+let resetCode = urlParams.get('mode') === 'resetPassword' ? urlParams.get('oobCode') : null;
+
+async function showResetPanel() {
+  $('landing').classList.add('hidden');
+  $('app').classList.add('hidden');
+  $('auth-screen').classList.remove('hidden');
+  $('auth-tabs').classList.add('hidden');
+  $('auth-back').classList.add('hidden');
+  ['panel-login', 'panel-register'].forEach((id) => $(id).classList.add('hidden'));
+  $('panel-reset').classList.remove('hidden');
+  try {
+    const email = await verifyPasswordResetCode(auth, resetCode);
+    $('reset-for').textContent = email;
+  } catch (e) {
+    $('reset-form').classList.add('hidden');
+    $('reset-done').classList.remove('hidden');
+    $('reset-ico').textContent = 'error'; $('reset-ico').style.color = '#d64545';
+    $('reset-title').textContent = 'Bağlantı geçersiz';
+    $('reset-msg').textContent = 'Bu bağlantının süresi dolmuş ya da daha önce kullanılmış. Giriş ekranından "Şifremi unuttum"a basıp yeni bir bağlantı iste.';
+    resetCode = null;
+  }
+}
+
+window.submitReset = async () => {
+  const p1 = $('reset-pass').value, p2 = $('reset-pass2').value;
+  if (p1.length < 6) return showCustomModal('Şifre kısa', 'Şifre en az 6 karakter olmalı.', 'error');
+  if (p1 !== p2) return showCustomModal('Şifreler uyuşmuyor', 'İki şifre aynı olmalı.', 'error');
+  try {
+    await confirmPasswordReset(auth, resetCode, p1);
+    resetCode = null;
+    $('reset-form').classList.add('hidden');
+    $('reset-done').classList.remove('hidden');
+  } catch (e) {
+    showCustomModal('Şifre değişmedi', e.code === 'auth/weak-password' ? 'Daha güçlü bir şifre seç.' : 'Bağlantının süresi dolmuş olabilir. Yeni bir bağlantı iste.', 'error');
+  }
+};
+
+window.leaveReset = () => {
+  resetCode = null;
+  history.replaceState(null, '', location.pathname);
+  $('panel-reset').classList.add('hidden');
+  $('auth-tabs').classList.remove('hidden');
+  $('auth-back').classList.remove('hidden');
+  showAuth('login');
+};
+
 /* ---------------- oturum ---------------- */
 onAuthStateChanged(auth, async (user) => {
+  if (resetCode) { showResetPanel(); return; }
   if (!user) {
     Object.values(unsubs).forEach((u) => u && u());
     Object.keys(unsubs).forEach((k) => delete unsubs[k]);
