@@ -34,10 +34,10 @@
 }
 /* Temalar */
 html[data-theme="koyu"]{
-  --deep:#1a1233; --deep2:#3b2a73;
+  --deep:#12141c; --deep2:#2a2f5a;
   --g9:#c4b5fd; --g7:#a78bfa; --g6:#8b5cf6; --g4:#7c6bd0; --g3:#4c3f7a; --g2:#3a2f63; --g1:#2c2450; --g0:#221b40;
   --au:#f6a823; --au-d:#ffcf7d; --au-l:#3a2d12;
-  --ink:#f1edff; --mute:#a9a0c9; --line:#332b57; --bg:#120d24; --card:#1c1634;
+  --ink:#f1edff; --mute:#a9a0c9; --line:#2c3240; --bg:#12141c; --card:#1f2430;
   color-scheme: dark;
 }
 html[data-theme="kirmizi-sari"]{
@@ -45,6 +45,18 @@ html[data-theme="kirmizi-sari"]{
   --g9:#7f1d1d; --g7:#b91c1c; --g6:#dc2626; --g4:#f87171; --g3:#fecaca; --g2:#fee2e2; --g1:#fef2f2; --g0:#fff7f7;
   --au:#facc15; --au-d:#a16207; --au-l:#fef9c3;
   --ink:#3b0d0d; --mute:#7c5a5a; --line:#f5e1dc; --bg:#fff8f1; --card:#fff;
+}
+html[data-theme="bilgi-mavisi"]{
+  --deep:#0a58ca; --deep2:#0a58ca;
+  --g9:#0a4aa8; --g7:#0a58ca; --g6:#0a58ca; --g4:#8ab4f0; --g3:#b6d1f7; --g2:#dbe8fc; --g1:#eef4fd; --g0:#f6f9fe;
+  --au:#198754; --au-d:#146c43; --au-l:#e5f6ee;
+  --ink:#16213a; --mute:#5b6478; --line:#e9ecef; --bg:#f6f7f9; --card:#ffffff;
+}
+html[data-theme="egitim-mavisi"]{
+  --deep:#1e3a8a; --deep2:#1e40af;
+  --g9:#1e3a8a; --g7:#1e40af; --g6:#0284c7; --g4:#7dd3fc; --g3:#bae6fd; --g2:#e0f2fe; --g1:#f0f9ff; --g0:#f5faff;
+  --au:#f59e0b; --au-d:#b45309; --au-l:#fef3c7;
+  --ink:#0f172a; --mute:#64748b; --line:#e2e8f0; --bg:#f8fafc; --card:#ffffff;
 }
 html[data-theme="yesil-sari-beyaz"]{
   --deep:#14532d; --deep2:#15803d;
@@ -60,12 +72,14 @@ html[data-theme="yesil-mavi"]{
 }
 html[data-theme="koyu"] h1,html[data-theme="koyu"] h2,html[data-theme="koyu"] h3,html[data-theme="koyu"] h4{color:var(--ink)}
 html[data-theme="koyu"] .bub.bot,html[data-theme="koyu"] .panel,html[data-theme="koyu"] .item,html[data-theme="koyu"] .row{border-color:var(--line)}
-html[data-theme="koyu"] .fav{background:rgba(28,22,52,.9)}
-html[data-theme="koyu"] input,html[data-theme="koyu"] textarea,html[data-theme="koyu"] select{background:#241d3d;color:var(--ink)}
-html[data-theme="koyu"] .lb-row.me{background:#2a2150}
+html[data-theme="koyu"] .fav{background:rgba(31,36,48,.92)}
+html[data-theme="koyu"] input,html[data-theme="koyu"] textarea,html[data-theme="koyu"] select{background:#1f2430;color:var(--ink)}
+html[data-theme="koyu"] .lb-row.me{background:#262c3a}
 html[data-theme="koyu"] .auth-box,html[data-theme="koyu"] .coach,html[data-theme="koyu"] .drawer{background:var(--card)}
 html[data-theme="koyu"] .sec-title{color:var(--ink)}
 html[data-theme="koyu"] .greet,html[data-theme="koyu"] .page-head h2{color:var(--ink)}
+html[data-theme="koyu"] .l-nav button{color:#c9c2e6}
+html[data-theme="koyu"] .l-nav button:hover{color:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 html,body{overflow-x:hidden;max-width:100%}
@@ -970,6 +984,8 @@ details p{margin-top:.5rem;color:var(--mute);font-weight:500}
         <div class="panel stack wide">
           <h3>Tema</h3>
           <div class="theme-picks" id="theme-picks">
+            <button class="theme-pick" data-t="bilgi-mavisi" onclick="setTheme('bilgi-mavisi')"><span class="sw" style="background:linear-gradient(135deg,#0a58ca,#198754 70%,#e9ecef 100%)"></span>Bilgi Mavisi</button>
+            <button class="theme-pick" data-t="egitim-mavisi" onclick="setTheme('egitim-mavisi')"><span class="sw" style="background:linear-gradient(135deg,#1e3a8a,#0284c7 60%,#f8fafc 100%)"></span>Eğitim Mavisi</button>
             <button class="theme-pick" data-t="yesil-sari-beyaz" onclick="setTheme('yesil-sari-beyaz')"><span class="sw" style="background:linear-gradient(135deg,#14532d 0%,#facc15 60%,#ffffff 100%)"></span>Yeşil-Sarı-Beyaz</button>
             <button class="theme-pick" data-t="mor" onclick="setTheme('mor')"><span class="sw" style="background:linear-gradient(135deg,#2e1065,#7c3aed)"></span>Mor (açık)</button>
             <button class="theme-pick" data-t="koyu" onclick="setTheme('koyu')"><span class="sw" style="background:linear-gradient(135deg,#120d24,#8b5cf6)"></span>Koyu</button>
